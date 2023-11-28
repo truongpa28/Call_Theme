@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation.xml"
+    app:startDestination="@id/homeFragment">
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_downloadedFragment"
+            app:destination="@id/downloadedFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ringtoneFragment"
+            app:destination="@id/ringtoneFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/downloadedFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.downloaded.DownloadedFragment"
+        android:label="fragment_downloaded"
+        tools:layout="@layout/fragment_downloaded" />
+
+    <fragment
+        android:id="@+id/ringtoneFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.ringtone.RingtoneFragment"
+        android:label="fragment_ringtone"
+        tools:layout="@layout/fragment_ringtone" />
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+
+
+</navigation>

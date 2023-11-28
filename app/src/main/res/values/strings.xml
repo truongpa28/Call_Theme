@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Call_Theme</string>
+
+
+    <string name="retry_internet">Retry internet</string>
+    <string name="no_internet">No Internet</string>
+    <string name="check_connection_settings_and_try_again">Check connection settings and try again.</string>
+    <string name="error">Error</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
+    <string name="next">Next</string>
+    <string name="select_language">Select language</string>
+    <string name="done">Done</string>
+    <string name="intro_title_1">Colorful call screen</string>
+    <string name="intro_content_1">Easily make beautiful call screen with 100+ themes</string>
+    <string name="intro_title_2">Customize every contact</string>
+    <string name="intro_content_2">Give incoming calls a new look, more impressive and colorful</string>
+    <string name="intro_title_3">Alert on call</string>
+    <string name="intro_content_3">Change Flash, Vibrate and Ringtone to your personal taste</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

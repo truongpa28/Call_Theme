@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app_v1"
+    android:orientation="vertical"
+    tools:context=".ui.language.LanguageActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:gravity="center_vertical|left"
+            android:text="@string/select_language"
+            android:textColor="@color/black_app"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/txtDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:gravity="center"
+            android:text="@string/done"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="18dp"
+            android:background="@drawable/bg_btn_done"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="1" tools:listitem="@layout/item_language"
+        android:layout_marginHorizontal="32dp"/>
+
+
+</LinearLayout>
