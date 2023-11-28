@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fansipan.callcolor.calltheme.databinding.ActivityMainBinding
+import com.fansipan.callcolor.calltheme.utils.DataUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(binding.containerFragment.id) as NavHostFragment
         navController = navHostFragment!!.navController
+
+
+        DataUtils.readAnimation(this@MainActivity)
 
     }
 

@@ -9,6 +9,7 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
 import com.fansipan.callcolor.calltheme.databinding.FragmentSettingBinding
+import com.fansipan.callcolor.calltheme.utils.clickSafe
 
 
 class SettingFragment : BaseFragment() {
@@ -30,7 +31,7 @@ class SettingFragment : BaseFragment() {
     }
 
     private fun initListener() {
-
+        binding.imgBack.clickSafe { onBack() }
     }
 
 
