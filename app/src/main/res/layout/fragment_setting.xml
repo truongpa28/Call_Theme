@@ -15,6 +15,7 @@
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="50dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_height="match_parent"
             android:src="@drawable/ic_back" />
 
@@ -58,7 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            android:foreground="?android:attr/selectableItemBackground"
             app:thumbTint="@color/sw_thumb_home"
             app:trackTint="@color/sw_track_home" />
 
@@ -66,8 +66,10 @@
 
 
     <LinearLayout
+        android:id="@+id/llLanguage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginBottom="6dp"
         android:layout_marginHorizontal="20dp">
 
@@ -91,9 +93,11 @@
 
 
     <LinearLayout
+        android:id="@+id/llShareApp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="6dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginHorizontal="20dp">
 
         <ImageView
@@ -116,9 +120,11 @@
 
 
     <LinearLayout
+        android:id="@+id/llRateApp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="6dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginHorizontal="20dp">
 
         <ImageView
@@ -141,9 +147,11 @@
 
 
     <LinearLayout
+        android:id="@+id/llFeedback"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="6dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginHorizontal="20dp">
 
         <ImageView
@@ -165,8 +173,10 @@
 
 
     <LinearLayout
+        android:id="@+id/llMoreApp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginBottom="6dp"
         android:layout_marginHorizontal="20dp">
 

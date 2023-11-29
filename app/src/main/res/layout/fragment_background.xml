@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="@drawable/bg_app_v1"
     tools:context=".ui.app.diy.BackgroundFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="50dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="22sp"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:textColor="@color/black_app"
+            android:gravity="center_vertical|left"
+            android:text="@string/background"/>
+
+        <ImageView
+            android:id="@+id/imgChooseBackground"
+            android:layout_width="50dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back"/>
+
+    </LinearLayout>
 
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyScreenTheme"
+        android:layout_below="@+id/rv_category"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

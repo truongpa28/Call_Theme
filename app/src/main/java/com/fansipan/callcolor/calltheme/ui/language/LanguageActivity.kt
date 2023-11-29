@@ -11,6 +11,7 @@ import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.clickSafe
 import com.fansipan.callcolor.calltheme.utils.openActivity
 import com.fansipan.callcolor.calltheme.utils.setLanguageApp
+import com.fansipan.callcolor.calltheme.utils.showOrGone
 
 class LanguageActivity : BaseActivity(), ClickLanguageListener {
 
@@ -20,10 +21,14 @@ class LanguageActivity : BaseActivity(), ClickLanguageListener {
         LanguageAdapter(this, LanguageUtils.listLanguage, this)
     }
 
+    private var isSetting = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        isSetting = intent.getBooleanExtra("setting", false)
 
         initView()
 
@@ -36,17 +41,36 @@ class LanguageActivity : BaseActivity(), ClickLanguageListener {
             val code = LanguageUtils.listLanguage[adapter.getChoose()].key
             setLanguageApp(code)
             SharePreferenceUtils.setCodeLanguageChoose(code)
-            openActivity(IntroActivity::class.java, true)
+            if (isSetting) {
+                onBack()
+            } else {
+                openActivity(IntroActivity::class.java, true)
+            }
+
+        }
+        binding.imgBack.clickSafe {
+            onBack()
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {}
+            override fun handleOnBackPressed() {
+                if (isSetting) {
+                    onBack()
+                }
+            }
         })
+    }
+
+    private fun onBack() {
+        finish()
     }
 
     private fun initView() {
         adapter.setChoose(LanguageUtils.getPositionChoose(this))
         binding.rcyLanguage.adapter = adapter
+
+        binding.imgBack.showOrGone(isSetting)
+        binding.viewMargin.showOrGone(!isSetting)
     }
 
     override fun clickLanguage(position: Int, languageModel: LanguageModel) {

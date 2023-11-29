@@ -5,11 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
 import com.fansipan.callcolor.calltheme.databinding.FragmentSettingBinding
+import com.fansipan.callcolor.calltheme.ui.language.LanguageActivity
+import com.fansipan.callcolor.calltheme.utils.CommonUtils
 import com.fansipan.callcolor.calltheme.utils.clickSafe
+import com.fansipan.callcolor.calltheme.utils.openActivity
+import com.fansipan.callcolor.calltheme.utils.showToast
 
 
 class SettingFragment : BaseFragment() {
@@ -32,6 +37,26 @@ class SettingFragment : BaseFragment() {
 
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
+
+        binding.llLanguage.clickSafe {
+            requireContext().openActivity(LanguageActivity::class.java, bundleOf("setting" to true))
+        }
+
+        binding.llShareApp.clickSafe {
+            CommonUtils.shareApp(requireContext())
+        }
+
+        binding.llRateApp.clickSafe {
+            CommonUtils.rateApp(requireContext())
+        }
+
+        binding.llFeedback.clickSafe {
+            requireContext().showToast("Feature is being developed.")
+        }
+
+        binding.llMoreApp.clickSafe {
+            CommonUtils.moreApp(requireContext())
+        }
     }
 
 

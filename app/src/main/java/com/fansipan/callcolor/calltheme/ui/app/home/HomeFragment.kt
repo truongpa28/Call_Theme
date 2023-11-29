@@ -32,7 +32,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initView() {
-
+        binding.titleThemeCall.isSelected = true
+        binding.titleDIYTheme.isSelected = true
+        binding.titleAlert.isSelected = true
+        binding.titleRingtone.isSelected = true
     }
 
     private fun initListener() {
