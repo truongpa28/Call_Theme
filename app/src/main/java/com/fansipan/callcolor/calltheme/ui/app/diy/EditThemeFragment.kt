@@ -37,10 +37,13 @@ class EditThemeFragment : BaseFragment() {
 
     private fun initView() {
         adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, 11))
-        //binding.rcyCallIcon.adapter = adapterIconCall
+        binding.rcyCallIcon.adapter = adapterIconCall
     }
 
     private fun initListener() {
-        //binding.imgBack.clickSafe { onBack() }
+        binding.imgBack.clickSafe { onBack() }
+        binding.imgChooseBackground.clickSafe {
+
+        }
     }
 }

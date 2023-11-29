@@ -1,36 +1,34 @@
 package com.fansipan.callcolor.calltheme.ui.app.diy
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
-import com.fansipan.callcolor.calltheme.databinding.FragmentDIYThemeBinding
+import com.fansipan.callcolor.calltheme.databinding.FragmentAvatarBinding
+import com.fansipan.callcolor.calltheme.databinding.FragmentIconCallBinding
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.AvatarAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
+import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV2
 import com.fansipan.callcolor.calltheme.utils.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 
-class DIYThemeFragment : BaseFragment() {
+class IconCallFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentDIYThemeBinding
-
-    private val adapterAvatar by lazy {
-        AvatarAdapter()
-    }
+    private lateinit var binding: FragmentIconCallBinding
 
     private val adapterIconCall by lazy {
-        IconCallAdapter()
+        IconCallAdapterV2()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDIYThemeBinding.inflate(inflater, container, false)
+        binding = FragmentIconCallBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,22 +39,12 @@ class DIYThemeFragment : BaseFragment() {
     }
 
     private fun initView() {
-        adapterAvatar.setDataList(AvatarUtils.listAvatar.subList(0, 11))
-        binding.rcyAvatar.adapter = adapterAvatar
-        adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, 11))
-        binding.rcyCallIcon.adapter = adapterIconCall
+        adapterIconCall.setDataList(IconCallUtils.listIconCall)
+        binding.rcyIconCall.adapter = adapterIconCall
     }
 
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
-
-
-        adapterAvatar.setOnClickItem { item, position ->
-            findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
-        }
-
-        adapterIconCall.setOnClickItem { item, position ->
-            findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
-        }
     }
+
 }

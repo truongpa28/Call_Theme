@@ -46,7 +46,41 @@
         android:id="@+id/DIYThemeFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.diy.DIYThemeFragment"
         android:label="fragment_d_i_y_theme"
-        tools:layout="@layout/fragment_d_i_y_theme" />
+        tools:layout="@layout/fragment_d_i_y_theme" >
+        <action
+            android:id="@+id/action_DIYThemeFragment_to_editThemeFragment"
+            app:destination="@id/editThemeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editThemeFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.diy.EditThemeFragment"
+        android:label="fragment_edit_theme"
+        tools:layout="@layout/fragment_edit_theme" >
+        <action
+            android:id="@+id/action_editThemeFragment_to_avatarFragment"
+            app:destination="@id/avatarFragment" />
+        <action
+            android:id="@+id/action_editThemeFragment_to_iconCallFragment"
+            app:destination="@id/iconCallFragment" />
+        <action
+            android:id="@+id/action_editThemeFragment_to_backgroundFragment"
+            app:destination="@id/backgroundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/avatarFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.diy.AvatarFragment"
+        android:label="fragment_avatar"
+        tools:layout="@layout/fragment_avatar" />
+    <fragment
+        android:id="@+id/iconCallFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.diy.IconCallFragment"
+        android:label="fragment_icon_call"
+        tools:layout="@layout/fragment_icon_call" />
+    <fragment
+        android:id="@+id/backgroundFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.diy.BackgroundFragment"
+        android:label="fragment_background"
+        tools:layout="@layout/fragment_background" />
 
 
 </navigation>

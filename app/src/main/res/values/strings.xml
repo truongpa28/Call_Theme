@@ -33,5 +33,6 @@
     <string name="background">Background</string>
     <string name="avatar">Avatar</string>
     <string name="call_icon">Call icon</string>
+    <string name="save">Save</string>
 
 </resources>
