@@ -1,4 +1,4 @@
-package com.fansipan.callcolor.calltheme.ui.setting
+package com.fansipan.callcolor.calltheme.ui.app.setting
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

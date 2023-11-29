@@ -30,5 +30,8 @@
     <string name="rate_app">Rate App</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="more_app">More App</string>
+    <string name="background">Background</string>
+    <string name="avatar">Avatar</string>
+    <string name="call_icon">Call icon</string>
 
 </resources>

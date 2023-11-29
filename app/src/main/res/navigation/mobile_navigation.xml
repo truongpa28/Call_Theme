@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.fansipan.callcolor.calltheme.ui.home.HomeFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -20,25 +20,33 @@
         <action
             android:id="@+id/action_homeFragment_to_ringtoneFragment"
             app:destination="@id/ringtoneFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_DIYThemeFragment"
+            app:destination="@id/DIYThemeFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/downloadedFragment"
-        android:name="com.fansipan.callcolor.calltheme.ui.downloaded.DownloadedFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.downloaded.DownloadedFragment"
         android:label="fragment_downloaded"
         tools:layout="@layout/fragment_downloaded" />
 
     <fragment
         android:id="@+id/ringtoneFragment"
-        android:name="com.fansipan.callcolor.calltheme.ui.ringtone.RingtoneFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.ringtone.RingtoneFragment"
         android:label="fragment_ringtone"
         tools:layout="@layout/fragment_ringtone" />
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.fansipan.callcolor.calltheme.ui.setting.SettingFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/DIYThemeFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.diy.DIYThemeFragment"
+        android:label="fragment_d_i_y_theme"
+        tools:layout="@layout/fragment_d_i_y_theme" />
 
 
 </navigation>

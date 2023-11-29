@@ -1,4 +1,4 @@
-package com.fansipan.callcolor.calltheme.ui.home
+package com.fansipan.callcolor.calltheme.ui.app.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.btnDIYTheme.clickSafe {
-            findNavController().navigate(R.id.action_homeFragment_to_downloadedFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_DIYThemeFragment)
         }
 
         binding.btnAlert.clickSafe {
