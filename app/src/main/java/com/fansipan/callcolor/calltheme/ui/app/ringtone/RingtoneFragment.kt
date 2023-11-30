@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentRingtoneBinding
+import com.fansipan.callcolor.calltheme.utils.clickSafe
 
 class RingtoneFragment : BaseFragment() {
 
@@ -26,6 +29,16 @@ class RingtoneFragment : BaseFragment() {
     }
 
     private fun initListener() {
+        binding.imgBack.clickSafe { onBack() }
 
+
+        binding.llChooseRingtone.clickSafe {
+            findNavController().navigate(R.id.action_ringtoneFragment_to_chooseRingtoneFragment)
+        }
+
+
+        binding.llChooseAudio.clickSafe {
+
+        }
     }
 }
