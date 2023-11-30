@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewAll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="24dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/bg_item_v1"
+    android:layout_marginHorizontal="7dp">
+
+    <ImageView
+        android:id="@+id/imgRingTone"
+        android:layout_width="45dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ic_item_ring_tone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/bg_selected_v1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgStateSelect"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_margin="4dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_selected_v1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvRingToneName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_regular_400"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textColor="@color/black_app"
+        android:textSize="15sp"
+        android:singleLine="true"
+        android:paddingHorizontal="4dp"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:ellipsize="marquee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgRingTone"
+        tools:text="RingTone 01" />
+
+    <TextView
+        android:id="@+id/tvRingToneTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_regular_400"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textColor="#8B8D90"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRingToneName"
+        tools:text="04:30" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

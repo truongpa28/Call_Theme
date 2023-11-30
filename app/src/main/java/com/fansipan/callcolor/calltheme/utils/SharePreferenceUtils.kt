@@ -2,7 +2,7 @@ package com.fansipan.callcolor.calltheme.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
+import com.fansipan.callcolor.calltheme.utils.data.RingtoneUtils
 
 object SharePreferenceUtils {
 
@@ -80,6 +80,10 @@ object SharePreferenceUtils {
 
     fun isEnableCallMode() = getBoolean("isEnableCallMode", true)
     fun setIsEnableCallMode(isEnable: Boolean) = saveKey("isEnableCallMode", isEnable)
+
+    fun getRingtone() = getString("get_ring_tone", RingtoneUtils.nameDefaultRingtone)
+    fun setRingtone(value: String) = saveKey("get_ring_tone", value)
+
 
 
 }

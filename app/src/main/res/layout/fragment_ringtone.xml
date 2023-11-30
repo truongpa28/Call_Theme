@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_app_v1"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".ui.app.ringtone.RingtoneFragment">
 
     <LinearLayout
@@ -40,109 +40,111 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_play_gun"/>
+        android:src="@drawable/ic_play_gun" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_regular_400"
-        android:textSize="16sp"
+        android:text="sound_neon1.mp3"
         android:textColor="@color/black"
-        android:text="sound_neon1.mp3"/>
-    
-    
+        android:textSize="16sp" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_volume_giam"/>
+            android:src="@drawable/ic_volume_giam" />
 
         <SeekBar
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/audio_from_your_device"
-            android:fontFamily="@font/roboto_medium_500"
-            android:textSize="18sp"
-            android:textColor="@color/black_app"
             android:layout_weight="1"
-            android:gravity="center_vertical|left"/>
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center_vertical|left"
+            android:text="@string/audio_from_your_device"
+            android:textColor="@color/black_app"
+            android:textSize="18sp" />
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_volume_tang"/>
+            android:src="@drawable/ic_volume_tang" />
 
     </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/llChooseRingtone"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_height="50dp">
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_ringtone_library"/>
+            android:src="@drawable/ic_ringtone_library" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/ringtone_library"
-            android:fontFamily="@font/roboto_medium_500"
-            android:textSize="18sp"
-            android:textColor="@color/black_app"
             android:layout_weight="1"
-            android:gravity="center_vertical|left"/>
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center_vertical|left"
+            android:text="@string/ringtone_library"
+            android:textColor="@color/black_app"
+            android:textSize="18sp" />
 
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:scaleX="-1"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_back" />
 
     </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/llChooseAudio"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_height="50dp">
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_micro"/>
+            android:src="@drawable/ic_micro" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/audio_from_your_device"
-            android:fontFamily="@font/roboto_medium_500"
-            android:textSize="18sp"
-            android:textColor="@color/black_app"
             android:layout_weight="1"
-            android:gravity="center_vertical|left"/>
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center_vertical|left"
+            android:text="@string/audio_from_your_device"
+            android:textColor="@color/black_app"
+            android:textSize="18sp" />
 
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:scaleX="-1"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_back" />
 
 
     </LinearLayout>

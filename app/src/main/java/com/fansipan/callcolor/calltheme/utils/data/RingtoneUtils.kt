@@ -1,10 +1,14 @@
-package com.fansipan.callcolor.calltheme.utils
+package com.fansipan.callcolor.calltheme.utils.data
+
+import com.fansipan.callcolor.calltheme.R
+import com.fansipan.callcolor.calltheme.model.RingtoneModel
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 
 object RingtoneUtils {
 
     const val nameDefaultRingtone = "sound_neon1.mp3"
 
-    /*val listRingtone = listOf<RingtoneModel>(
+    val listRingtone = listOf<RingtoneModel>(
         RingtoneModel("sound_neon1.mp3", R.raw.sound_neon1, "00:48"),
         RingtoneModel("sound_neon2.mp3", R.raw.sound_neon2, "00:35"),
         RingtoneModel("sound_neon3.mp3", R.raw.sound_neon3, "00:44"),
@@ -47,5 +51,5 @@ object RingtoneUtils {
 
     fun getRingToneByName(name: String): Int {
         return listRingtone.find { it.nameSound == name }?.sound ?: R.raw.sound_neon1
-    }*/
+    }
 }
