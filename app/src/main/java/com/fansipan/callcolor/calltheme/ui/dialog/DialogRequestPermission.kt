@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import com.fansipan.callcolor.calltheme.R
-import com.fansipan.callcolor.calltheme.databinding.DialogRequestThemeCallPermissionBinding
+import com.fansipan.callcolor.calltheme.databinding.DialogRequestPermissionBinding
 import com.fansipan.callcolor.calltheme.utils.hasAnswerCallComing
 import com.fansipan.callcolor.calltheme.utils.hasOverlaySettingPermission
 import com.fansipan.callcolor.calltheme.utils.hasReadContact
@@ -13,9 +13,9 @@ import com.fansipan.callcolor.calltheme.utils.isPhoneDialer
 import com.fansipan.callcolor.calltheme.utils.setOnSafeClick
 import com.fansipan.callcolor.calltheme.utils.showToast
 
-class DialogRequestThemeCallPermission(private val context: Context) {
+class DialogRequestPermission(private val context: Context) {
     private val binding by lazy {
-        DialogRequestThemeCallPermissionBinding.inflate(LayoutInflater.from(context))
+        DialogRequestPermissionBinding.inflate(LayoutInflater.from(context))
     }
 
     private val dialog: AlertDialog by lazy {

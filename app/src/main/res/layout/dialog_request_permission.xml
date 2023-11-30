@@ -30,162 +30,166 @@
             android:fontFamily="@font/roboto_semi_bold_600"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Grant_Permission"
+            android:text="@string/turn_on_the_screen"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvChangeDialler"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtTitle1"
+            android:layout_width="0dp"
+            android:gravity="center_vertical|left"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium_500"
             android:includeFontPadding="false"
-            android:text="change_dialler"
-            android:textColor="@color/black"
-            android:textSize="16dp"
+            android:text="@string/phone_contacts_and_storage"
+            android:textColor="@color/black_app"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/swChangeDialler"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
         <TextView
-            android:id="@+id/tvDes0"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtContent1"
+            android:layout_width="0dp"
+            android:gravity="center_vertical|left"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto_medium_500"
+            android:fontFamily="@font/roboto_regular_400"
             android:includeFontPadding="false"
-            android:text="txt_to_detect_in_coming_call"
-            android:textColor="@color/black"
-            android:textSize="12dp"
+            android:text="@string/to_turn_on_phone_calls_contacts_and_storage"
+            android:textColor="@color/black_app"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/swChangeDialler"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvChangeDialler" />
+            app:layout_constraintTop_toBottomOf="@id/txtTitle1" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swChangeDialler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            app:layout_constraintBottom_toBottomOf="@id/tvDes0"
+            android:thumb="@drawable/sw_thumb_home"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTitle1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvChangeDialler"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            app:layout_constraintTop_toTopOf="@id/txtTitle1"
+            app:track="@drawable/sw_track_home" />
 
         <TextView
-            android:id="@+id/tvReadContact"
+            android:id="@+id/txtTitle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium_500"
             android:includeFontPadding="false"
-            android:text="txt_read_contacts"
-            android:textColor="@color/black"
-            android:textSize="16dp"
+            android:text="@string/call_screen"
+            android:textColor="@color/black_app"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDes0" />
+            app:layout_constraintTop_toBottomOf="@id/txtContent1" />
 
         <TextView
-            android:id="@+id/tvDes1"
+            android:id="@+id/txtContent2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto_medium_500"
+            android:fontFamily="@font/roboto_regular_400"
             android:includeFontPadding="false"
-            android:text="txt_to_show_phone_number_and_name"
-            android:textColor="@color/black"
-            android:textSize="12dp"
+            android:text="@string/to_display_incoming_calls"
+            android:textColor="@color/black_app"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvReadContact" />
+            app:layout_constraintTop_toBottomOf="@id/txtTitle2" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swReadContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            app:layout_constraintBottom_toBottomOf="@id/tvDes1"
+            android:thumb="@drawable/sw_thumb_home"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTitle2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvReadContact"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            app:layout_constraintTop_toTopOf="@id/txtTitle2"
+            app:track="@drawable/sw_track_home" />
 
         <TextView
-            android:id="@+id/tvOverlayApp"
+            android:id="@+id/txtTitle3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium_500"
             android:includeFontPadding="false"
-            android:text="txt_overlay_other_app"
-            android:textColor="@color/black"
-            android:textSize="16dp"
+            android:text="@string/screen_permissions"
+            android:textColor="@color/black_app"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDes1" />
+            app:layout_constraintTop_toBottomOf="@id/txtContent2" />
 
         <TextView
-            android:id="@+id/tvDes2"
+            android:id="@+id/txtContent3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto_medium_500"
+            android:fontFamily="@font/roboto_regular_400"
             android:includeFontPadding="false"
-            android:text="txt_to_show_theme_call"
-            android:textColor="@color/black"
-            android:textSize="12dp"
+            android:text="@string/to_display_the_call_screen"
+            android:textColor="@color/black_app"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvOverlayApp" />
+            app:layout_constraintTop_toBottomOf="@id/txtTitle3" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swOverlayApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            app:layout_constraintBottom_toBottomOf="@id/tvDes2"
+            android:thumb="@drawable/sw_thumb_home"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTitle3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvOverlayApp"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            app:layout_constraintTop_toTopOf="@id/txtTitle3"
+            app:track="@drawable/sw_track_home" />
 
         <TextView
-            android:id="@+id/tvAnswerCall"
+            android:id="@+id/txtTitle4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium_500"
             android:includeFontPadding="false"
-            android:text="txt_answer_phone_call"
-            android:textColor="@color/black"
-            android:textSize="16dp"
+            android:text="@string/change_systerm_settings"
+            android:textColor="@color/black_app"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDes2" />
+            app:layout_constraintTop_toBottomOf="@id/txtContent3" />
 
         <TextView
-            android:id="@+id/tvDes3"
+            android:id="@+id/txtContent4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto_medium_500"
+            android:fontFamily="@font/roboto_regular_400"
             android:includeFontPadding="false"
-            android:text="txt_to_accept_or_decline_call_phone"
-            android:textColor="@color/black"
-            android:textSize="12dp"
+            android:text="@string/to_use_set_ringtone_for_app"
+            android:textColor="@color/black_app"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvAnswerCall" />
+            app:layout_constraintTop_toBottomOf="@id/txtTitle4" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swAnswerCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            app:layout_constraintBottom_toBottomOf="@id/tvDes3"
+            android:thumb="@drawable/sw_thumb_home"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTitle4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvAnswerCall"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            app:layout_constraintTop_toTopOf="@id/txtTitle4"
+            app:track="@drawable/sw_track_home" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

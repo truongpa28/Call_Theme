@@ -23,6 +23,15 @@
         <action
             android:id="@+id/action_homeFragment_to_DIYThemeFragment"
             app:destination="@id/DIYThemeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_previewFragment"
+            app:destination="@id/previewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_themeCallFragment"
+            app:destination="@id/themeCallFragment" />
     </fragment>
 
     <fragment
@@ -35,7 +44,11 @@
         android:id="@+id/ringtoneFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.ringtone.RingtoneFragment"
         android:label="fragment_ringtone"
-        tools:layout="@layout/fragment_ringtone" />
+        tools:layout="@layout/fragment_ringtone" >
+        <action
+            android:id="@+id/action_ringtoneFragment_to_chooseRingtoneFragment"
+            app:destination="@id/chooseRingtoneFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingFragment"
@@ -50,6 +63,9 @@
         <action
             android:id="@+id/action_DIYThemeFragment_to_editThemeFragment"
             app:destination="@id/editThemeFragment" />
+        <action
+            android:id="@+id/action_DIYThemeFragment_to_previewFragment"
+            app:destination="@id/previewFragment" />
     </fragment>
     <fragment
         android:id="@+id/editThemeFragment"
@@ -65,6 +81,14 @@
         <action
             android:id="@+id/action_editThemeFragment_to_backgroundFragment"
             app:destination="@id/backgroundFragment" />
+        <action
+            android:id="@+id/action_editThemeFragment_to_congratulationFragment"
+            app:destination="@id/congratulationFragment" />
+
+        <argument android:name="type"
+            android:defaultValue="diy"
+            app:argType="string"/>
+
     </fragment>
     <fragment
         android:id="@+id/avatarFragment"
@@ -81,6 +105,61 @@
         android:name="com.fansipan.callcolor.calltheme.ui.app.diy.BackgroundFragment"
         android:label="fragment_background"
         tools:layout="@layout/fragment_background" />
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.preview.PreviewFragment"
+        android:label="fragment_preview"
+        tools:layout="@layout/fragment_preview" />
+    <fragment
+        android:id="@+id/alertFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.alert.AlertFragment"
+        android:label="fragment_alert"
+        tools:layout="@layout/fragment_alert" >
+        <action
+            android:id="@+id/action_alertFragment_to_vibrateFragment"
+            app:destination="@id/vibrateFragment" />
+        <action
+            android:id="@+id/action_alertFragment_to_flashFragment"
+            app:destination="@id/flashFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseRingtoneFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.ringtone.ChooseRingtoneFragment"
+        android:label="fragment_choose_ringtone"
+        tools:layout="@layout/fragment_choose_ringtone" />
+    <fragment
+        android:id="@+id/flashFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.alert.FlashFragment"
+        android:label="fragment_flash"
+        tools:layout="@layout/fragment_flash" />
+    <fragment
+        android:id="@+id/themeCallFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.themecall.ThemeCallFragment"
+        android:label="fragment_theme_call"
+        tools:layout="@layout/fragment_theme_call" >
+        <action
+            android:id="@+id/action_themeCallFragment_to_collectionFragment"
+            app:destination="@id/collectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.themecall.CollectionFragment"
+        android:label="fragment_collection"
+        tools:layout="@layout/fragment_collection" >
+        <action
+            android:id="@+id/action_collectionFragment_to_editThemeFragment"
+            app:destination="@id/editThemeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/congratulationFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.themecall.CongratulationFragment"
+        android:label="fragment_congratulation"
+        tools:layout="@layout/fragment_congratulation" />
+    <fragment
+        android:id="@+id/vibrateFragment"
+        android:name="com.fansipan.callcolor.calltheme.ui.app.alert.VibrateFragment"
+        android:label="fragment_vibrate"
+        tools:layout="@layout/fragment_vibrate" />
 
 
 </navigation>

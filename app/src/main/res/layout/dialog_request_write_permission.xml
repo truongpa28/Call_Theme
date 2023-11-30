@@ -68,8 +68,8 @@
             app:layout_constraintBottom_toBottomOf="@id/tvDes1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvWriteStorage"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            android:thumb="@drawable/sw_thumb_home"
+            app:trackTint="@drawable/sw_track_home" />
 
         <TextView
             android:id="@+id/tvWriteSetting"
@@ -104,8 +104,8 @@
             app:layout_constraintBottom_toBottomOf="@id/tvDes2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvWriteSetting"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            android:thumb="@drawable/sw_thumb_home"
+            app:trackTint="@drawable/sw_track_home" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -41,8 +41,8 @@
         <ImageView
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_language"/>
+            android:padding="4dp"
+            android:src="@drawable/ic_enable_call_theme"/>
 
         <TextView
             android:layout_width="0dp"
@@ -54,13 +54,15 @@
             android:textColor="@color/black_app"
             android:textSize="16sp" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/swAnimation"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/swEnableCallTheme"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            app:thumbTint="@color/sw_thumb_home"
-            app:trackTint="@color/sw_track_home" />
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:thumb="@drawable/sw_thumb_home"
+            app:track="@drawable/sw_track_home" />
 
     </LinearLayout>
 
@@ -157,7 +159,8 @@
         <ImageView
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:padding="12dp"/>
+            android:padding="4dp"
+            android:src="@drawable/ic_feedback"/>
 
         <TextView
             android:layout_width="0dp"
@@ -183,7 +186,8 @@
         <ImageView
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:padding="12dp"/>
+            android:padding="4dp"
+            android:src="@drawable/ic_more_app"/>
 
         <TextView
             android:layout_width="0dp"
