@@ -14,6 +14,9 @@ import java.io.IOException
 
 object Constants {
 
+    const val TAG = "truongpa"
+
+
     const val NOTIFICATION_CHANNEL_ID = "com.fansipan.battery.CHARGING"
     const val NOTIFICATION_CHANNEL_NAME = "Battery Charging"
     const val NOTIFICATION_DETAILS = "Battery Charging"

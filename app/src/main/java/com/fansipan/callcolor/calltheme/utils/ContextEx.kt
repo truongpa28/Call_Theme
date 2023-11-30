@@ -1,12 +1,44 @@
 package com.fansipan.callcolor.calltheme.utils
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Service
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
+import android.provider.ContactsContract
+import android.provider.Settings
+import android.telecom.TelecomManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+
+
+fun Context.connectService(pClass: Class<out Service>) {
+    startService(Intent(this, pClass))
+}
+
+fun Context.endService(pClass: Class<out Service>) {
+    stopService(Intent(this, pClass))
+}
+
+
+fun Context.hasWriteSettingPermission(): Boolean {
+    return Settings.System.canWrite(this)
+}
+
+fun Context.hasWriteStoragePermission(): Boolean {
+    return if (isSdkR()) {
+        true
+    } else {
+        hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
+}
 
 fun Context.showToast(msg: String, isShowDurationLong: Boolean = false) {
     val duration = if (isShowDurationLong) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
@@ -50,3 +82,70 @@ fun Context.hasPermission(permission: String): Boolean {
         permission
     ) == PackageManager.PERMISSION_GRANTED
 }
+
+fun Context.getNameContactByPhoneNumber(str: String): String {
+    val name: String
+    val withAppendedPath =
+        Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(str))
+
+    contentResolver.query(
+        withAppendedPath,
+        null as Array<String?>?,
+        null as String?,
+        null as Array<String?>?,
+        null as String?
+    )?.use { query ->
+        if (query.count > 0) {
+            query.moveToNext()
+            @SuppressLint("Range") val string =
+                query.getString(query.getColumnIndex("display_name"))
+            name = string
+            return name
+        } else {
+            query.close()
+        }
+    }
+    name = "Unknown number"
+    return name
+}
+
+fun Context.availableToSetThemeCall() =
+    isPhoneDialer() && hasOverlaySettingPermission()
+            && hasAnswerCallComing() && hasReadContact()
+
+fun Context.isPhoneDialer(): Boolean {
+    //return true
+    /*if (isSdk33()) {
+        return true
+    }*/
+    val telecomManager = getSystemService(AppCompatActivity.TELECOM_SERVICE) as TelecomManager
+    return packageName == telecomManager.defaultDialerPackage
+}
+
+fun Context.hasOverlaySettingPermission(): Boolean {
+    return Settings.canDrawOverlays(this)
+}
+
+fun Context.hasAnswerCallComing(): Boolean {
+    return if (isSdk26()) {
+        hasPermission(Manifest.permission.ANSWER_PHONE_CALLS)
+    } else {
+        false
+    }
+}
+
+fun Context.hasReadContact(): Boolean {
+    return hasPermission(Manifest.permission.READ_CONTACTS)
+}
+
+/*
+fun Context.isEnableInRingerMode(): Boolean {
+    val am = getSystemService(Service.AUDIO_SERVICE) as AudioManager
+
+    return when (am.ringerMode) {
+        AudioManager.RINGER_MODE_SILENT -> SharePreferenceUtils.isRingerSilentMode()
+        AudioManager.RINGER_MODE_VIBRATE -> SharePreferenceUtils.isRingerVibrateMode()
+        AudioManager.RINGER_MODE_NORMAL -> SharePreferenceUtils.isRingerNormalMode()
+        else -> true
+    }
+}*/

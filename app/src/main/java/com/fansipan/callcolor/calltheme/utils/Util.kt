@@ -2,9 +2,11 @@ package com.fansipan.callcolor.calltheme.utils
 
 import android.content.Context
 import android.os.AsyncTask
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import java.io.File
+import java.util.Calendar
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
