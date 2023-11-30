@@ -46,5 +46,10 @@
     <string name="to_display_incoming_calls">To display incoming calls</string>
     <string name="ringtone_library">Ringtone Library</string>
     <string name="audio_from_your_device">Audio From Your Device</string>
+    <string name="flash_vibrate_test">Flash &amp; Vibrate test</string>
+    <string name="select_flash_type">Select flash type</string>
+    <string name="enable_flash_alert">Enable Flash Alert</string>
+    <string name="enable_vibrate">Enable Vibrate</string>
+    <string name="select_vibrate_type">Select vibrate type</string>
 
 </resources>

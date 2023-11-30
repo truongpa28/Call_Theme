@@ -10,7 +10,7 @@
         android:id="@+id/homeFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
@@ -44,7 +44,7 @@
         android:id="@+id/ringtoneFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.ringtone.RingtoneFragment"
         android:label="fragment_ringtone"
-        tools:layout="@layout/fragment_ringtone" >
+        tools:layout="@layout/fragment_ringtone">
         <action
             android:id="@+id/action_ringtoneFragment_to_chooseRingtoneFragment"
             app:destination="@id/chooseRingtoneFragment" />
@@ -59,7 +59,7 @@
         android:id="@+id/DIYThemeFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.diy.DIYThemeFragment"
         android:label="fragment_d_i_y_theme"
-        tools:layout="@layout/fragment_d_i_y_theme" >
+        tools:layout="@layout/fragment_d_i_y_theme">
         <action
             android:id="@+id/action_DIYThemeFragment_to_editThemeFragment"
             app:destination="@id/editThemeFragment" />
@@ -71,7 +71,7 @@
         android:id="@+id/editThemeFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.diy.EditThemeFragment"
         android:label="fragment_edit_theme"
-        tools:layout="@layout/fragment_edit_theme" >
+        tools:layout="@layout/fragment_edit_theme">
         <action
             android:id="@+id/action_editThemeFragment_to_avatarFragment"
             app:destination="@id/avatarFragment" />
@@ -85,9 +85,10 @@
             android:id="@+id/action_editThemeFragment_to_congratulationFragment"
             app:destination="@id/congratulationFragment" />
 
-        <argument android:name="type"
+        <argument
+            android:name="type"
             android:defaultValue="diy"
-            app:argType="string"/>
+            app:argType="string" />
 
     </fragment>
     <fragment
@@ -114,7 +115,7 @@
         android:id="@+id/alertFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.alert.AlertFragment"
         android:label="fragment_alert"
-        tools:layout="@layout/fragment_alert" >
+        tools:layout="@layout/fragment_alert">
         <action
             android:id="@+id/action_alertFragment_to_vibrateFragment"
             app:destination="@id/vibrateFragment" />
@@ -136,7 +137,7 @@
         android:id="@+id/themeCallFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.themecall.ThemeCallFragment"
         android:label="fragment_theme_call"
-        tools:layout="@layout/fragment_theme_call" >
+        tools:layout="@layout/fragment_theme_call">
         <action
             android:id="@+id/action_themeCallFragment_to_collectionFragment"
             app:destination="@id/collectionFragment" />
@@ -145,10 +146,16 @@
         android:id="@+id/collectionFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.themecall.CollectionFragment"
         android:label="fragment_collection"
-        tools:layout="@layout/fragment_collection" >
+        tools:layout="@layout/fragment_collection">
         <action
             android:id="@+id/action_collectionFragment_to_editThemeFragment"
             app:destination="@id/editThemeFragment" />
+
+        <argument
+            android:name="position"
+            android:defaultValue="0"
+            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/congratulationFragment"

@@ -9,22 +9,6 @@ import java.io.InputStream
 
 object DataUtils {
 
-    val listCategory = listOf<String>(
-        "All",
-        "Halloween",
-        "3D",
-        "Neon",
-        "Marvel",
-        "CarMoto",
-        "Nature",
-        "Anime",
-        "K-Pop",
-        "Korea",
-        "Vintage",
-        "Flower",
-        "Cat"
-    )
-
     var listDataCallThemScreen = ArrayList<CallThemeScreenModel>()
 
     fun readAnimation(context: Context) {

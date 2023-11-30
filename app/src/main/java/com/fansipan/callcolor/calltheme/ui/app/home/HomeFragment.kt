@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.btnThemeCall.clickSafe {
-            findNavController().navigate(R.id.action_homeFragment_to_downloadedFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_themeCallFragment)
         }
 
         binding.btnDIYTheme.clickSafe {
@@ -58,7 +58,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.btnAlert.clickSafe {
-            findNavController().navigate(R.id.action_homeFragment_to_downloadedFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_alertFragment)
         }
 
         binding.btnRingtone.clickSafe {
