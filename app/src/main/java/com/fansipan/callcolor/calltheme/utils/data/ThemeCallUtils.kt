@@ -3,7 +3,6 @@ package com.fansipan.callcolor.calltheme.utils.data
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 import com.fansipan.callcolor.calltheme.model.CategoryThemeModel
-import com.fansipan.callcolor.calltheme.utils.DataUtils
 
 object ThemeCallUtils {
 

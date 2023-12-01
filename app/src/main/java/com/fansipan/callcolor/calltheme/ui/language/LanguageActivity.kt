@@ -8,10 +8,10 @@ import com.fansipan.callcolor.calltheme.model.LanguageModel
 import com.fansipan.callcolor.calltheme.ui.intro.IntroActivity
 import com.fansipan.callcolor.calltheme.utils.LanguageUtils
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.openActivity
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.openActivity
 import com.fansipan.callcolor.calltheme.utils.setLanguageApp
-import com.fansipan.callcolor.calltheme.utils.showOrGone
+import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
 
 class LanguageActivity : BaseActivity(), ClickLanguageListener {
 

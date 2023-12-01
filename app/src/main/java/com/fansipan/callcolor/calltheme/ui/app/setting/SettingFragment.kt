@@ -1,20 +1,17 @@
 package com.fansipan.callcolor.calltheme.ui.app.setting
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
-import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
 import com.fansipan.callcolor.calltheme.databinding.FragmentSettingBinding
 import com.fansipan.callcolor.calltheme.ui.language.LanguageActivity
 import com.fansipan.callcolor.calltheme.utils.CommonUtils
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.openActivity
-import com.fansipan.callcolor.calltheme.utils.showToast
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.openActivity
+import com.fansipan.callcolor.calltheme.utils.ex.showToast
 
 
 class SettingFragment : BaseFragment() {

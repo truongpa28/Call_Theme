@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,14 +20,13 @@ import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentCollectionBinding
-import com.fansipan.callcolor.calltheme.databinding.FragmentThemeCallBinding
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
-import com.fansipan.callcolor.calltheme.utils.DataDownloaded
-import com.fansipan.callcolor.calltheme.utils.DataUtils
+import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
-import com.fansipan.callcolor.calltheme.utils.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.data.DataSaved
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
-import com.fansipan.callcolor.calltheme.utils.showToast
+import com.fansipan.callcolor.calltheme.utils.ex.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -143,7 +141,7 @@ class CollectionFragment : BaseFragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     hideDialogDownload()
                     onDone.invoke()
-                    //DataDownloaded.addNewAnim(requireContext(), ItemDownloaded(thumbnail, outputFile.absolutePath))
+                    DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, item.avatar, item.buttonIndex))
                     findNavController().navigate(
                         R.id.action_collectionFragment_to_editThemeFragment,
                         bundleOf("type" to "theme", "data" to "")

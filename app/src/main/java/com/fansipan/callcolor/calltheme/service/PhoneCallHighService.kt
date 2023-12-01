@@ -4,8 +4,8 @@ import android.Manifest
 import android.telecom.Call
 import android.telecom.CallScreeningService
 import android.util.Log
-import com.fansipan.callcolor.calltheme.utils.getNameContactByPhoneNumber
-import com.fansipan.callcolor.calltheme.utils.hasPermission
+import com.fansipan.callcolor.calltheme.utils.ex.getNameContactByPhoneNumber
+import com.fansipan.callcolor.calltheme.utils.ex.hasPermission
 
 class PhoneCallHighService : CallScreeningService() {
     companion object {

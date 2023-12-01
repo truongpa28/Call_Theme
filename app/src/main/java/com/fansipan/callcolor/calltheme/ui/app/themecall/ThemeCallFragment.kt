@@ -1,7 +1,6 @@
 package com.fansipan.callcolor.calltheme.ui.app.themecall
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
-import com.fansipan.callcolor.calltheme.databinding.FragmentAlertBinding
 import com.fansipan.callcolor.calltheme.databinding.FragmentThemeCallBinding
-import com.fansipan.callcolor.calltheme.utils.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 
 class ThemeCallFragment : BaseFragment() {

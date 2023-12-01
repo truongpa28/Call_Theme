@@ -6,9 +6,9 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.gone
-import com.fansipan.callcolor.calltheme.utils.show
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.gone
+import com.fansipan.callcolor.calltheme.utils.ex.show
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.DialogNoInternetBinding
 

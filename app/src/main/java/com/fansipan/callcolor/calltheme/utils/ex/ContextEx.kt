@@ -1,4 +1,4 @@
-package com.fansipan.callcolor.calltheme.utils
+package com.fansipan.callcolor.calltheme.utils.ex
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -6,7 +6,6 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.AudioManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri

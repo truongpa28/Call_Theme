@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.OnBackPressedCallback
-import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.ActivitySplashBinding
 import com.fansipan.callcolor.calltheme.ui.language.LanguageActivity
-import com.fansipan.callcolor.calltheme.utils.openActivity
+import com.fansipan.callcolor.calltheme.utils.ex.openActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

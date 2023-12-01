@@ -9,17 +9,14 @@ import android.os.Bundle
 import android.provider.Settings
 import android.telecom.TelecomManager
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fansipan.callcolor.calltheme.base.BaseActivity
 import com.fansipan.callcolor.calltheme.databinding.ActivityMainBinding
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogRequestPermission
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogRequestWritePermission
-import com.fansipan.callcolor.calltheme.utils.DataUtils
-import com.fansipan.callcolor.calltheme.utils.isSdk26
-import com.fansipan.callcolor.calltheme.utils.showToast
+import com.fansipan.callcolor.calltheme.utils.data.DataUtils
+import com.fansipan.callcolor.calltheme.utils.ex.isSdk26
 
 class MainActivity : BaseActivity() {
 

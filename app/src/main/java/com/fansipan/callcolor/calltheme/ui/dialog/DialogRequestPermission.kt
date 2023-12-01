@@ -6,12 +6,12 @@ import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.DialogRequestPermissionBinding
-import com.fansipan.callcolor.calltheme.utils.hasAnswerCallComing
-import com.fansipan.callcolor.calltheme.utils.hasOverlaySettingPermission
-import com.fansipan.callcolor.calltheme.utils.hasReadContact
-import com.fansipan.callcolor.calltheme.utils.isPhoneDialer
-import com.fansipan.callcolor.calltheme.utils.setOnSafeClick
-import com.fansipan.callcolor.calltheme.utils.showToast
+import com.fansipan.callcolor.calltheme.utils.ex.hasAnswerCallComing
+import com.fansipan.callcolor.calltheme.utils.ex.hasOverlaySettingPermission
+import com.fansipan.callcolor.calltheme.utils.ex.hasReadContact
+import com.fansipan.callcolor.calltheme.utils.ex.isPhoneDialer
+import com.fansipan.callcolor.calltheme.utils.ex.setOnSafeClick
+import com.fansipan.callcolor.calltheme.utils.ex.showToast
 
 class DialogRequestPermission(private val context: Context) {
     private val binding by lazy {

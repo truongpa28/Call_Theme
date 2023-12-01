@@ -6,9 +6,9 @@ import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.DialogRequestWritePermissionBinding
-import com.fansipan.callcolor.calltheme.utils.hasWriteSettingPermission
-import com.fansipan.callcolor.calltheme.utils.hasWriteStoragePermission
-import com.fansipan.callcolor.calltheme.utils.setOnSafeClick
+import com.fansipan.callcolor.calltheme.utils.ex.hasWriteSettingPermission
+import com.fansipan.callcolor.calltheme.utils.ex.hasWriteStoragePermission
+import com.fansipan.callcolor.calltheme.utils.ex.setOnSafeClick
 
 class DialogRequestWritePermission(private val context: Context) {
     private val binding by lazy {

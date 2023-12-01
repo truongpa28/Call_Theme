@@ -8,7 +8,7 @@ import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentChooseRingtoneBinding
 import com.fansipan.callcolor.calltheme.utils.MediaPlayerUtils
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
-import com.fansipan.callcolor.calltheme.utils.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.RingtoneUtils
 
 

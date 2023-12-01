@@ -8,8 +8,8 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseActivity
 import com.fansipan.callcolor.calltheme.databinding.ActivityIntroBinding
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.openActivity
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.openActivity
 import com.google.android.material.tabs.TabLayout
 
 class IntroActivity : BaseActivity() {

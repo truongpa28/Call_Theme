@@ -1,19 +1,13 @@
 package com.fansipan.callcolor.calltheme.ui.app.diy
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
-import com.fansipan.callcolor.calltheme.databinding.FragmentAvatarBinding
 import com.fansipan.callcolor.calltheme.databinding.FragmentIconCallBinding
-import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.AvatarAdapter
-import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV2
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 
 class IconCallFragment : BaseFragment() {

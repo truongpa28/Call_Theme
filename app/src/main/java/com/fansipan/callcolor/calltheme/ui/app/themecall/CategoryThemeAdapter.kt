@@ -2,9 +2,6 @@ package com.fansipan.callcolor.calltheme.ui.app.themecall
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.fansipan.callcolor.calltheme.databinding.ItemRingToneV2Binding
-import com.fansipan.callcolor.calltheme.model.RingtoneModel
-import com.fansipan.callcolor.calltheme.utils.showOrGone
 import com.fansipan.callcolor.calltheme.base.BaseAdapterRecyclerView
 import com.fansipan.callcolor.calltheme.databinding.ItemCategoryThemeCallBinding
 import com.fansipan.callcolor.calltheme.model.CategoryThemeModel

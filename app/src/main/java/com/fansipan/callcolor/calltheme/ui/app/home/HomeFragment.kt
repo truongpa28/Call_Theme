@@ -9,8 +9,8 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
 import com.fansipan.callcolor.calltheme.service.IncomingCallService
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.connectService
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.connectService
 
 
 class HomeFragment : BaseFragment() {

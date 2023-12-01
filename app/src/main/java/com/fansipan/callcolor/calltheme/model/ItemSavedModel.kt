@@ -5,16 +5,16 @@ import com.google.gson.Gson
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class DownloadedModel(
-    var isBackground: Boolean = false,
+data class ItemSavedModel(
     var background: String = "1",
     var avatar: String = "1",
-    var buttonIndex: String = "1"
+    var buttonIndex: String = "1",
+    var isBackground: Boolean = false
 ) : Parcelable {
 
     companion object {
-        fun toDownloadedModel(jsonData: String): DownloadedModel? {
-            return Gson().fromJson(jsonData, DownloadedModel::class.java)
+        fun toItemSavedModel(jsonData: String): ItemSavedModel? {
+            return Gson().fromJson(jsonData, ItemSavedModel::class.java)
         }
     }
 

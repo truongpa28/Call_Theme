@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentRingtoneBinding
-import com.fansipan.callcolor.calltheme.utils.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 
 class RingtoneFragment : BaseFragment() {
 

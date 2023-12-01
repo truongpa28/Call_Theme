@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_app_v1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.app.downloaded.DownloadedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back"
+            app:tint="@color/black_app" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="22sp"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:textColor="@color/black_app"
+            android:gravity="center_vertical|left"
+            android:text="@string/saved"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="16dp"
+        app:tabIndicatorColor="@color/black_app"
+        android:background="#00000000"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="1dp"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        app:tabRippleColor="#1A666262"
+        app:tabSelectedTextColor="@color/black_app"
+        app:tabTextColor="#803F3F4B" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

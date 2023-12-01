@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.IntRange
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.fansipan.callcolor.calltheme.utils.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 
 abstract class BaseAdapterRecyclerView<T, VB : ViewBinding>
 @JvmOverloads constructor(dataList: MutableList<T>? = null) :

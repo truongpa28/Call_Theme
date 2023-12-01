@@ -1,4 +1,4 @@
-package com.fansipan.callcolor.calltheme.utils
+package com.fansipan.callcolor.calltheme.utils.ex
 
 import android.app.Activity
 import android.content.Context
@@ -18,6 +18,8 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.fansipan.callcolor.calltheme.utils.Constants
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.Amp
 import com.fansipan.callcolor.calltheme.utils.data.VibrateRingtoneUtils
 import com.google.android.material.tabs.TabLayout

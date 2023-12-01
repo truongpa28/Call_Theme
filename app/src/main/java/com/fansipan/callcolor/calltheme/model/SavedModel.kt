@@ -5,15 +5,13 @@ import com.google.gson.Gson
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class CreatedModel(
-    var background: String = "1",
-    var avatar: String = "1",
-    var buttonIndex: String = "1"
+data class SavedModel(
+    var listData : ArrayList<ItemSavedModel>
 ) : Parcelable {
 
     companion object {
-        fun toCreatedModel(jsonData: String): CreatedModel? {
-            return Gson().fromJson(jsonData, CreatedModel::class.java)
+        fun toSavedModel(jsonData: String): SavedModel? {
+            return Gson().fromJson(jsonData, SavedModel::class.java)
         }
     }
 

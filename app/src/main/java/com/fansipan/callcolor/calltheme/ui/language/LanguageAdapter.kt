@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.model.LanguageModel
-import com.fansipan.callcolor.calltheme.utils.clickSafe
-import com.fansipan.callcolor.calltheme.utils.gone
-import com.fansipan.callcolor.calltheme.utils.show
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.gone
+import com.fansipan.callcolor.calltheme.utils.ex.show
 
 class LanguageAdapter(
     var context: Context,

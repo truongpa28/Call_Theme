@@ -30,7 +30,6 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -39,12 +38,12 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
 import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
-import com.fansipan.callcolor.calltheme.utils.availableToSetThemeCall
+import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
-import com.fansipan.callcolor.calltheme.utils.initVibrator
-import com.fansipan.callcolor.calltheme.utils.isSdk26
-import com.fansipan.callcolor.calltheme.utils.startVibration
-import com.fansipan.callcolor.calltheme.utils.turnOffVibration
+import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
+import com.fansipan.callcolor.calltheme.utils.ex.isSdk26
+import com.fansipan.callcolor.calltheme.utils.ex.startVibration
+import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
 class IncomingCallService : Service() {
     companion object {

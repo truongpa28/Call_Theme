@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.fansipan.callcolor.calltheme.databinding.ItemRingToneV2Binding
 import com.fansipan.callcolor.calltheme.model.RingtoneModel
-import com.fansipan.callcolor.calltheme.utils.showOrGone
+import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
 import com.fansipan.callcolor.calltheme.base.BaseAdapterRecyclerView
 
 

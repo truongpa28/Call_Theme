@@ -10,7 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogNoInternet
-import com.fansipan.callcolor.calltheme.utils.isInternetAvailable
+import com.fansipan.callcolor.calltheme.utils.ex.isInternetAvailable
 
 abstract class BaseActivity() : AppCompatActivity() {
 
