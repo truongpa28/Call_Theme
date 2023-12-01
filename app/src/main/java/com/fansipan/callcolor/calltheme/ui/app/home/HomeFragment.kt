@@ -68,6 +68,10 @@ class HomeFragment : BaseFragment() {
         binding.txtPreview.clickSafe {
             findNavController().navigate(R.id.action_homeFragment_to_previewFragment)
         }
+
+        binding.llPreview.clickSafe {
+            findNavController().navigate(R.id.action_homeFragment_to_previewFragment)
+        }
     }
 
 }

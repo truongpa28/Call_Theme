@@ -11,19 +11,16 @@ object DataUtils {
 
     var listDataCallThemScreen = ArrayList<CallThemeScreenModel>()
 
+    var callThemeEdit = CallThemeScreenModel()
+
     fun readAnimation(context: Context) {
         listDataCallThemScreen.clear()
         try {
-
             val obj =
                 JSONArray(loadJsonFromAsset("json/call_theme_screen.json", context).toString())
-
             for (i in 0 until obj.length()) {
-
                 val item = obj.getJSONObject(i)
-
                 val data = CallThemeScreenModel()
-
                 data.id = item.getInt("id")
                 data.index = item.getInt("index")
                 data.background = item.getString("background")
@@ -31,10 +28,8 @@ object DataUtils {
                 data.buttonIndex = item.getString("buttonIndex")
                 data.category = item.getString("category")
                 data.isSetReward = item.getBoolean("isSetReward")
-
                 listDataCallThemScreen.add(data)
             }
-
         } catch (e: JSONException) {
             e.printStackTrace()
         }

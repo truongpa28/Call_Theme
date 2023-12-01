@@ -58,5 +58,12 @@ class DIYThemeFragment : BaseFragment() {
         adapterIconCall.setOnClickItem { item, position ->
             findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
         }
+
+        binding.txtPreview.clickSafe {
+            findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment)
+        }
+        binding.llPreview.clickSafe {
+            findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment)
+        }
     }
 }

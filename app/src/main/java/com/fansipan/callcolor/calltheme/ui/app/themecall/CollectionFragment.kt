@@ -25,7 +25,9 @@ import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.DataSaved
+import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
+import com.fansipan.callcolor.calltheme.utils.ex.getPathOfBg
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -93,8 +95,9 @@ class CollectionFragment : BaseFragment() {
             if (SharePreferenceUtils.isThemeDownload(fileName)) {
                 findNavController().navigate(
                     R.id.action_collectionFragment_to_editThemeFragment,
-                    bundleOf("type" to "theme", "data" to "")
+                    bundleOf("type" to "theme")
                 )
+                DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
             } else {
                 downloadAnim(it, onDone = {
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -116,10 +119,8 @@ class CollectionFragment : BaseFragment() {
             val outputFile: File
             try {
                 showDialogDownload()
-                val fileName = "${item.category}_${item.id}.png"
                 outputFile = File(
-                    Environment.getExternalStorageDirectory().absoluteFile.toString() + "/Android/data/" + requireContext().packageName +
-                            "/" + fileName
+                    requireContext().getPathOfBg(item)
                 )
                 outputStream = FileOutputStream(outputFile)
                 val url = URL("https://batterycharger.lutech.vn/app/calltheme/theme3/theme${item.id}/bgtheme${item.id}.png")
@@ -144,8 +145,9 @@ class CollectionFragment : BaseFragment() {
                     DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, item.avatar, item.buttonIndex))
                     findNavController().navigate(
                         R.id.action_collectionFragment_to_editThemeFragment,
-                        bundleOf("type" to "theme", "data" to "")
+                        bundleOf("type" to "theme")
                     )
+                    DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, outputFile.absolutePath, item.avatar, item.buttonIndex)
                 },200L)
             } catch (e: IOException) {
                 e.printStackTrace()

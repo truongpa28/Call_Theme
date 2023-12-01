@@ -10,12 +10,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.ContactsContract
 import android.provider.Settings
 import android.telecom.TelecomManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 
 
 fun Context.connectService(pClass: Class<out Service>) {
@@ -135,6 +137,11 @@ fun Context.hasAnswerCallComing(): Boolean {
 
 fun Context.hasReadContact(): Boolean {
     return hasPermission(Manifest.permission.READ_CONTACTS)
+}
+
+fun Context.getPathOfBg(item: CallThemeScreenModel): String {
+    return Environment.getExternalStorageDirectory().absoluteFile.toString() + "/Android/data/" + packageName +
+            "/" + "${item.category}_${item.id}.png"
 }
 
 /*

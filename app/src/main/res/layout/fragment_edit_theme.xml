@@ -10,8 +10,8 @@
     <ImageView
         android:id="@+id/imgBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -27,7 +27,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:foreground="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back_v2" />
 
         <View
             android:layout_width="0dp"
@@ -38,13 +38,14 @@
             android:id="@+id/txtSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:fontFamily="@font/roboto_semi_bold_600"
-            android:gravity="center"
-            android:text="@string/save"
-            android:paddingVertical="4dp"
-            android:paddingHorizontal="18dp"
             android:background="@drawable/bg_btn_done"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingHorizontal="18dp"
+            android:layout_marginEnd="16dp"
+            android:paddingVertical="4dp"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -100,8 +101,8 @@
         android:id="@+id/llChooseIconCall"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:fillViewport="true"
         android:layout_marginHorizontal="16dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgIconCall1">
 
@@ -113,17 +114,16 @@
                 android:id="@+id/rcyCallIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <ImageView
                 android:id="@+id/imgSeeMoreIconCall"
                 android:layout_width="50dp"
-                android:src="@drawable/ic_rate_rate"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp"
+                android:src="@drawable/ic_rate_rate" />
 
         </LinearLayout>
-
 
 
     </HorizontalScrollView>

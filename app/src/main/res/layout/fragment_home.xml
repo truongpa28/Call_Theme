@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/bg_pereview_home" />
+                    android:src="@drawable/bg_preview_home" />
 
             </androidx.cardview.widget.CardView>
 
