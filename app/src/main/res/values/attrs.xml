@@ -51,5 +51,11 @@
 		</attr>
 	</declare-styleable>
 
+	<declare-styleable name="TextViewOutline">
+		<attr name="outlineWidth" format="integer" />
+		<attr name="outlineColor" format="color" />
+	</declare-styleable>
+
+
 
 </resources>

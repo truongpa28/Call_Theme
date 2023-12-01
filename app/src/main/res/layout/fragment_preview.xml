@@ -10,6 +10,7 @@
     <ImageView
         android:id="@+id/imgBackground"
         android:layout_width="match_parent"
+        android:scaleType="centerCrop"
         android:layout_height="match_parent"/>
 
     <ImageView
@@ -17,7 +18,9 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/ic_close"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,6 +36,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.sound.pranksounds.base.custom.TextViewOutline
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_semi_bold_600"
+        android:text="Harry Potter"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
+        app:layout_constraintStart_toStartOf="@+id/imgAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatar"
+        app:outlineColor="@color/black"
+        app:outlineWidth="1" />
+
+    <com.example.sound.pranksounds.base.custom.TextViewOutline
+        android:id="@+id/txtPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular_400"
+        android:text="0912345678"
+        android:layout_marginTop="14dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtName"
+        app:layout_constraintStart_toStartOf="@+id/txtName"
+        app:layout_constraintTop_toBottomOf="@+id/txtName"
+        app:outlineColor="@color/black"
+        app:outlineWidth="1" />
 
     <ImageView
         android:id="@+id/imgIconCall1"
@@ -40,6 +72,7 @@
         android:layout_height="85dp"
         android:layout_marginBottom="74dp"
         android:src="@drawable/ic_call_1_1"
+        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgIconCall2"
         app:layout_constraintStart_toStartOf="parent" />
@@ -48,6 +81,7 @@
         android:id="@+id/imgIconCall2"
         android:layout_width="85dp"
         android:layout_height="85dp"
+        android:layout_marginStart="24dp"
         android:src="@drawable/ic_call_1_2"
         app:layout_constraintBottom_toBottomOf="@+id/imgIconCall1"
         app:layout_constraintEnd_toEndOf="parent"
