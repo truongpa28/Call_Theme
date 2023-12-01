@@ -27,7 +27,7 @@ object DataUtils {
                 data.id = item.getInt("id")
                 data.index = item.getInt("index")
                 data.background = item.getString("background")
-                data.videoUrl = item.getString("videoUrl")
+                data.avatar = item.getString("avatar")
                 data.buttonIndex = item.getString("buttonIndex")
                 data.category = item.getString("category")
                 data.isSetReward = item.getBoolean("isSetReward")

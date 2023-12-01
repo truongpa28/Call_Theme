@@ -8,7 +8,7 @@ object SharePreferenceUtils {
 
     private const val PER_NAME = "data_app_battery_charging"
 
-    lateinit var sharePref: SharedPreferences
+    private lateinit var sharePref: SharedPreferences
 
     fun init(context: Context) {
         if (!SharePreferenceUtils::sharePref.isInitialized) {
@@ -16,7 +16,7 @@ object SharePreferenceUtils {
         }
     }
 
-    fun <T> saveKey(key: String, value: T) {
+    private fun <T> saveKey(key: String, value: T) {
         when (value) {
             is String -> sharePref.edit().putString(key, value).apply()
             is Int -> sharePref.edit().putInt(key, value).apply()
@@ -31,11 +31,11 @@ object SharePreferenceUtils {
         return sharePref.getString(key, value)?.trim() ?: value
     }
 
-    fun getInt(key: String, defaultValue: Int = 0): Int {
+    private fun getInt(key: String, defaultValue: Int = 0): Int {
         return sharePref.getInt(key, defaultValue)
     }
 
-    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
+    private fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
         return sharePref.getBoolean(key, defaultValue)
     }
 
@@ -48,18 +48,25 @@ object SharePreferenceUtils {
     }
 
 
+    /*-----------------------------------------Language---------------------------------------------*/
     fun getCodeLanguageChoose(): String = getString("getCodeLanguageChoose", "en")
     fun setCodeLanguageChoose(value: String) = saveKey("getCodeLanguageChoose", value)
 
+    /*----------------------------------------Notification------------------------------------------*/
+    fun isFirstRequestNotification(): Boolean = getBoolean("isFirstRequestNotification", true)
+    fun setFirstRequestNotification(value: Boolean) = saveKey("isFirstRequestNotification", value)
 
-    fun isFirstRequestNoti(): Boolean = getBoolean("isFirstRequestNoti", true)
-    fun setFirstRequestNoti(value: Boolean) = saveKey("isFirstRequestNoti", value)
+
+    /*-----------------------------------------Theme Call-------------------------------------------*/
+    fun isThemeDownload(key: String): Boolean = getBoolean("isThemeDownload_$key")
+    fun setThemeDownload(key: String, value: Boolean) = saveKey("isThemeDownload_$key", value)
 
 
     fun isEnableThemeCall(): Boolean = getBoolean("isEnableThemeCall", true)
     fun setEnableThemeCall(value: Boolean) = saveKey("isEnableThemeCall", value)
 
 
+    /*-----------------------------------------Flash------------------------------------------------*/
     fun isEnableFlashMode(): Boolean = getBoolean("isEnableFlashMode", true)
     fun setEnableFlashMode(value: Boolean) = saveKey("isEnableFlashMode", value)
 
@@ -72,18 +79,39 @@ object SharePreferenceUtils {
     fun getSpeedFlash() = getInt("get_speed_flash", -1)
     fun setSpeedFlash(value: Int) = saveKey("get_speed_flash", value)
 
+
+    /*-----------------------------------------Vibrate----------------------------------------------*/
     fun getVibrateRingtone() = getInt("get_vibrate_ringtone", -1)
     fun setVibrateRingtone(value: Int) = saveKey("get_vibrate_ringtone", value)
 
     fun isEnableVibrate() = getBoolean("is_enable_vibrate", false)
     fun setIsEnableVibrate(isEnable: Boolean) = saveKey("is_enable_vibrate", isEnable)
 
+    /*-----------------------------------------Vibrate----------------------------------------------*/
     fun isEnableCallMode() = getBoolean("isEnableCallMode", true)
     fun setIsEnableCallMode(isEnable: Boolean) = saveKey("isEnableCallMode", isEnable)
 
+
+    /*-----------------------------------------Ringtone---------------------------------------------*/
     fun getRingtone() = getString("get_ring_tone", RingtoneUtils.nameDefaultRingtone)
     fun setRingtone(value: String) = saveKey("get_ring_tone", value)
 
+    fun getPathRingtone() = getString("getPathRingtone", "")
+    fun setPathRingtone(value: String) = saveKey("getPathRingtone", value)
+
+    fun getTypeRingtone() = getString("getTypeRingtone", "app")
+    fun setTypeRingtone(value: String) = saveKey("getTypeRingtone", value)
+
+
+    /*---------------------------------------Set Call Theme-----------------------------------------*/
+    fun getIconCallChoose() = getInt("getIconCallChoose", 0)
+    fun setIconCallChoose(value: Int) = saveKey("getIconCallChoose", value)
+
+    fun getAvatarChoose() = getInt("getAvatarChoose", 0)
+    fun setAvatarChoose(value: Int) = saveKey("getAvatarChoose", value)
+
+    fun getBackgroundChoose() = getString("getBackgroundChoose", "")
+    fun setBackgroundChoose(value: String) = saveKey("getBackgroundChoose", value)
 
 
 }

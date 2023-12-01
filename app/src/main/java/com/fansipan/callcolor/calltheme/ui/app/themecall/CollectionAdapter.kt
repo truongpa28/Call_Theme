@@ -11,6 +11,9 @@ import com.fansipan.callcolor.calltheme.databinding.ItemCategoryThemeCallBinding
 import com.fansipan.callcolor.calltheme.databinding.ItemCollectionBinding
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 import com.fansipan.callcolor.calltheme.model.CategoryThemeModel
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
+import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
+import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 
 
 class CollectionAdapter : BaseAdapterRecyclerView<CallThemeScreenModel, ItemCollectionBinding>() {
@@ -26,8 +29,13 @@ class CollectionAdapter : BaseAdapterRecyclerView<CallThemeScreenModel, ItemColl
         Glide.with(context)
             .asBitmap()
             //.apply(requestOption)
-            .load("https://batterycharger.lutech.vn/app/calltheme/background/background${item.index}.webp")
+            .load("https://batterycharger.lutech.vn/app/calltheme/theme3/theme${item.id}/bgtheme${item.id}.png")
             .into(binding.imgThumbnail)
+        binding.imgDownload.showOrGone(!SharePreferenceUtils.isThemeDownload("${item.category}_${item.id}.png"))
+        val posButton = item.buttonIndex.toInt() - 1
+        binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
+        binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
+        binding.imgAvatar.setImageResource(AvatarUtils.listAvatar[item.avatar.toInt()])
     }
 
 }

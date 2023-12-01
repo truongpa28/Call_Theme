@@ -51,5 +51,6 @@
     <string name="enable_flash_alert">Enable Flash Alert</string>
     <string name="enable_vibrate">Enable Vibrate</string>
     <string name="select_vibrate_type">Select vibrate type</string>
+    <string name="downloading">Downloading</string>
 
 </resources>
