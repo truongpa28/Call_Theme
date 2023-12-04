@@ -34,10 +34,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
 import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
+import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
+import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
 import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
@@ -118,13 +121,24 @@ class IncomingCallService : Service() {
         rlView = view!!.findViewById(R.id.rl_view)
 
         //background
-        //Glide.with(this).load(SharePreferenceUtils.getThemeCall().getUrlThemCall()).into(ivBackground)
+        Glide.with(this).load(SharePreferenceUtils.getBackgroundChoose()).into(ivBackground)
+
         //photo avatar
-        //Glide.with(this).load(Constants.PHOTO_AVATAR).into(ivAvatar)
-        //button accept
-        //Glide.with(this).load(Uri.parse(Constants.ACCEPT_AVATAR)).into(ivAccept)
-        //button decline
-        //Glide.with(this).load(Uri.parse(Constants.DECLINE_AVATAR)).into(ivDecline)
+        Glide.with(this).load(SharePreferenceUtils.getAvatarChoose()).into(ivAvatar)
+
+        val posButton = SharePreferenceUtils.getIconCallChoose().toInt() -1
+        ivDecline.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
+        ivAccept.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
+
+        try {
+            val posAvt = SharePreferenceUtils.getAvatarChoose().toInt()
+            ivAvatar.setImageResource(AvatarUtils.listAvatar[posAvt])
+        } catch (e : Exception) {
+            Glide.with(this)
+                .asBitmap()
+                .load(SharePreferenceUtils.getAvatarChoose())
+                .into(ivAvatar)
+        }
 
         tvSdt.text = phoneNumber
         tvName.text = nameContact

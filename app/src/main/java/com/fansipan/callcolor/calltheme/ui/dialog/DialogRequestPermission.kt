@@ -26,8 +26,6 @@ class DialogRequestPermission(private val context: Context) {
             .create()
     }
 
-    var onAllPermissionGranted: (() -> Unit)? = null
-
     init {
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
     }
@@ -78,9 +76,8 @@ class DialogRequestPermission(private val context: Context) {
         val isAnswerCall = context.hasWriteSettingPermission()
 
         if (isPhoneDialler && isReadContact && isOverlayApp && isAnswerCall) {
-            context.showToast("theme_call_available")
+            //context.showToast("theme_call_available")
             hide()
-            onAllPermissionGranted?.invoke()
         }
         binding.swChangeDialler.apply {
             isChecked = isPhoneDialler

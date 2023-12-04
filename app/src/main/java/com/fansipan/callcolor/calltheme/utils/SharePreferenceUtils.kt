@@ -104,11 +104,11 @@ object SharePreferenceUtils {
 
 
     /*---------------------------------------Set Call Theme-----------------------------------------*/
-    fun getIconCallChoose() = getInt("getIconCallChoose", 0)
-    fun setIconCallChoose(value: Int) = saveKey("getIconCallChoose", value)
+    fun getIconCallChoose() = getString("getIconCallChoose", "1")
+    fun setIconCallChoose(value: String) = saveKey("getIconCallChoose", value)
 
-    fun getAvatarChoose() = getInt("getAvatarChoose", 0)
-    fun setAvatarChoose(value: Int) = saveKey("getAvatarChoose", value)
+    fun getAvatarChoose() = getString("getAvatarChoose", "1")
+    fun setAvatarChoose(value: String) = saveKey("getAvatarChoose", value)
 
     fun getBackgroundChoose() = getString("getBackgroundChoose", "")
     fun setBackgroundChoose(value: String) = saveKey("getBackgroundChoose", value)

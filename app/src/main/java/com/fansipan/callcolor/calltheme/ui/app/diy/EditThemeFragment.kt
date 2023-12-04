@@ -10,6 +10,7 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentEditThemeBinding
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
@@ -103,7 +104,9 @@ class EditThemeFragment : BaseFragment() {
 
 
         binding.txtSave.clickSafe {
-
+            SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
+            SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
+            SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
         }
     }
 }

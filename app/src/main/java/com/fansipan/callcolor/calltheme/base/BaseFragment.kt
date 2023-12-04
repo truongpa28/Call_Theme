@@ -18,6 +18,10 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogRequestPermission
+import com.fansipan.callcolor.calltheme.utils.ex.hasOverlaySettingPermission
+import com.fansipan.callcolor.calltheme.utils.ex.hasWriteSettingPermission
+import com.fansipan.callcolor.calltheme.utils.ex.isPhoneAllCall
+import com.fansipan.callcolor.calltheme.utils.ex.isPhoneDialer
 
 abstract class BaseFragment() : Fragment() {
 
@@ -39,6 +43,14 @@ abstract class BaseFragment() : Fragment() {
         findNavController().popBackStack()
     }
 
+    fun isAllPermissionCallTheme() : Boolean {
+        val isPhoneDialler = requireContext().isPhoneAllCall()
+        val isReadContact = requireContext().isPhoneDialer()
+        val isOverlayApp = requireContext().hasOverlaySettingPermission()
+        val isAnswerCall = requireContext().hasWriteSettingPermission()
+        return isPhoneDialler && isReadContact && isOverlayApp && isAnswerCall
+    }
+
     fun showDialogPermission() {
         dialogThemeCallPermission.show(
             false,
@@ -53,9 +65,6 @@ abstract class BaseFragment() : Fragment() {
             }, onClickSetRingtone = {
                 openManageWriteSetting()
             })
-        dialogThemeCallPermission.onAllPermissionGranted = {
-            //SharePreferenceUtils.setIsEnableThemeCall(true)
-        }
     }
 
     //region Phone Call
