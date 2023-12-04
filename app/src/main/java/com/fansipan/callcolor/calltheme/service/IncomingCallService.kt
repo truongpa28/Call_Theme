@@ -390,7 +390,7 @@ class IncomingCallService : Service() {
         val typeFlash = SharePreferenceUtils.getTypeFlash()
         var isFlashOn = false
         val spx: Long = speed ?: if (SharePreferenceUtils.isEnableSpeedMode()) {
-            SpeedFlashUtils.getFlashDelayByType(SharePreferenceUtils.getSpeedFlash())
+            SpeedFlashUtils.getFlashDelayByType(SharePreferenceUtils.getTypeFlash())
         } else {
             SpeedFlashUtils.SPEED_FLASH_DEFAULT.toLong()
         }

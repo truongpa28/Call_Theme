@@ -45,14 +45,8 @@ object SpeedFlashUtils {
         }
     }
 
-    fun getFlashDelayByType(src: Int): Long {
-        val index = listSpeedFlash.indexOfFirst { it.icon == SharePreferenceUtils.getSpeedFlash() }
-        val indexSafe = if (index == -1) {
-            0
-        } else {
-            index
-        }
-        return SpeedFlash.getSpeedByPosition(indexSafe)
+    fun getFlashDelayByType(index: Int): Long {
+        return SpeedFlash.getSpeedByPosition(index)
     }
 
 }

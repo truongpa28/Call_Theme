@@ -11,4 +11,5 @@
     <color name="default_thumb_stroke_color">@android:color/darker_gray</color>
     <color name="main_color">#766EFF</color>
     <color name="black_app">#3F3F4B</color>
+    <color name="color_type_flash">#C4E7FD</color>
 </resources>

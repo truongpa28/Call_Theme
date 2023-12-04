@@ -40,7 +40,6 @@ class HomeFragment : BaseFragment() {
         binding.titleAlert.isSelected = true
         binding.titleRingtone.isSelected = true
 
-
         showDialogPermission()
     }
 

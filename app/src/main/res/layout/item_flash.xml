@@ -12,10 +12,12 @@
 
     <ImageView
         android:id="@+id/imgRingTone"
-        android:layout_width="45dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="25dp"
+        app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/ic_item_ring_tone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,40 +39,6 @@
         android:src="@drawable/ic_selected_v1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvRingToneName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/inter_regular_400"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textColor="@color/black_app"
-        android:textSize="15sp"
-        android:singleLine="true"
-        android:paddingHorizontal="4dp"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:ellipsize="marquee"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgRingTone"
-        tools:text="RingTone 01" />
-
-    <TextView
-        android:id="@+id/tvRingToneTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/inter_regular_400"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textColor="#8B8D90"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRingToneName"
-        tools:text="04:30" />
 
     <View
         android:id="@+id/viewBorder"

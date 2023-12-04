@@ -21,6 +21,7 @@ class RingtoneV2Adapter : BaseAdapterRecyclerView<RingtoneModel, ItemRingToneV2B
         binding.tvRingToneName.isSelected = true
         binding.tvRingToneTime.text = item.duration
         binding.imgStateSelect.showOrGone(item.isSelected)
+        binding.viewBorder.showOrGone(item.isSelected)
         /*binding.cbSelected.showOrGone(position == SharePrefUtils.getSpeedFlash())*/
     }
 
