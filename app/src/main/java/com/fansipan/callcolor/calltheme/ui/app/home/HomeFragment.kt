@@ -39,6 +39,9 @@ class HomeFragment : BaseFragment() {
         binding.titleDIYTheme.isSelected = true
         binding.titleAlert.isSelected = true
         binding.titleRingtone.isSelected = true
+
+
+        showDialogPermission()
     }
 
     private fun initListener() {

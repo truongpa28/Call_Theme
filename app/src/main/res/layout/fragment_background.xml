@@ -34,7 +34,7 @@
             android:layout_width="50dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_choose_background_v2"/>
 
     </LinearLayout>
 
@@ -42,17 +42,19 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyCategory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:layout_marginTop="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="24dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcyScreenTheme"
+        android:id="@+id/rcyBackground"
         android:layout_below="@+id/rv_category"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
+        android:layout_marginHorizontal="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

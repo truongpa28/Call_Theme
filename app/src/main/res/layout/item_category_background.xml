@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewAll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_category_background_no_selected"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginEnd="16dp">
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/roboto_medium_500"
+        android:textSize="14sp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="2dp"
+        android:text="All"/>
+
+</LinearLayout>

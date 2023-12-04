@@ -100,5 +100,10 @@ class EditThemeFragment : BaseFragment() {
             binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[position].icon1)
             binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[position].icon2)
         }
+
+
+        binding.txtSave.clickSafe {
+
+        }
     }
 }

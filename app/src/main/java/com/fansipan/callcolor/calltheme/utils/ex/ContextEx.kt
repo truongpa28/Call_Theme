@@ -16,6 +16,7 @@ import android.provider.Settings
 import android.telecom.TelecomManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 
@@ -155,3 +156,23 @@ fun Context.isEnableInRingerMode(): Boolean {
         else -> true
     }
 }*/
+
+fun Context.isPhoneAllCall(): Boolean {
+    return ActivityCompat.checkSelfPermission(
+        this,
+        Manifest.permission.CAMERA
+    ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_STATE
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ANSWER_PHONE_CALLS
+            ) == PackageManager.PERMISSION_GRANTED
+}
+

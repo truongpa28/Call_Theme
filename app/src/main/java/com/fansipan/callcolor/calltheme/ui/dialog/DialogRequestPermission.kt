@@ -9,11 +9,14 @@ import com.fansipan.callcolor.calltheme.databinding.DialogRequestPermissionBindi
 import com.fansipan.callcolor.calltheme.utils.ex.hasAnswerCallComing
 import com.fansipan.callcolor.calltheme.utils.ex.hasOverlaySettingPermission
 import com.fansipan.callcolor.calltheme.utils.ex.hasReadContact
+import com.fansipan.callcolor.calltheme.utils.ex.hasWriteSettingPermission
+import com.fansipan.callcolor.calltheme.utils.ex.isPhoneAllCall
 import com.fansipan.callcolor.calltheme.utils.ex.isPhoneDialer
 import com.fansipan.callcolor.calltheme.utils.ex.setOnSafeClick
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
 
 class DialogRequestPermission(private val context: Context) {
+
     private val binding by lazy {
         DialogRequestPermissionBinding.inflate(LayoutInflater.from(context))
     }
@@ -40,10 +43,10 @@ class DialogRequestPermission(private val context: Context) {
     fun show(
         cancelAble: Boolean? = false,
         onClickClose: (() -> Unit)? = null,
-        onClickChangeDialler: (() -> Unit)? = null,
-        onClickReadContact: (() -> Unit)? = null,
+        onClickPhoneCall: (() -> Unit)? = null,
+        onClickCallDefault: (() -> Unit)? = null,
         onClickOverlayApp: (() -> Unit)? = null,
-        onClickAnswerPhoneCall: (() -> Unit)? = null
+        onClickSetRingtone: (() -> Unit)? = null
     ) {
         setupView()
         binding.btnClose.setOnSafeClick {
@@ -51,16 +54,16 @@ class DialogRequestPermission(private val context: Context) {
             onClickClose?.invoke()
         }
         binding.swChangeDialler.setOnSafeClick {
-            onClickChangeDialler?.invoke()
+            onClickPhoneCall?.invoke()
         }
         binding.swReadContact.setOnSafeClick {
-            onClickReadContact?.invoke()
+            onClickCallDefault?.invoke()
         }
         binding.swOverlayApp.setOnSafeClick {
             onClickOverlayApp?.invoke()
         }
         binding.swAnswerCall.setOnSafeClick {
-            onClickAnswerPhoneCall?.invoke()
+            onClickSetRingtone?.invoke()
         }
         dialog.setCancelable(cancelAble ?: false)
 
@@ -69,10 +72,11 @@ class DialogRequestPermission(private val context: Context) {
     }
 
     fun setupView() {
-        val isPhoneDialler = context.isPhoneDialer()
-        val isReadContact = context.hasReadContact()
+        val isPhoneDialler = context.isPhoneAllCall()
+        val isReadContact = context.isPhoneDialer()
         val isOverlayApp = context.hasOverlaySettingPermission()
-        val isAnswerCall = context.hasAnswerCallComing()
+        val isAnswerCall = context.hasWriteSettingPermission()
+
         if (isPhoneDialler && isReadContact && isOverlayApp && isAnswerCall) {
             context.showToast("theme_call_available")
             hide()

@@ -125,7 +125,7 @@ class DIYThemeFragment : BaseFragment() {
             if (SharePreferenceUtils.isThemeDownload(fileName)) {
                 findNavController().navigate(
                     R.id.action_DIYThemeFragment_to_editThemeFragment,
-                    bundleOf("type" to "theme")
+                    bundleOf("type" to "diy")
                 )
                 DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
             } else {
@@ -229,7 +229,7 @@ class DIYThemeFragment : BaseFragment() {
                     DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, "1", "1", true))
                     findNavController().navigate(
                         R.id.action_DIYThemeFragment_to_editThemeFragment,
-                        bundleOf("type" to "theme")
+                        bundleOf("type" to "diy")
                     )
                     DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, outputFile.absolutePath)
                 },200L)
