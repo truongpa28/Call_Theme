@@ -1,13 +1,11 @@
 package com.fansipan.callcolor.calltheme.ui.app.ringtone
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.media.AudioManager
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +13,13 @@ import android.widget.SeekBar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentRingtoneBinding
+import com.fansipan.callcolor.calltheme.utils.RealPathUtil
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
-import com.fansipan.callcolor.calltheme.utils.ex.getRingTone
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
 
 
@@ -47,7 +44,6 @@ class RingtoneFragment : BaseFragment() {
         initListener()
     }
 
-    @RequiresApi(Build.VERSION_CODES.P)
     private fun initView() {
         if (isPlay) {
             binding.imgPlay.setImageResource(R.drawable.ic_pause_gun)
@@ -56,7 +52,7 @@ class RingtoneFragment : BaseFragment() {
         }
 
         binding.sbVolumeRingtone.progress = SharePreferenceUtils.getVolumeRingtone()
-        requireContext().showToast("${requireContext().getRingTone().volume}")
+        //requireContext().showToast("${requireContext().getRingTone().volume}")
     }
 
     private fun initListener() {
@@ -72,7 +68,8 @@ class RingtoneFragment : BaseFragment() {
             chooseAudio()
         }
 
-        binding.sbVolumeRingtone.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.sbVolumeRingtone.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
                 seekBar: SeekBar?, progress: Int, fromUser: Boolean
             ) {
@@ -101,8 +98,8 @@ class RingtoneFragment : BaseFragment() {
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                //DataUtils.callThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
-                //findNavController().popBackStack()
+                val path = RealPathUtil.getRealPath(requireContext(), uri)
+                Log.e("truongpa", path)
             }
         }
 
