@@ -99,6 +99,9 @@ object SharePreferenceUtils {
     fun getTypeRingtone() = getString("getTypeRingtone", "app")
     fun setTypeRingtone(value: String) = saveKey("getTypeRingtone", value)
 
+    fun getVolumeRingtone() = getInt("getVolumeRingtone", 100)
+    fun setVolumeRingtone(value: Int) = saveKey("getVolumeRingtone", value)
+
 
     /*---------------------------------------Set Call Theme-----------------------------------------*/
     fun getIconCallChoose() = getString("getIconCallChoose", "1")

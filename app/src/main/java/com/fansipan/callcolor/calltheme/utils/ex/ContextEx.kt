@@ -6,6 +6,8 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -174,5 +176,10 @@ fun Context.isPhoneAllCall(): Boolean {
                 this,
                 Manifest.permission.ANSWER_PHONE_CALLS
             ) == PackageManager.PERMISSION_GRANTED
+}
+
+fun Context.getRingTone(): Ringtone {
+    val defaultRingtoneUri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+    return RingtoneManager.getRingtone(this, defaultRingtoneUri)
 }
 
