@@ -84,10 +84,10 @@ object SharePreferenceUtils {
     fun getVibrateRingtone() = getInt("get_vibrate_ringtone", -1)
     fun setVibrateRingtone(value: Int) = saveKey("get_vibrate_ringtone", value)
 
-    fun isEnableVibrate() = getBoolean("is_enable_vibrate", false)
-    fun setIsEnableVibrate(isEnable: Boolean) = saveKey("is_enable_vibrate", isEnable)
+    fun isEnableVibrate() = getBoolean("is_enable_vibrate", true)
+    fun setEnableVibrate(isEnable: Boolean) = saveKey("is_enable_vibrate", isEnable)
 
-    /*-----------------------------------------Vibrate----------------------------------------------*/
+    /*----------------------------------------Call Mode---------------------------------------------*/
     fun isEnableCallMode() = getBoolean("isEnableCallMode", true)
     fun setIsEnableCallMode(isEnable: Boolean) = saveKey("isEnableCallMode", isEnable)
 

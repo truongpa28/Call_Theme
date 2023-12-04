@@ -83,4 +83,96 @@
         app:layout_constraintStart_toEndOf="@+id/iv_decline"
         app:layout_constraintTop_toTopOf="@+id/iv_decline" />
 
+    <LinearLayout
+        android:id="@+id/llBtnInCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="52dp"
+            android:layout_marginBottom="24dp">
+
+            <ImageView
+                android:id="@+id/imgMicrophone"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_theme_call_mic"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/imgSpeaker"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_theme_call_speaker_off"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/imgAddMember"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_theme_call_add_member"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:layout_marginHorizontal="52dp">
+
+            <ImageView
+                android:id="@+id/imgHold"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_theme_call_hold"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/imgNewCall"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_theme_call_add_call"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/imgKeyBoard"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_theme_call_keyboard"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgFinishCall"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_theme_call_finish"/>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

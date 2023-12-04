@@ -41,7 +41,7 @@ class HomeFragment : BaseFragment() {
         binding.titleRingtone.isSelected = true
 
 
-        //showDialogPermission()
+        showDialogPermission()
     }
 
     private fun initListener() {

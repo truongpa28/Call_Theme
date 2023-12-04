@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentAlertBinding
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 
 class AlertFragment : BaseFragment() {
@@ -29,7 +30,8 @@ class AlertFragment : BaseFragment() {
     }
 
     private fun initView() {
-
+        binding.swEnableFlash.isChecked = SharePreferenceUtils.isEnableFlashMode()
+        binding.swEnableVibrate.isChecked = SharePreferenceUtils.isEnableVibrate()
     }
 
     private fun initListener() {
@@ -41,6 +43,14 @@ class AlertFragment : BaseFragment() {
 
         binding.llChooseVibrate.clickSafe {
             findNavController().navigate(R.id.action_alertFragment_to_vibrateFragment)
+        }
+
+        binding.swEnableFlash.clickSafe {
+            SharePreferenceUtils.setEnableFlashMode(binding.swEnableFlash.isChecked)
+        }
+
+        binding.swEnableVibrate.clickSafe {
+            SharePreferenceUtils.setEnableVibrate(binding.swEnableVibrate.isChecked)
         }
     }
 }

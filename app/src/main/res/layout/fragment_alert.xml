@@ -60,7 +60,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_ringtone_library" />
+            android:src="@drawable/ic_flash_alert" />
 
         <TextView
             android:layout_width="0dp"
@@ -129,7 +129,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_ringtone_library" />
+            android:src="@drawable/ic_vibrate" />
 
         <TextView
             android:layout_width="0dp"
