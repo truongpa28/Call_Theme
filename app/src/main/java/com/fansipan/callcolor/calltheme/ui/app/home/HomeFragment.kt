@@ -8,7 +8,9 @@ import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
+import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 import com.fansipan.callcolor.calltheme.service.IncomingCallService
+import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.connectService
 
@@ -54,6 +56,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.btnDIYTheme.clickSafe {
+            DataUtils.callThemeEdit = CallThemeScreenModel()
             findNavController().navigate(R.id.action_homeFragment_to_DIYThemeFragment)
         }
 

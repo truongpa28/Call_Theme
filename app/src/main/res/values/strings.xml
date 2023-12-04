@@ -55,5 +55,6 @@
     <string name="downloaded">Downloaded</string>
     <string name="created">Created</string>
     <string name="saved">Saved</string>
+    <string name="permission_denied">Permission denied</string>
 
 </resources>

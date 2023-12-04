@@ -16,11 +16,6 @@ class AvatarAdapterV2 : BaseAdapterRecyclerView<Int, ItemAvatarV2Binding>() {
     }
 
     override fun bindData(binding: ItemAvatarV2Binding, item: Int, position: Int) {
-        val context = binding.root.context
-
-        Glide.with(context)
-            .asBitmap()
-            .load(item)
-            .into(binding.imgThumbnail)
+        binding.imgThumbnail.setImageResource(item)
     }
 }

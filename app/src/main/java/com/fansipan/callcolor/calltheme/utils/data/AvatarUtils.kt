@@ -22,7 +22,6 @@ object AvatarUtils {
         R.drawable.img_avater_15,
         R.drawable.img_avater_16,
         R.drawable.img_avater_17,
-        R.drawable.img_avater_17,
         R.drawable.img_avater_18,
         R.drawable.img_avater_19,
         R.drawable.img_avater_20,

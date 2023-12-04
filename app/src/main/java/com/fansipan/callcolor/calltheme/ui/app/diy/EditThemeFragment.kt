@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentEditThemeBinding
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
@@ -46,13 +48,13 @@ class EditThemeFragment : BaseFragment() {
 
     private fun initView() {
         if (type == "diy") {
-            binding.llChooseIconCall.show()
+            binding.rcyCallIcon.show()
             binding.imgChooseBackground.show()
             adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, 11))
             binding.rcyCallIcon.adapter = adapterIconCall
 
         } else {
-            binding.llChooseIconCall.gone()
+            binding.rcyCallIcon.gone()
             binding.imgChooseBackground.gone()
         }
 
@@ -68,15 +70,35 @@ class EditThemeFragment : BaseFragment() {
             val posButton = item.buttonIndex.toInt() - 1
             binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
             binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
-            binding.imgAvatar.setImageResource(AvatarUtils.listAvatar[item.avatar.toInt()])
+
+            try {
+                val posAvt = item.avatar.toInt()
+                binding.imgAvatar.setImageResource(AvatarUtils.listAvatar[posAvt])
+            } catch (e : Exception) {
+                Glide.with(requireContext())
+                    .asBitmap()
+                    .load(item.avatar)
+                    .into(binding.imgAvatar)
+            }
 
         }
     }
 
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
-        binding.imgChooseBackground.clickSafe {
 
+        binding.imgChooseBackground.clickSafe {
+            findNavController().navigate(R.id.action_editThemeFragment_to_backgroundFragment)
+        }
+
+        binding.imgAvatar.clickSafe {
+            findNavController().navigate(R.id.action_editThemeFragment_to_avatarFragment)
+        }
+
+        adapterIconCall.setOnClickItem { item, position ->
+            DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
+            binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[position].icon1)
+            binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[position].icon2)
         }
     }
 }

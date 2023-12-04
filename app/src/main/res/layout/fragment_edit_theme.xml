@@ -25,8 +25,8 @@
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="50dp"
-            android:layout_marginStart="12dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_back_v2" />
 
@@ -39,12 +39,12 @@
             android:id="@+id/txtSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bg_btn_done"
             android:fontFamily="@font/roboto_semi_bold_600"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:paddingHorizontal="18dp"
-            android:layout_marginEnd="16dp"
             android:paddingVertical="4dp"
             android:text="@string/save"
             android:textColor="@color/white"
@@ -54,29 +54,47 @@
     </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/imgAvatar"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/llAvatar"
         android:layout_width="120dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/img_avater_1"
+        app:cardCornerRadius="120dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/img_avater_1" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:src="@drawable/ic_choose_avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/llAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/llAvatar" />
 
     <com.example.sound.pranksounds.base.custom.TextViewOutline
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold_700"
         android:text="Harry Potter"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
-        app:layout_constraintStart_toStartOf="@+id/imgAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/imgAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/llAvatar"
+        app:layout_constraintStart_toStartOf="@+id/llAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/llAvatar"
         app:outlineColor="@color/black"
         app:outlineWidth="1" />
 
@@ -84,24 +102,25 @@
         android:id="@+id/txtPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/roboto_semi_bold_600"
         android:text="0912345678"
-        android:layout_marginTop="14dp"
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="@+id/txtName"
         app:layout_constraintStart_toStartOf="@+id/txtName"
         app:layout_constraintTop_toBottomOf="@+id/txtName"
         app:outlineColor="@color/black"
-        app:outlineWidth="1"/>
+        app:outlineWidth="1" />
 
     <ImageView
         android:id="@+id/imgChooseBackground"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:src="@drawable/img_avater_1"
+        android:src="@drawable/ic_choose_background"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -111,9 +130,9 @@
         android:id="@+id/imgIconCall1"
         android:layout_width="85dp"
         android:layout_height="85dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="74dp"
         android:src="@drawable/ic_call_1_1"
-        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgIconCall2"
         app:layout_constraintStart_toStartOf="parent" />
@@ -122,43 +141,23 @@
         android:id="@+id/imgIconCall2"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:src="@drawable/ic_call_1_2"
         android:layout_marginStart="24dp"
+        android:src="@drawable/ic_call_1_2"
         app:layout_constraintBottom_toBottomOf="@+id/imgIconCall1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgIconCall1"
         app:layout_constraintTop_toTopOf="@+id/imgIconCall1" />
 
-    <HorizontalScrollView
-        android:id="@+id/llChooseIconCall"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcyCallIcon"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="16dp"
         android:fillViewport="true"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgIconCall1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcyCallIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            <ImageView
-                android:id="@+id/imgSeeMoreIconCall"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_rate_rate" />
-
-        </LinearLayout>
-
-
-    </HorizontalScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/imgIconCall1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
