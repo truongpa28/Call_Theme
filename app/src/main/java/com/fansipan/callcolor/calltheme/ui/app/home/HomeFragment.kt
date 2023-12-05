@@ -9,7 +9,7 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
-import com.fansipan.callcolor.calltheme.service.IncomingCallService
+import com.fansipan.callcolor.calltheme.service.ThemCallService
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.connectService
@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
-        requireContext().connectService(IncomingCallService::class.java)
+        requireContext().connectService(ThemCallService::class.java)
     }
 
     private fun initView() {

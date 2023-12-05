@@ -13,12 +13,12 @@ class PhoneCallHighService : CallScreeningService() {
     }
 
     override fun onScreenCall(p0: Call.Details) {
-        IncomingCallService.phoneNumber = p0.handle.schemeSpecificPart
+        ThemCallService.phoneNumber = p0.handle.schemeSpecificPart
         if (hasPermission(Manifest.permission.READ_CONTACTS)) {
-            IncomingCallService.nameContact = this.getNameContactByPhoneNumber(IncomingCallService.phoneNumber)
+            ThemCallService.nameContact = this.getNameContactByPhoneNumber(ThemCallService.phoneNumber)
         }
-        Log.d(TAG, "onScreenCall: ${IncomingCallService.phoneNumber} - ${IncomingCallService.nameContact}")
-        IncomingCallService.onGetContact?.invoke()
+        Log.d(TAG, "onScreenCall: ${ThemCallService.phoneNumber} - ${ThemCallService.nameContact}")
+        ThemCallService.onGetContact?.invoke()
     }
 
 }

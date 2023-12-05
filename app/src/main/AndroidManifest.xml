@@ -85,9 +85,17 @@
 
 
         </activity>
+        <activity
+            android:name=".service.LockCallActivity"
+            android:excludeFromRecents="false"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="behind"
+            android:showOnLockScreen="true"
+            android:theme="@style/TransparentTheme" />
 
         <service
-            android:name=".service.IncomingCallService"
+            android:name=".service.ThemCallService"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.CALL" />
