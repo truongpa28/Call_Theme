@@ -110,7 +110,7 @@ class AlertFragment : BaseFragment() {
         if (SharePreferenceUtils.isEnableVibrate()) {
             turnOffVibration()
             initVibrator(requireContext())
-            startVibration(-1)
+            startVibration(0)
         }
         timeCountDown?.start()
     }

@@ -6,7 +6,7 @@ import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 
 object RingtoneUtils {
 
-    const val nameDefaultRingtone = "sound_neon1.mp3"
+    const val nameDefaultRingtone = "Device default"
 
     val listRingtone = listOf<RingtoneModel>(
         RingtoneModel("sound_neon1.mp3", R.raw.sound_neon1, "00:48"),

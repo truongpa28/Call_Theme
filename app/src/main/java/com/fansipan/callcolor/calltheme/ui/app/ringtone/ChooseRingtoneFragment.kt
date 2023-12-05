@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentChooseRingtoneBinding
+import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.MediaPlayerUtils
+import com.fansipan.callcolor.calltheme.utils.SetRingToneDevice
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.RingtoneUtils
@@ -49,6 +51,8 @@ class ChooseRingtoneFragment : BaseFragment() {
             SharePreferenceUtils.setRingtone(item?.nameSound ?: RingtoneUtils.nameDefaultRingtone)
             adapter.chooseRingTone(position)
             item?.let { MediaPlayerUtils.startMediaPlayer(requireContext(), it.sound) }
+            SharePreferenceUtils.setTypeRingtone("app")
+            SetRingToneDevice(SharePreferenceUtils.getRingtone(), requireContext()).execute()
         }
     }
 

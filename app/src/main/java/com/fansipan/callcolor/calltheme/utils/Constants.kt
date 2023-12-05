@@ -26,8 +26,7 @@ object Constants {
         var file3: File? = null
         try {
             val file2 = File(
-                Environment.getExternalStorageDirectory()
-                    .toString() + "/Download/FlashCall/"
+                Environment.getExternalStorageDirectory().absoluteFile.toString() + "/Android/data/" + context.packageName + "/"
             )
             file2.mkdir()
             file3 = File(file2, fName)

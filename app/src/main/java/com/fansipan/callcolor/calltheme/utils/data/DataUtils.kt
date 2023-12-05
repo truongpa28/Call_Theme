@@ -50,4 +50,9 @@ object DataUtils {
         return json
     }
 
+    fun getFileNameFromPath(path: String): String {
+        val index = path.lastIndexOf("/")
+        return path.substring(index+1)
+    }
+
 }

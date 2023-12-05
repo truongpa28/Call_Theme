@@ -18,7 +18,11 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentRingtoneBinding
 import com.fansipan.callcolor.calltheme.utils.RealPathUtil
+import com.fansipan.callcolor.calltheme.utils.RingtonePlayerUtils
+import com.fansipan.callcolor.calltheme.utils.SetRingToneFromChooseAudio
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
+import com.fansipan.callcolor.calltheme.utils.data.DataUtils
+import com.fansipan.callcolor.calltheme.utils.data.RingtoneUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
 
@@ -51,6 +55,9 @@ class RingtoneFragment : BaseFragment() {
             binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
         }
 
+
+        binding.txtNameRingtone.text = SharePreferenceUtils.getRingtone()
+
         binding.sbVolumeRingtone.progress = SharePreferenceUtils.getVolumeRingtone()
         //requireContext().showToast("${requireContext().getRingTone().volume}")
     }
@@ -60,11 +67,26 @@ class RingtoneFragment : BaseFragment() {
 
 
         binding.llChooseRingtone.clickSafe {
+            RingtonePlayerUtils.stopPlayer()
             findNavController().navigate(R.id.action_ringtoneFragment_to_chooseRingtoneFragment)
         }
 
+        binding.imgPlay.clickSafe {
+            isPlay = !isPlay
+            if (isPlay) {
+                RingtonePlayerUtils.startPlayer(requireContext(), SharePreferenceUtils.getPathRingtone()) {
+                    isPlay = false
+                    binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
+                }
+                binding.imgPlay.setImageResource(R.drawable.ic_pause_gun)
+            } else {
+                binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
+                RingtonePlayerUtils.stopPlayer()
+            }
+        }
 
         binding.llChooseAudio.clickSafe {
+            RingtonePlayerUtils.stopPlayer()
             chooseAudio()
         }
 
@@ -83,6 +105,16 @@ class RingtoneFragment : BaseFragment() {
         })
     }
 
+    override fun onPause() {
+        super.onPause()
+        RingtonePlayerUtils.stopPlayer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        RingtonePlayerUtils.stopPlayer()
+    }
+
     private fun chooseAudio() {
         if (Build.VERSION.SDK_INT >= 33) {
             checkPermissionAndPickAudioMediaAudio()
@@ -98,8 +130,17 @@ class RingtoneFragment : BaseFragment() {
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                val path = RealPathUtil.getRealPath(requireContext(), uri)
-                Log.e("truongpa", path)
+                try {
+                    val path = RealPathUtil.getRealPath(requireContext(), uri)
+                    Log.e("truongpa", path)
+                    SharePreferenceUtils.setRingtone(DataUtils.getFileNameFromPath(path))
+                    SharePreferenceUtils.setTypeRingtone("app")
+                    SetRingToneFromChooseAudio(path, requireContext()).execute()
+                    binding.txtNameRingtone.text = SharePreferenceUtils.getRingtone()
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                    requireContext().showToast(getString(R.string.error))
+                }
             }
         }
 

@@ -57,6 +57,29 @@ class SetRingToneDevice(var fileName: String, var context: Context) :
     override fun onPostExecute(result: Void?) {
         super.onPostExecute(result)
         if (file != null) {
+            SharePreferenceUtils.setPathRingtone(file!!.path)
+            Constants.setRingtone(file!!, context)
+        }
+    }
+
+}
+
+class SetRingToneFromChooseAudio(var filePath: String, var context: Context) :
+    AsyncTask<Void, Void, Void>() {
+    var file: File? = null
+    override fun onPreExecute() {
+        super.onPreExecute()
+    }
+
+    override fun doInBackground(vararg p0: Void?): Void? {
+        file = File(filePath)
+        return null
+    }
+
+    override fun onPostExecute(result: Void?) {
+        super.onPostExecute(result)
+        if (file != null) {
+            SharePreferenceUtils.setPathRingtone(filePath)
             Constants.setRingtone(file!!, context)
         }
     }

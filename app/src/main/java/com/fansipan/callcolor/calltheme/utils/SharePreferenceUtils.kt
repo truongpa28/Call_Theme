@@ -96,7 +96,7 @@ object SharePreferenceUtils {
     fun getPathRingtone() = getString("getPathRingtone", "")
     fun setPathRingtone(value: String) = saveKey("getPathRingtone", value)
 
-    fun getTypeRingtone() = getString("getTypeRingtone", "app")
+    fun getTypeRingtone() = getString("getTypeRingtone", "device")
     fun setTypeRingtone(value: String) = saveKey("getTypeRingtone", value)
 
     fun getVolumeRingtone() = getInt("getVolumeRingtone", 100)

@@ -2,6 +2,7 @@ package com.fansipan.callcolor.calltheme.service
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.KeyguardManager
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,6 +14,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.PixelFormat
 import android.hardware.camera2.CameraManager
 import android.media.AudioManager
 import android.media.session.MediaController
@@ -38,6 +40,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
@@ -55,6 +58,37 @@ import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
 class IncomingCallService : Service() {
+
+    val listAvatar = listOf<Int>(
+        R.drawable.img_add_avatar,
+        R.drawable.img_avater_1,
+        R.drawable.img_avater_2,
+        R.drawable.img_avater_3,
+        R.drawable.img_avater_4,
+        R.drawable.img_avater_5,
+        R.drawable.img_avater_6,
+        R.drawable.img_avater_7,
+        R.drawable.img_avater_8,
+        R.drawable.img_avater_9,
+        R.drawable.img_avater_10,
+        R.drawable.img_avater_11,
+        R.drawable.img_avater_12,
+        R.drawable.img_avater_13,
+        R.drawable.img_avater_14,
+        R.drawable.img_avater_15,
+        R.drawable.img_avater_16,
+        R.drawable.img_avater_17,
+        R.drawable.img_avater_18,
+        R.drawable.img_avater_19,
+        R.drawable.img_avater_20,
+        R.drawable.img_avater_21,
+        R.drawable.img_avater_22,
+        R.drawable.img_avater_23,
+        R.drawable.img_avater_24,
+        R.drawable.img_avater_25,
+        R.drawable.img_avater_26,
+        R.drawable.img_avater_27
+    )
     companion object {
         const val TAG = "IncomingCallService"
         var phoneNumber = ""
@@ -122,10 +156,29 @@ class IncomingCallService : Service() {
     }
 
     private fun initThemeCall() {
+        val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+        val keyguardLock = keyguardManager.newKeyguardLock(Context.KEYGUARD_SERVICE)
+        keyguardLock.disableKeyguard()
         windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
-        paramsIn = WindowManager.LayoutParams(
+        /*paramsIn = WindowManager.LayoutParams(
             -1, -1, if (isSdk26()) 2038 else 2010, 19399552, -3
-        )
+        )*/
+        paramsIn = if (Build.VERSION.SDK_INT >= 26) {
+            WindowManager.LayoutParams(
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                        or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                        or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                        or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                PixelFormat.TRANSLUCENT
+            )
+        } else {
+            WindowManager.LayoutParams(
+                WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
+                4719872,
+                PixelFormat.TRANSLUCENT
+            )
+        }
         val layoutInflater: LayoutInflater =
             this.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         this.view = layoutInflater.inflate(R.layout.layout_service_call_theme1, null as ViewGroup?)
@@ -155,18 +208,28 @@ class IncomingCallService : Service() {
         //photo avatar
         Glide.with(this).load(SharePreferenceUtils.getAvatarChoose()).into(ivAvatar)
 
-        val posButton = SharePreferenceUtils.getIconCallChoose().toInt() -1
+        val posButton = SharePreferenceUtils.getIconCallChoose().toInt() - 1
         ivDecline.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
         ivAccept.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
 
         try {
-            val posAvt = SharePreferenceUtils.getAvatarChoose().toInt()
-            ivAvatar.setImageResource(AvatarUtils.listAvatar[posAvt])
-        } catch (e : Exception) {
-            Glide.with(this)
-                .asBitmap()
-                .load(SharePreferenceUtils.getAvatarChoose())
-                .into(ivAvatar)
+            val posAvt = SharePreferenceUtils.getAvatarChoose()
+            if (posAvt.length < 3) {
+                Glide.with(this)
+                    .asBitmap()
+                    .load(listAvatar[posAvt.toInt()])
+                    .into(ivAvatar)
+                    .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
+            } else {
+                Glide.with(this)
+                    .asBitmap()
+                    .load(SharePreferenceUtils.getAvatarChoose())
+                    .into(ivAvatar)
+                    .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ivAvatar.setImageResource(AvatarUtils.listAvatar[1])
         }
 
         tvSdt.text = phoneNumber
@@ -177,12 +240,13 @@ class IncomingCallService : Service() {
         ivDecline.startAnimation(loadAnimation)
 
         ivAccept.setOnClickListener {
-            //rlView.visibility = View.GONE
             //ctTimeCall.visibility = View.VISIBLE
             //ctTimeCall.start()
             ivDecline.clearAnimation()
+            ivAccept.clearAnimation()
             acceptCallPhone()
             stopFlash()
+            turnOffVibration()
 
             ivAccept.gone()
             ivDecline.gone()
@@ -192,6 +256,8 @@ class IncomingCallService : Service() {
         ivDecline.setOnClickListener {
             rlView.visibility = View.GONE
             declineCallPhone()
+            stopFlash()
+            turnOffVibration()
         }
 
         imgMicrophone.setOnClickListener {
@@ -241,7 +307,8 @@ class IncomingCallService : Service() {
                 } else {
                     imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_off)
                 }
-            } catch (_:Exception){}
+            } catch (_: Exception) {
+            }
         }
 
         imgAddMember.setOnClickListener {
@@ -300,7 +367,7 @@ class IncomingCallService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(phoneCallReceiver)
-        if (isOKFlash(this) && availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
+        if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
             view?.let { windowManager?.removeView(it) }
         }
     }
@@ -326,46 +393,25 @@ class IncomingCallService : Service() {
             }
             val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                /*if (!isFlashEnable()) {
-                    context.showToast("Flash mode is off, please turn on it..", true)
-                } else {
-                    val title = context.getString(R.string.app_name)
-                    val content = getContentRandom(
-                        mutableListOf(
-                            context.getString(R.string.notification_incoming_call_1),
-                            context.getString(R.string.notification_incoming_call_2),
-                            context.getString(R.string.notification_incoming_call_3),
-                            context.getString(R.string.notification_incoming_call_4)
-                        )
-                    )
-                    if (isSdk33()) {
-                        if (context.hasPermission(Manifest.permission.POST_NOTIFICATIONS)) {
-                            createNotification(context, title, content, R.drawable.ic_call_noti)
+                if (SharePreferenceUtils.isEnableFlashMode()) {
+                    startFlash()
+                }
+                if (SharePreferenceUtils.isEnableVibrate()) {
+                    initVibrator(context)
+                    startVibration(0)
+                }
+                try {
+                    if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
+                        initThemeCall()
+                        onGetContact = {
+                            tvSdt.text = phoneNumber
+                            tvName.text = nameContact
                         }
-                    } else {
-                        createNotification(context, title, content, R.drawable.ic_call_noti)
+                        view?.visibility = View.VISIBLE
+                        windowManager?.addView(view, paramsIn)
                     }
-                }*/
-                if (isOKFlash(context)) {
-                    if (SharePreferenceUtils.isEnableCallMode()) {
-                        startFlash()
-                    }
-                    if (SharePreferenceUtils.isEnableVibrate()) {
-                        initVibrator(context)
-                        startVibration(0)
-                    }
-                    try {
-                        if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
-                            initThemeCall()
-                            onGetContact = {
-                                tvSdt.text = phoneNumber
-                                tvName.text = nameContact
-                            }
-                            windowManager?.addView(view, paramsIn)
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                 Log.d(TAG, "2.EXTRA_STATE_OFFHOOK")
@@ -373,7 +419,7 @@ class IncomingCallService : Service() {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 stopFlash()
                 turnOffVibration()
-                if (isOKFlash(context) && availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
+                if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
                         view?.let { windowManager?.removeView(it) }
                     } catch (e: Exception) {
@@ -563,8 +609,6 @@ class IncomingCallService : Service() {
         }
 
     }
-
-    fun isOKFlash(context: Context) = true
 }
 
 fun Service.startWithNotification() {
