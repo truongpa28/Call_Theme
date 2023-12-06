@@ -1,27 +1,19 @@
 package com.fansipan.callcolor.calltheme.service
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.BroadcastReceiver
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.PixelFormat
 import android.hardware.camera2.CameraManager
-import android.media.AudioManager
-import android.media.session.MediaController
-import android.media.session.MediaSessionManager
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
@@ -30,16 +22,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import com.fansipan.callcolor.calltheme.MyApplication
+import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
+import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
+import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.ex.gone
-import com.fansipan.callcolor.calltheme.utils.ex.isSdk26
 import com.fansipan.callcolor.calltheme.utils.ex.show
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
@@ -61,10 +53,22 @@ class LockCallActivity : AppCompatActivity() {
 
     lateinit var imgDecline: ImageView
     lateinit var imgAccept: ImageView
+    lateinit var imgAvatar: ImageView
+    lateinit var imgBackground: ImageView
+
+    lateinit var imgMicrophone: ImageView
+    lateinit var imgSpeaker: ImageView
+    lateinit var imgAddMember: ImageView
+    lateinit var imgHold: ImageView
+    lateinit var imgNewCall: ImageView
+    lateinit var imgKeyBoard: ImageView
+    lateinit var imgFinishCall: ImageView
 
     lateinit var llBtnInCall: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        //region Status Bar Color
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -73,16 +77,17 @@ class LockCallActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        //endregion
 
         super.onCreate(savedInstanceState)
+
+        //region KEYGUARD_SERVICE
         val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
         val keyguardLock = keyguardManager.newKeyguardLock(Context.KEYGUARD_SERVICE)
         keyguardLock.disableKeyguard()
+        //endregion
 
-        cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
-
-        mView = View.inflate(applicationContext, R.layout.layout_call_theme, null)
-        mView.setTag("CustomLockScreen")
+        //region LayoutParams
         val mLayoutParams = if (Build.VERSION.SDK_INT >= 26) {
             WindowManager.LayoutParams(
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
@@ -99,24 +104,71 @@ class LockCallActivity : AppCompatActivity() {
                 PixelFormat.TRANSLUCENT
             )
         }
-        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         window.attributes = mLayoutParams
+        //endregion
+
+        cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
+        mView = View.inflate(applicationContext, R.layout.layout_call_theme, null)
+        mView.tag = "LockCallActivity"
+        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
 
         txtName = mView.findViewById(R.id.txtName)
         txtSdt = mView.findViewById(R.id.txtSdt)
         imgDecline = mView.findViewById(R.id.imgDecline)
         imgAccept = mView.findViewById(R.id.imgAccept)
+        imgAvatar = mView.findViewById(R.id.imgAvatar)
+        imgBackground = mView.findViewById(R.id.imgBackground)
         llBtnInCall = mView.findViewById(R.id.llBtnInCall)
+        imgMicrophone = mView.findViewById(R.id.imgMicrophone)
+        imgSpeaker = mView.findViewById(R.id.imgSpeaker)
+        imgAddMember = mView.findViewById(R.id.imgAddMember)
+        imgHold = mView.findViewById(R.id.imgHold)
+        imgNewCall = mView.findViewById(R.id.imgNewCall)
+        imgKeyBoard = mView.findViewById(R.id.imgKeyBoard)
+        imgFinishCall = mView.findViewById(R.id.imgFinishCall)
 
         txtName.text = ThemCallService.nameContact
         txtSdt.text = ThemCallService.phoneNumber
 
+        val posButton = SharePreferenceUtils.getIconCallChoose().toInt() - 1
+        imgDecline.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
+        imgAccept.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
+
+        //background
+        Glide.with(this).load(SharePreferenceUtils.getBackgroundChoose()).into(imgBackground)
+
+        try {
+            val posAvt = SharePreferenceUtils.getAvatarChoose()
+            if (posAvt.length < 3) {
+                Glide.with(this)
+                    .asBitmap()
+                    .load(AvatarUtils.listAvatar[posAvt.toInt()])
+                    .into(imgAvatar)
+                    .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
+            } else {
+                Glide.with(this)
+                    .asBitmap()
+                    .load(SharePreferenceUtils.getAvatarChoose())
+                    .into(imgAvatar)
+                    .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         val loadAnimation: Animation = AnimationUtils.loadAnimation(this, R.anim.jump_button)
         imgAccept.startAnimation(loadAnimation)
         imgDecline.startAnimation(loadAnimation)
 
+        initListener()
+
+        mView.visibility = View.VISIBLE
+        mWindowManager.addView(mView, mLayoutParams)
+
+    }
+
+    private fun initListener() {
         imgDecline.setOnClickListener {
-            declineCallPhone()
+            LockCallUtil.declineCallPhone(this)
             stopFlash()
             turnOffVibration()
         }
@@ -124,7 +176,7 @@ class LockCallActivity : AppCompatActivity() {
         imgAccept.setOnClickListener {
             imgDecline.clearAnimation()
             imgAccept.clearAnimation()
-            acceptCallPhone()
+            LockCallUtil.acceptCallPhone(this)
             stopFlash()
             turnOffVibration()
 
@@ -133,12 +185,31 @@ class LockCallActivity : AppCompatActivity() {
             llBtnInCall.show()
         }
 
+        imgMicrophone.setOnClickListener {
 
-        mView.visibility = View.VISIBLE
-        mWindowManager.addView(mView, mLayoutParams)
+        }
+        imgSpeaker.setOnClickListener {
+
+        }
+        imgAddMember.setOnClickListener {
+
+        }
+        imgHold.setOnClickListener {
+
+        }
+        imgNewCall.setOnClickListener {
+
+        }
+        imgKeyBoard.setOnClickListener {
+
+        }
+        imgFinishCall.setOnClickListener {
+
+        }
 
     }
 
+    //region Flash
     private fun startFlash(timeLoop: Long = 100000, speed: Long? = null) {
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         Log.d(TAG, "startFlash")
@@ -203,95 +274,7 @@ class LockCallActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("ServiceCast")
-    private fun acceptCallPhone() {
-        if (isSdk26()) { // Pris en charge Android >= 8.0
-            val tm = this.getSystemService(TELECOM_SERVICE) as TelecomManager
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.ANSWER_PHONE_CALLS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                return
-            }
-            tm.acceptRingingCall()
-        }
-
-        if (Build.VERSION.SDK_INT in 23..25) { // Hangup in Android 6.x and 7.x
-            val mediaSessionManager =
-                this.getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
-
-            if (mediaSessionManager != null) {
-                try {
-                    val mediaControllerList: List<MediaController> =
-                        mediaSessionManager.getActiveSessions(
-                            ComponentName(
-                                this,
-                                NotificationService::class.java
-                            )
-                        )
-
-                    for (m in mediaControllerList) {
-                        if ("com.android.server.telecom" == m.packageName) {
-                            m.dispatchMediaButtonEvent(
-                                KeyEvent(
-                                    KeyEvent.ACTION_DOWN,
-                                    KeyEvent.KEYCODE_HEADSETHOOK
-                                )
-                            )
-                            m.dispatchMediaButtonEvent(
-                                KeyEvent(
-                                    KeyEvent.ACTION_UP,
-                                    KeyEvent.KEYCODE_HEADSETHOOK
-                                )
-                            )
-                            break
-                        }
-                    }
-
-                } catch (e: Exception) {
-
-                }
-            }
-        }
-
-        if (Build.VERSION.SDK_INT < 23) { // Prend en charge jusqu'à Android 5.1
-            try {
-                if (Build.MANUFACTURER.equals("HTC", ignoreCase = true)) { // Uniquement pour HTC
-                    val audioManager: AudioManager =
-                        this.getSystemService(AUDIO_SERVICE) as AudioManager
-                    if (!audioManager.isWiredHeadsetOn) {
-                        val i = Intent(Intent.ACTION_HEADSET_PLUG)
-                        i.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY)
-                        i.putExtra("state", 0)
-                        i.putExtra("name", "Orasi")
-                        try {
-                            this.sendOrderedBroadcast(i, null)
-                        } catch (e: java.lang.Exception) { /* Do Nothing */
-                        }
-                    }
-                }
-                Runtime.getRuntime().exec(
-                    "input keyevent " + Integer.toString(KeyEvent.KEYCODE_HEADSETHOOK)
-                )
-            } catch (e: java.lang.Exception) {
-                // Runtime.exec(String) had an I/O problem, try to fall back
-                val enforcedPerm = "android.permission.CALL_PRIVILEGED"
-                val btnDown = Intent(Intent.ACTION_MEDIA_BUTTON).putExtra(
-                    Intent.EXTRA_KEY_EVENT, KeyEvent(
-                        KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_HEADSETHOOK
-                    )
-                )
-                val btnUp = Intent(Intent.ACTION_MEDIA_BUTTON).putExtra(
-                    Intent.EXTRA_KEY_EVENT, KeyEvent(
-                        KeyEvent.ACTION_UP, KeyEvent.KEYCODE_HEADSETHOOK
-                    )
-                )
-                this.sendOrderedBroadcast(btnDown, enforcedPerm)
-                this.sendOrderedBroadcast(btnUp, enforcedPerm)
-            }
-        }
-    }
-
+    //endregion
 
 
     override fun onDestroy() {
@@ -305,7 +288,7 @@ class LockCallActivity : AppCompatActivity() {
     }
 
 
-    inner class PhoneCallReceiver2 : BroadcastReceiver() {
+    val sert = object : BroadcastReceiver() {
         private val TAG = "PhoneCallReceiver2"
 
         @SuppressLint("MissingPermission")
@@ -323,7 +306,7 @@ class LockCallActivity : AppCompatActivity() {
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 try {
                     if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
-                        lock()
+                        //lock()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
