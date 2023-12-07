@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentIconCallBinding
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV2
+import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 
@@ -39,6 +40,10 @@ class IconCallFragment : BaseFragment() {
 
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
+        adapterIconCall.setOnClickItem { _, position ->
+            DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
+            onBack()
+        }
     }
 
 }

@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentDIYThemeBinding
@@ -31,6 +32,7 @@ import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.AvatarAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.BackgroundAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
+import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV3
 import com.fansipan.callcolor.calltheme.utils.RealPathUtil
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
@@ -88,6 +90,35 @@ class DIYThemeFragment : BaseFragment() {
 
         adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, 11))
         binding.rcyCallIcon.adapter = adapterIconCall
+
+        showPreview()
+    }
+
+    private fun showPreview() {
+        Glide.with(requireContext()).load(DataUtils.callThemeEdit.background).into(binding.imgBackground)
+
+        val posButton = DataUtils.callThemeEdit.buttonIndex.toInt() - 1
+        binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
+        binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
+
+        try {
+            val posAvt = DataUtils.callThemeEdit.avatar
+            if (posAvt.length < 3) {
+                Glide.with(this)
+                    .asBitmap()
+                    .load(AvatarUtils.listAvatar[posAvt.toInt()])
+                    .into(binding.imgAvatar)
+                    .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))
+            } else {
+                Glide.with(this)
+                    .asBitmap()
+                    .load(DataUtils.callThemeEdit.avatar)
+                    .into(binding.imgAvatar)
+                    .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun initListener() {

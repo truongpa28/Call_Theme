@@ -11,6 +11,7 @@ import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentEditThemeBinding
 import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
+import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV3
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.DataSaved
@@ -25,10 +26,14 @@ class EditThemeFragment : BaseFragment() {
     private lateinit var binding: FragmentEditThemeBinding
 
     private val adapterIconCall by lazy {
-        IconCallAdapter()
+        IconCallAdapterV3()
     }
 
     private var type = "diy"
+
+    companion object {
+        const val COUNT_ICON = 12
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +58,7 @@ class EditThemeFragment : BaseFragment() {
         if (type == "diy") {
             binding.rcyCallIcon.show()
             binding.imgChooseBackground.show()
-            adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, 11))
+            adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, COUNT_ICON))
             binding.rcyCallIcon.adapter = adapterIconCall
 
         } else {
@@ -99,9 +104,14 @@ class EditThemeFragment : BaseFragment() {
         }
 
         adapterIconCall.setOnClickItem { item, position ->
-            DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
-            binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[position].icon1)
-            binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[position].icon2)
+            if (position == COUNT_ICON -1 ) {
+                findNavController().navigate(R.id.action_editThemeFragment_to_iconCallFragment)
+            } else {
+                DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
+                binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[position].icon1)
+                binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[position].icon2)
+            }
+
         }
 
         binding.txtSave.clickSafe {

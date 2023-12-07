@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@drawable/bg_app_v1"
+    android:orientation="vertical"
     tools:context=".ui.app.diy.DIYThemeFragment">
 
     <LinearLayout
@@ -15,19 +15,19 @@
         <ImageView
             android:id="@+id/imgBack"
             android:layout_width="50dp"
-            android:foreground="?android:attr/selectableItemBackground"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_back"/>
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="22sp"
             android:fontFamily="@font/roboto_semi_bold_600"
-            android:textColor="@color/black_app"
             android:gravity="center_vertical|left"
-            android:text="@string/diy_theme"/>
+            android:text="@string/diy_theme"
+            android:textColor="@color/black_app"
+            android:textSize="22sp" />
 
     </LinearLayout>
 
@@ -35,14 +35,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
-        android:fillViewport="true"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:paddingHorizontal="16dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -53,15 +53,15 @@
                     android:id="@+id/txtPreview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical|left"
-                    android:text="@string/preview"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="-4dp"
+                    android:layout_marginTop="4dp"
                     android:background="@drawable/bg_title_preview_home"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:fontFamily="@font/roboto_semi_bold_600"
-                    android:textSize="12sp"
+                    android:gravity="center_vertical|left"
                     android:padding="8dp"
+                    android:text="@string/preview"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/llPreview"
                     app:layout_constraintTop_toTopOf="@+id/llPreview" />
@@ -90,8 +90,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/imgBackground"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
                             android:src="@color/black" />
 
                         <ImageView
@@ -108,11 +110,11 @@
                         android:layout_marginTop="48dp"
                         android:src="@drawable/img_avater_1"
                         app:cardCornerRadius="120dp"
-                        app:layout_constraintWidth_percent="0.3"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3">
 
                         <ImageView
                             android:id="@+id/imgAvatar"
@@ -129,9 +131,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:elevation="10dp"
                         android:fontFamily="@font/roboto_semi_bold_600"
                         android:text="Harry Potter"
-                        android:elevation="10dp"
                         android:textColor="@color/white"
                         android:textSize="10sp"
                         app:layout_constraintEnd_toEndOf="@+id/llAvatar"
@@ -172,44 +174,44 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_semi_bold_600"
                 android:text="@string/background"
                 android:textColor="@color/black_app"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto_semi_bold_600"/>
+                android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcyBackground"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="12dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_semi_bold_600"
                 android:text="@string/avatar"
                 android:textColor="@color/black_app"
-                android:layout_marginTop="16dp"
-                android:textSize="18sp"
-                android:fontFamily="@font/roboto_semi_bold_600"/>
+                android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcyAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="12dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_semi_bold_600"
                 android:text="@string/call_icon"
                 android:textColor="@color/black_app"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_semi_bold_600"/>
+                android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcyCallIcon"
@@ -217,8 +219,8 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="20dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
 
