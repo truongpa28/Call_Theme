@@ -13,6 +13,7 @@ import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogDeleteDownloaded
 import com.fansipan.callcolor.calltheme.utils.data.DataSaved
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.getPathOfBg
 import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
@@ -59,6 +60,8 @@ class SavedFragment(val posView: Int) : BaseFragment() {
 
     private fun initView() {
         binding.rcyCollection.adapter = adapter
+
+        binding.imgAddNew.showOrGone(posView!=0)
     }
 
     private fun initListener() {
@@ -82,6 +85,11 @@ class SavedFragment(val posView: Int) : BaseFragment() {
                     initData()
                 }
             }
+        }
+
+        binding.imgAddNew.clickSafe {
+            DataUtils.callThemeEdit = CallThemeScreenModel()
+            findNavController().navigate(R.id.action_downloadedFragment_to_DIYThemeFragment)
         }
     }
 }

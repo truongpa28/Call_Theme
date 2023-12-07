@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_downloadedFragment_to_editThemeFragment"
             app:destination="@id/editThemeFragment" />
+        <action
+            android:id="@+id/action_downloadedFragment_to_DIYThemeFragment"
+            app:destination="@id/DIYThemeFragment" />
     </fragment>
 
     <fragment

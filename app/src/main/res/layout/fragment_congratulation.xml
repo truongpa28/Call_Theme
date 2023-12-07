@@ -1,11 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_app_v1"
+    android:orientation="vertical"
     tools:context=".ui.app.themecall.CongratulationFragment">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_back_v2" />
+
+        <TextView
+            android:id="@+id/txtSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="4dp"
+            android:text="@string/congratulation"
+            android:textColor="@color/black_app"
+            android:textSize="24sp" />
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:foreground="?android:attr/selectableItemBackground" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium_500"
+        android:gravity="center"
+        android:text="@string/you_have_successfully_installed_the_calling_screen"
+        android:textColor="@color/black_app"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llPreview"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.43"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="32dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="156:277"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@color/black" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_preview_congratulation" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/llAvatar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/img_avater_1"
+            app:cardCornerRadius="120dp"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_avater_1" />
 
 
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.example.sound.pranksounds.base.custom.TextViewOutline
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:text="Harry Potter"
+            android:elevation="10dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/llAvatar"
+            app:layout_constraintStart_toStartOf="@+id/llAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/llAvatar"
+            app:outlineColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imgIconCall1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:elevation="10dp"
+            android:src="@drawable/ic_call_1_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imgIconCall2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <ImageView
+            android:id="@+id/imgIconCall2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="10dp"
+            android:src="@drawable/ic_call_1_2"
+            app:layout_constraintBottom_toBottomOf="@+id/imgIconCall1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgIconCall1"
+            app:layout_constraintTop_toTopOf="@+id/imgIconCall1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animLottie"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/llPreview"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:lottie_autoPlay="true"
+        android:layout_marginBottom="-60dp"
+        app:lottie_rawRes="@raw/happy" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:fontFamily="@font/roboto_semi_bold_600"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="48dp"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="24dp"
+        android:background="@drawable/bg_btn_apply"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llPreview"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
