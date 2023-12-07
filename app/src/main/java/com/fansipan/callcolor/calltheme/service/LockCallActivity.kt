@@ -2,6 +2,11 @@ package com.fansipan.callcolor.calltheme.service
 
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -21,18 +26,27 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
+import com.fansipan.callcolor.calltheme.databinding.ItemFlashBinding
+import com.fansipan.callcolor.calltheme.databinding.LayoutCallThemeBinding
+import com.fansipan.callcolor.calltheme.ui.main.MainActivity
+import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.ex.gone
+import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
 import com.fansipan.callcolor.calltheme.utils.ex.show
+import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
 class LockCallActivity : AppCompatActivity() {
@@ -44,27 +58,7 @@ class LockCallActivity : AppCompatActivity() {
     private var cameraManager: CameraManager? = null
     private var timeCountDown: CountDownTimer? = null
 
-    lateinit var mWindowManager: WindowManager
-
-    lateinit var mView: View
-
-    lateinit var txtName: TextView
-    lateinit var txtSdt: TextView
-
-    lateinit var imgDecline: ImageView
-    lateinit var imgAccept: ImageView
-    lateinit var imgAvatar: ImageView
-    lateinit var imgBackground: ImageView
-
-    lateinit var imgMicrophone: ImageView
-    lateinit var imgSpeaker: ImageView
-    lateinit var imgAddMember: ImageView
-    lateinit var imgHold: ImageView
-    lateinit var imgNewCall: ImageView
-    lateinit var imgKeyBoard: ImageView
-    lateinit var imgFinishCall: ImageView
-
-    lateinit var llBtnInCall: LinearLayout
+    private lateinit var binding: LayoutCallThemeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -80,6 +74,10 @@ class LockCallActivity : AppCompatActivity() {
         //endregion
 
         super.onCreate(savedInstanceState)
+
+        initVibrator(this)
+        SharePreferenceUtils.init(this)
+
 
         //region KEYGUARD_SERVICE
         val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
@@ -108,34 +106,19 @@ class LockCallActivity : AppCompatActivity() {
         //endregion
 
         cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
-        mView = View.inflate(applicationContext, R.layout.layout_call_theme, null)
-        mView.tag = "LockCallActivity"
-        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        binding = LayoutCallThemeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        txtName = mView.findViewById(R.id.txtName)
-        txtSdt = mView.findViewById(R.id.txtSdt)
-        imgDecline = mView.findViewById(R.id.imgDecline)
-        imgAccept = mView.findViewById(R.id.imgAccept)
-        imgAvatar = mView.findViewById(R.id.imgAvatar)
-        imgBackground = mView.findViewById(R.id.imgBackground)
-        llBtnInCall = mView.findViewById(R.id.llBtnInCall)
-        imgMicrophone = mView.findViewById(R.id.imgMicrophone)
-        imgSpeaker = mView.findViewById(R.id.imgSpeaker)
-        imgAddMember = mView.findViewById(R.id.imgAddMember)
-        imgHold = mView.findViewById(R.id.imgHold)
-        imgNewCall = mView.findViewById(R.id.imgNewCall)
-        imgKeyBoard = mView.findViewById(R.id.imgKeyBoard)
-        imgFinishCall = mView.findViewById(R.id.imgFinishCall)
 
-        txtName.text = ThemCallService.nameContact
-        txtSdt.text = ThemCallService.phoneNumber
+        binding.txtName.text = ThemCallService.nameContact
+        binding.txtSdt.text = ThemCallService.phoneNumber
 
         val posButton = SharePreferenceUtils.getIconCallChoose().toInt() - 1
-        imgDecline.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
-        imgAccept.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
+        binding.imgDecline.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
+        binding.imgAccept.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
 
         //background
-        Glide.with(this).load(SharePreferenceUtils.getBackgroundChoose()).into(imgBackground)
+        Glide.with(this).load(SharePreferenceUtils.getBackgroundChoose()).into(binding.imgBackground)
 
         try {
             val posAvt = SharePreferenceUtils.getAvatarChoose()
@@ -143,68 +126,76 @@ class LockCallActivity : AppCompatActivity() {
                 Glide.with(this)
                     .asBitmap()
                     .load(AvatarUtils.listAvatar[posAvt.toInt()])
-                    .into(imgAvatar)
+                    .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
             } else {
                 Glide.with(this)
                     .asBitmap()
                     .load(SharePreferenceUtils.getAvatarChoose())
-                    .into(imgAvatar)
+                    .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
         val loadAnimation: Animation = AnimationUtils.loadAnimation(this, R.anim.jump_button)
-        imgAccept.startAnimation(loadAnimation)
-        imgDecline.startAnimation(loadAnimation)
+        binding.imgAccept.startAnimation(loadAnimation)
+        binding.imgDecline.startAnimation(loadAnimation)
 
         initListener()
 
-        mView.visibility = View.VISIBLE
-        mWindowManager.addView(mView, mLayoutParams)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onClickBack()
+            }
+        })
 
     }
 
+    fun onClickBack() {
+        finish()
+    }
+
     private fun initListener() {
-        imgDecline.setOnClickListener {
+        binding.imgDecline.setOnClickListener {
             LockCallUtil.declineCallPhone(this)
             stopFlash()
             turnOffVibration()
         }
 
-        imgAccept.setOnClickListener {
-            imgDecline.clearAnimation()
-            imgAccept.clearAnimation()
+        binding.imgAccept.setOnClickListener {
+            binding.imgDecline.clearAnimation()
+            binding.imgAccept.clearAnimation()
             LockCallUtil.acceptCallPhone(this)
             stopFlash()
             turnOffVibration()
 
-            imgAccept.gone()
-            imgDecline.gone()
-            llBtnInCall.show()
+            binding.imgAccept.gone()
+            binding.imgDecline.gone()
+            binding.llBtnInCall.show()
         }
 
-        imgMicrophone.setOnClickListener {
+        binding.imgMicrophone.setOnClickListener {
 
         }
-        imgSpeaker.setOnClickListener {
+        binding.imgSpeaker.setOnClickListener {
 
         }
-        imgAddMember.setOnClickListener {
+        binding.imgAddMember.setOnClickListener {
 
         }
-        imgHold.setOnClickListener {
+        binding.imgHold.setOnClickListener {
 
         }
-        imgNewCall.setOnClickListener {
+        binding.imgNewCall.setOnClickListener {
 
         }
-        imgKeyBoard.setOnClickListener {
+        binding.imgKeyBoard.setOnClickListener {
 
         }
-        imgFinishCall.setOnClickListener {
-
+        binding.imgFinishCall.setOnClickListener {
+            LockCallUtil.declineCallPhone(this)
         }
 
     }
@@ -277,19 +268,8 @@ class LockCallActivity : AppCompatActivity() {
     //endregion
 
 
-    override fun onDestroy() {
-        removeView()
-        super.onDestroy()
-    }
-
-    private fun removeView() {
-        mWindowManager.removeView(mView)
-        finish()
-    }
-
-
     val sert = object : BroadcastReceiver() {
-        private val TAG = "PhoneCallReceiver2"
+        private val TAG = "truongpa"
 
         @SuppressLint("MissingPermission")
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -306,7 +286,8 @@ class LockCallActivity : AppCompatActivity() {
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 try {
                     if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
-                        //lock()
+                        startFlash()
+                        startVibration(0)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -317,7 +298,7 @@ class LockCallActivity : AppCompatActivity() {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-
+                        finish()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

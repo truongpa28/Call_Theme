@@ -1,5 +1,6 @@
 package com.fansipan.callcolor.calltheme.service
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
@@ -10,13 +11,17 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.telephony.TelephonyManager
 import android.util.Log
+import android.widget.RemoteViews
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.fansipan.callcolor.calltheme.MyApplication
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
@@ -90,6 +95,7 @@ class ThemCallService : Service() {
                 try {
                     if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                         lock()
+                        startCallingNotification()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -157,4 +163,58 @@ fun Service.startWithNotification() {
         startForeground(2, notification)
     }
 
+}
+
+@SuppressLint("RemoteViewLayout")
+fun Context.startCallingNotification() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val name: CharSequence = Constants.NOTIFICATION_CHANNEL_NAME
+        val description = Constants.NOTIFICATION_DETAILS
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID2, name, importance)
+        channel.description = description
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
+
+    }
+
+    val intentOpenApp = Intent(this, LockCallActivity::class.java).apply {}
+    val pendingIntentOpenApp = PendingIntent.getActivity(
+        this,
+        0,
+        intentOpenApp,
+        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+    )
+    //create notify
+    val notificationBuilder: NotificationCompat.Builder = NotificationCompat.Builder(
+        this, Constants.NOTIFICATION_CHANNEL_ID2
+    ).apply {
+        priority = NotificationCompat.PRIORITY_LOW
+    }
+
+    val bigView :RemoteViews = RemoteViews(this.packageName, R.layout.layout_calling_notification_big)
+    val smallView :RemoteViews = RemoteViews(this.packageName, R.layout.layout_calling_notification_small)
+
+    val notification = notificationBuilder.setOngoing(true).setSmallIcon(R.mipmap.ic_launcher)
+        .setContentTitle("Có cuộc gọi đến!")
+        .setContentText("Có cuộc gọi đến.......!")
+        .setPriority(NotificationManager.IMPORTANCE_MIN)
+        .setCategory(Notification.CATEGORY_SERVICE).setContentIntent(pendingIntentOpenApp)
+        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+        .setCustomContentView(smallView)
+        .setCustomBigContentView(bigView)
+        .build()
+
+    if (ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    ) {
+        NotificationManagerCompat.from(this).notify(6112023, notification)
+        Log.e("truongpa", "POST_NOTIFICATIONS: DONE")
+    } else {
+        Log.e("truongpa", "POST_NOTIFICATIONS: NO")
+    }
 }
