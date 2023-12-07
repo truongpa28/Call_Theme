@@ -12,6 +12,7 @@ import com.fansipan.callcolor.calltheme.databinding.FragmentEditThemeBinding
 import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV3
+import com.fansipan.callcolor.calltheme.ui.dialog.DialogQuitEdit
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.DataSaved
@@ -27,6 +28,10 @@ class EditThemeFragment : BaseFragment() {
 
     private val adapterIconCall by lazy {
         IconCallAdapterV3()
+    }
+
+    private val dialogQuitEdit by lazy {
+        DialogQuitEdit(requireContext())
     }
 
     private var type = "diy"
@@ -111,7 +116,6 @@ class EditThemeFragment : BaseFragment() {
                 binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[position].icon1)
                 binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[position].icon2)
             }
-
         }
 
         binding.txtSave.clickSafe {
@@ -137,5 +141,11 @@ class EditThemeFragment : BaseFragment() {
         }
         findNavController().navigate(R.id.action_editThemeFragment_to_congratulationFragment)
 
+    }
+
+    override fun onBack() {
+        dialogQuitEdit.show {
+            super.onBack()
+        }
     }
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="40dp"
+    android:background="@drawable/bg_dialog_v1"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_semi_bold_600"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:text="@string/do_you_want_to_delete"
+            android:textColor="#3F3F4B"
+            android:textSize="22sp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular_400"
+            android:gravity="center"
+            android:paddingHorizontal="28dp"
+            android:text="@string/content_dialog_quit_edit"
+            android:textColor="#3F3F4B"
+            android:textSize="18sp"
+            android:layout_marginBottom="32dp"/>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_semi_bold_600"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="6dp"
+                android:text="@string/cancel"
+                android:layout_marginHorizontal="22dp"
+                android:background="@drawable/bg_btn_yes"
+                android:textColor="@color/main_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btnOk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_semi_bold_600"
+                android:gravity="center"
+                android:layout_marginHorizontal="22dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="6dp"
+                android:text="@string/ok"
+                android:background="@drawable/bg_btn_apply"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
