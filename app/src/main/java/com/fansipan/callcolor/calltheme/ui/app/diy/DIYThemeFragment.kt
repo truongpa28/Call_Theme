@@ -122,7 +122,7 @@ class DIYThemeFragment : BaseFragment() {
     private fun clickItemCollection(item : CallThemeScreenModel?, position: Int) {
         item?.let {
             val fileName = "${item.category}_${item.id}.png"
-            if (SharePreferenceUtils.isThemeDownload(fileName)) {
+            if (SharePreferenceUtils.isBackgroundDownload(fileName)) {
                 findNavController().navigate(
                     R.id.action_DIYThemeFragment_to_editThemeFragment,
                     bundleOf("type" to "diy")
@@ -131,7 +131,7 @@ class DIYThemeFragment : BaseFragment() {
             } else {
                 downloadAnim(it, onDone = {
                     lifecycleScope.launch(Dispatchers.Main) {
-                        SharePreferenceUtils.setThemeDownload(fileName, true)
+                        SharePreferenceUtils.setBackgroundDownload(fileName, true)
                         adapterBackground.notifyItemChanged(position)
                     }
                 }, onFail = {
@@ -226,7 +226,7 @@ class DIYThemeFragment : BaseFragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     hideDialogDownload()
                     onDone.invoke()
-                    DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, "1", "1", true))
+                    //DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, "1", "1", true))
                     findNavController().navigate(
                         R.id.action_DIYThemeFragment_to_editThemeFragment,
                         bundleOf("type" to "diy")

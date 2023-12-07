@@ -9,7 +9,9 @@ import com.fansipan.callcolor.calltheme.databinding.ItemCollectionBinding
 import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.gone
+import com.fansipan.callcolor.calltheme.utils.ex.show
 
 
 class SavedAdapter : BaseAdapterRecyclerView<ItemSavedModel, ItemCollectionBinding>() {
@@ -28,6 +30,7 @@ class SavedAdapter : BaseAdapterRecyclerView<ItemSavedModel, ItemCollectionBindi
             .load(item.background)
             .into(binding.imgThumbnail)
         binding.imgDownload.gone()
+        binding.imgDelete.show()
         val posButton = item.buttonIndex.toInt() - 1
         binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
         binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
@@ -35,6 +38,16 @@ class SavedAdapter : BaseAdapterRecyclerView<ItemSavedModel, ItemCollectionBindi
         binding.imgIconCall1.showOrGone(!item.isBackground)
         binding.imgIconCall2.showOrGone(!item.isBackground)
         binding.imgAvatar.showOrGone(!item.isBackground)
+
+        binding.imgDelete.clickSafe {
+            setOnClickDelete?.invoke(dataList.getOrNull(position), position)
+        }
     }
+
+    fun setOnClickDelete(listener: ((item: ItemSavedModel?, position: Int) -> Unit)? = null) {
+        setOnClickDelete = listener
+    }
+
+    private var setOnClickDelete: ((item: ItemSavedModel?, position: Int) -> Unit)? = null
 
 }

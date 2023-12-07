@@ -6,7 +6,7 @@ import com.fansipan.callcolor.calltheme.utils.data.RingtoneUtils
 
 object SharePreferenceUtils {
 
-    private const val PER_NAME = "data_app_battery_charging"
+    private const val PER_NAME = "data_app_call_theme"
 
     private lateinit var sharePref: SharedPreferences
 
@@ -60,6 +60,9 @@ object SharePreferenceUtils {
     /*-----------------------------------------Theme Call-------------------------------------------*/
     fun isThemeDownload(key: String): Boolean = getBoolean("isThemeDownload_$key")
     fun setThemeDownload(key: String, value: Boolean) = saveKey("isThemeDownload_$key", value)
+
+    fun isBackgroundDownload(key: String): Boolean = getBoolean("isBackgroundDownload_$key")
+    fun setBackgroundDownload(key: String, value: Boolean) = saveKey("isBackgroundDownload_$key", value)
 
 
     fun isEnableThemeCall(): Boolean = getBoolean("isEnableThemeCall", true)

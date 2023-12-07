@@ -29,6 +29,6 @@ class BackgroundAdapterV2 : BaseAdapterRecyclerView<CallThemeScreenModel, ItemBa
             .asBitmap()
             .load("https://batterycharger.lutech.vn/app/calltheme/theme3/theme${item.id}/bgtheme${item.id}.png")
             .into(binding.imgThumbnail)
-        binding.imgDownload.showOrGone(!SharePreferenceUtils.isThemeDownload("${item.category}_${item.id}.png"))
+        binding.imgDownload.showOrGone(!SharePreferenceUtils.isBackgroundDownload("${item.category}_${item.id}.png"))
     }
 }

@@ -58,5 +58,10 @@
     <string name="permission_denied">Permission denied</string>
     <string name="flash_type">Flash Type</string>
     <string name="vibrate_ringtone">Vibrate Ringtone</string>
+    <string name="no_theme_downloaded">No theme downloaded</string>
+    <string name="no_theme_created">No theme created</string>
+    <string name="do_you_want_to_delete">Do you want to Delete?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
 </resources>

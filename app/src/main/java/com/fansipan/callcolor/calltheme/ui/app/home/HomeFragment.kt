@@ -10,6 +10,7 @@ import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentHomeBinding
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
 import com.fansipan.callcolor.calltheme.service.ThemCallService
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.connectService
@@ -71,10 +72,24 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.txtPreview.clickSafe {
+            DataUtils.callThemeEdit = CallThemeScreenModel(
+                0,
+                0,
+                SharePreferenceUtils.getBackgroundChoose(),
+                SharePreferenceUtils.getAvatarChoose(),
+                SharePreferenceUtils.getIconCallChoose()
+            )
             findNavController().navigate(R.id.action_homeFragment_to_previewFragment)
         }
 
         binding.llPreview.clickSafe {
+            DataUtils.callThemeEdit = CallThemeScreenModel(
+                0,
+                0,
+                SharePreferenceUtils.getBackgroundChoose(),
+                SharePreferenceUtils.getAvatarChoose(),
+                SharePreferenceUtils.getIconCallChoose()
+            )
             findNavController().navigate(R.id.action_homeFragment_to_previewFragment)
         }
     }

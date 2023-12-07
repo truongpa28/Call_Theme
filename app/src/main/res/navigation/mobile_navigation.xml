@@ -38,7 +38,11 @@
         android:id="@+id/downloadedFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.downloaded.DownloadedFragment"
         android:label="fragment_downloaded"
-        tools:layout="@layout/fragment_downloaded" />
+        tools:layout="@layout/fragment_downloaded" >
+        <action
+            android:id="@+id/action_downloadedFragment_to_editThemeFragment"
+            app:destination="@id/editThemeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/ringtoneFragment"

@@ -103,13 +103,13 @@ class BackgroundFragment : BaseFragment() {
     private fun clickItemCollection(item: CallThemeScreenModel?, position: Int) {
         item?.let {
             val fileName = "${item.category}_${item.id}.png"
-            if (SharePreferenceUtils.isThemeDownload(fileName)) {
+            if (SharePreferenceUtils.isBackgroundDownload(fileName)) {
                 findNavController().popBackStack()
                 DataUtils.callThemeEdit.background = requireContext().getPathOfBg(item)
             } else {
                 downloadAnim(it, onDone = {
                     lifecycleScope.launch(Dispatchers.Main) {
-                        SharePreferenceUtils.setThemeDownload(fileName, true)
+                        SharePreferenceUtils.setBackgroundDownload(fileName, true)
                         adapterBackground.notifyItemChanged(position)
                     }
                 }, onFail = {
@@ -205,10 +205,10 @@ class BackgroundFragment : BaseFragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     hideDialogDownload()
                     onDone.invoke()
-                    DataSaved.addNewDownload(
+                    /*DataSaved.addNewDownload(
                         requireContext(),
                         ItemSavedModel(outputFile.absolutePath, "1", "1", true)
-                    )
+                    )*/
                     DataUtils.callThemeEdit.background = outputFile.absolutePath
                     findNavController().popBackStack()
                 }, 200L)
