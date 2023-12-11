@@ -2,6 +2,7 @@
     <string name="app_name">Call_Theme</string>
 
     <string name="retry_internet">Retry internet</string>
+    <string name="click_back">Click back again to exit</string>
     <string name="no_internet">No Internet</string>
     <string name="check_connection_settings_and_try_again">Check connection settings and try again.</string>
     <string name="error">Error</string>

@@ -2,46 +2,31 @@ package com.fansipan.callcolor.calltheme.service
 
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.PixelFormat
 import android.hardware.camera2.CameraManager
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
+import android.telecom.CallAudioState
 import android.telephony.TelephonyManager
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Chronometer
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
-import com.fansipan.callcolor.calltheme.MyApplication
 import com.fansipan.callcolor.calltheme.R
-import com.fansipan.callcolor.calltheme.databinding.ItemFlashBinding
 import com.fansipan.callcolor.calltheme.databinding.LayoutCallThemeBinding
-import com.fansipan.callcolor.calltheme.ui.main.MainActivity
-import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
@@ -54,6 +39,7 @@ import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
 import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 import com.google.android.material.snackbar.Snackbar
+
 
 class LockCallActivity : AppCompatActivity() {
 
@@ -200,6 +186,9 @@ class LockCallActivity : AppCompatActivity() {
     val handler = Handler()
     private var runnable: Runnable? = null
 
+    private var isMuteMic = false
+    private var isSpeaker = false
+
     @SuppressLint("SetTextI18n")
     private fun initListener() {
         binding.imgDecline.setOnClickListener {
@@ -234,10 +223,32 @@ class LockCallActivity : AppCompatActivity() {
         }
 
         binding.imgMicrophone.setOnClickListener {
-            snackBar.show()
+            isMuteMic = !isMuteMic
+            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.mode = AudioManager.MODE_IN_CALL
+            audioManager.isMicrophoneMute = isMuteMic
+            if (isMuteMic) {
+                binding.imgMicrophone.setImageResource(R.drawable.ic_theme_call_mute)
+            } else {
+                binding.imgMicrophone.setImageResource(R.drawable.ic_theme_call_mic)
+            }
         }
         binding.imgSpeaker.setOnClickListener {
-            snackBar.show()
+            isSpeaker = !isSpeaker
+            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.mode = AudioManager.MODE_IN_CALL
+            val earpiece = CallAudioState.ROUTE_WIRED_OR_EARPIECE
+            val speaker = CallAudioState.ROUTE_SPEAKER
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                PhoneCallHighServiceAPI33.sInstance?.setAudioRoute(if (!isSpeaker) earpiece else speaker)
+            } else {
+                audioManager.isSpeakerphoneOn  = isSpeaker
+            }
+            if (isSpeaker) {
+                binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_on)
+            } else {
+                binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_off)
+            }
         }
         binding.imgAddMember.setOnClickListener {
             snackBar.show()
@@ -346,7 +357,7 @@ class LockCallActivity : AppCompatActivity() {
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
 
             } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-
+                stopFlash()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
@@ -354,6 +365,7 @@ class LockCallActivity : AppCompatActivity() {
                         Handler(Looper.getMainLooper()).postDelayed({
                             finish()
                         }, 1000L)
+                        stopFlash()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

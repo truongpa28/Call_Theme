@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/viewAll"
     android:layout_width="match_parent"
     android:layout_height="45dp"
@@ -14,7 +15,7 @@
         android:layout_height="45dp"
         android:background="@drawable/bg_flag_language"
         android:padding="8dp"
-        android:src="@drawable/ic_flag_vn"/>
+        android:src="@drawable/ic_flag_vn" />
 
     <TextView
         android:id="@+id/txtName"
@@ -32,8 +33,9 @@
         android:id="@+id/imgNoSelect"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:background="@drawable/bg_cb_select"
-        android:visibility="visible" />
+        android:background="@drawable/bg_cb_select_v2"
+        android:visibility="visible"
+        app:tint="#B33F3F4B" />
 
     <ImageView
         android:id="@+id/imgSelected"

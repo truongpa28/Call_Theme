@@ -3,9 +3,12 @@ package com.fansipan.callcolor.calltheme.ui.app.home
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
@@ -40,6 +43,24 @@ class HomeFragment : BaseFragment() {
         initView()
         initListener()
         requireContext().connectService(ThemCallService::class.java)
+    }
+
+
+    private var isClickBack = false
+    override fun onBack() {
+        if (isClickBack) {
+            activity?.finish()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                requireContext().getString(R.string.click_back),
+                Toast.LENGTH_SHORT
+            ).show()
+            isClickBack = true
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickBack = false
+            }, 1000L)
+        }
     }
 
     private fun initView() {
