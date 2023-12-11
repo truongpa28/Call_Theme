@@ -47,9 +47,11 @@ class DialogRequestPermission(private val context: Context) {
         onClickSetRingtone: (() -> Unit)? = null
     ) {
         setupView()
+        dialog.setOnDismissListener {
+            onClickClose?.invoke()
+        }
         binding.btnClose.setOnSafeClick {
             hide()
-            onClickClose?.invoke()
         }
         binding.swChangeDialler.setOnSafeClick {
             onClickPhoneCall?.invoke()

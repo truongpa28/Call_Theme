@@ -3,12 +3,41 @@ package com.fansipan.callcolor.calltheme.utils
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 
 object HelperUtils {
 
-    fun gotoSettingAutoStart(context: Context) {
+    fun gotoSettingOtherPermission(context: Context) {
+        try {
+            val manufacturer = Build.MANUFACTURER
+            when {
+                "xiaomi".equals(manufacturer, ignoreCase = true) -> {
+                    val intent = Intent("miui.intent.action.APP_PERM_EDITOR")
+                    intent.setClassName(
+                        "com.miui.securitycenter",
+                        "com.miui.permcenter.permissions.PermissionsEditorActivity"
+                    )
+                    intent.putExtra("extra_pkgname", context.packageName)
+                    context.startActivity(intent)
+                }
+                else -> {
+                    val intentX = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri = Uri.fromParts("package", context.packageName, null)
+                    intentX.data = uri
+                    context.startActivity(intentX)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", context.packageName, null)
+            intent.data = uri
+            context.startActivity(intent)
+        }
+    }
+    /*fun gotoSettingOtherPermission(context: Context) {
         try {
             val intent = Intent()
             val manufacturer = Build.MANUFACTURER
@@ -69,8 +98,8 @@ object HelperUtils {
             }
             context.startActivity(intent)
         } catch (e: Exception) {
-            /*Timber.e(e)*/
+            *//*Timber.e(e)*//*
         }
-    }
+    }*/
 
 }

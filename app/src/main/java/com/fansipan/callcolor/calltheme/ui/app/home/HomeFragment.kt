@@ -51,7 +51,9 @@ class HomeFragment : BaseFragment() {
 
         if (SharePreferenceUtils.isFirstRequestDialogPermission()) {
             try {
-                showDialogPermission()
+                showDialogPermission{
+                    showDialogReadMiPermission()
+                }
                 SharePreferenceUtils.setFirstRequestDialogPermission(false)
             } catch (_: Exception) { }
         }

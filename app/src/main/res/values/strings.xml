@@ -68,5 +68,7 @@
     <string name="theme_call_is_available">Theme call is available</string>
     <string name="warning">Warning</string>
     <string name="apply">Apply</string>
+    <string name="content_information_more_help">Xiami, Oppo, Vivo, OnePlus and other mobile phones need to enable \"Lock screen\" permission to display call theme on lock screen page normally</string>
+    <string name="go_to_setting">Go to setting</string>
 
 </resources>

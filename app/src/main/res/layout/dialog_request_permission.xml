@@ -23,7 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -42,10 +45,10 @@
         <TextView
             android:id="@+id/txtTitle1"
             android:layout_width="0dp"
-            android:gravity="center_vertical|left"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center_vertical|left"
             android:includeFontPadding="false"
             android:text="@string/phone_contacts_and_storage"
             android:textColor="@color/black_app"
@@ -57,10 +60,10 @@
         <TextView
             android:id="@+id/txtContent1"
             android:layout_width="0dp"
-            android:gravity="center_vertical|left"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/roboto_regular_400"
+            android:gravity="center_vertical|left"
             android:includeFontPadding="false"
             android:text="@string/to_turn_on_phone_calls_contacts_and_storage"
             android:textColor="@color/black_app"

@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.fansipan.callcolor.calltheme.ui.dialog.DialogReadMiPermission
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogRequestPermission
+import com.fansipan.callcolor.calltheme.utils.HelperUtils
 import com.fansipan.callcolor.calltheme.utils.ex.hasOverlaySettingPermission
 import com.fansipan.callcolor.calltheme.utils.ex.hasWriteSettingPermission
 import com.fansipan.callcolor.calltheme.utils.ex.isPhoneAllCall
@@ -27,6 +29,10 @@ abstract class BaseFragment() : Fragment() {
 
     private val dialogThemeCallPermission by lazy {
         DialogRequestPermission(requireContext())
+    }
+
+    private val dialogReadMiPermission by lazy {
+        DialogReadMiPermission(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +49,7 @@ abstract class BaseFragment() : Fragment() {
         findNavController().popBackStack()
     }
 
-    fun isAllPermissionCallTheme() : Boolean {
+    fun isAllPermissionCallTheme(): Boolean {
         val isPhoneDialler = requireContext().isPhoneAllCall()
         val isReadContact = requireContext().isPhoneDialer()
         val isOverlayApp = requireContext().hasOverlaySettingPermission()
@@ -51,11 +57,23 @@ abstract class BaseFragment() : Fragment() {
         return isPhoneDialler && isReadContact && isOverlayApp && isAnswerCall
     }
 
-    fun showDialogPermission(actionClose : (() -> Unit)? = null) {
+    fun showDialogReadMiPermission(actionDone: (() -> Unit)? = null) {
+        dialogReadMiPermission.show(
+            onClickGoToSetting = {
+                HelperUtils.gotoSettingOtherPermission(requireContext())
+            },
+            onDone = {
+                actionDone?.invoke()
+            }
+        )
+    }
+
+    fun showDialogPermission(actionClose: (() -> Unit)? = null) {
         dialogThemeCallPermission.show(
             false,
             onClickClose = {
-                actionClose?.invoke()
+                if (isAllPermissionCallTheme())
+                    actionClose?.invoke()
             }, onClickPhoneCall = {
                 requestPermission()
             }, onClickCallDefault = {
