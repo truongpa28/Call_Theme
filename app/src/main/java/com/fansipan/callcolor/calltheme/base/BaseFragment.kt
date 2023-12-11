@@ -51,11 +51,11 @@ abstract class BaseFragment() : Fragment() {
         return isPhoneDialler && isReadContact && isOverlayApp && isAnswerCall
     }
 
-    fun showDialogPermission() {
+    fun showDialogPermission(actionClose : (() -> Unit)? = null) {
         dialogThemeCallPermission.show(
             false,
             onClickClose = {
-
+                actionClose?.invoke()
             }, onClickPhoneCall = {
                 requestPermission()
             }, onClickCallDefault = {

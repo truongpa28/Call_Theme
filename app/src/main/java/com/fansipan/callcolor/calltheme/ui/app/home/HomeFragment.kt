@@ -1,9 +1,12 @@
 package com.fansipan.callcolor.calltheme.ui.app.home
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -45,7 +48,14 @@ class HomeFragment : BaseFragment() {
         binding.titleAlert.isSelected = true
         binding.titleRingtone.isSelected = true
         showPreview()
-        showDialogPermission()
+
+        if (SharePreferenceUtils.isFirstRequestDialogPermission()) {
+            try {
+                showDialogPermission()
+                SharePreferenceUtils.setFirstRequestDialogPermission(false)
+            } catch (_: Exception) { }
+        }
+
     }
 
 

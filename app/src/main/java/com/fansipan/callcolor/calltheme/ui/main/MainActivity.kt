@@ -1,10 +1,14 @@
 package com.fansipan.callcolor.calltheme.ui.main
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fansipan.callcolor.calltheme.base.BaseActivity
 import com.fansipan.callcolor.calltheme.databinding.ActivityMainBinding
+import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 
 class MainActivity : BaseActivity() {
@@ -24,6 +28,18 @@ class MainActivity : BaseActivity() {
         navController = navHostFragment!!.navController
 
         DataUtils.readAnimation(this@MainActivity)
+
+        if (SharePreferenceUtils.isFirstRequestNotification()) {
+            try {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
+                    ActivityCompat.requestPermissions(
+                        this, arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                        112
+                    )
+                    SharePreferenceUtils.setFirstRequestNotification(false)
+                }
+            } catch (_: Exception) { }
+        }
 
     }
 

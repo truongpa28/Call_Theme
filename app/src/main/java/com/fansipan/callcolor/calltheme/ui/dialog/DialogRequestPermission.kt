@@ -76,7 +76,7 @@ class DialogRequestPermission(private val context: Context) {
         val isAnswerCall = context.hasWriteSettingPermission()
 
         if (isPhoneDialler && isReadContact && isOverlayApp && isAnswerCall) {
-            //context.showToast("theme_call_available")
+            context.showToast(context.getString(R.string.theme_call_is_available))
             hide()
         }
         binding.swChangeDialler.apply {

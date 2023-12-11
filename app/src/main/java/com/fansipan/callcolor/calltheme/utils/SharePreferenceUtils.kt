@@ -57,6 +57,11 @@ object SharePreferenceUtils {
     fun setFirstRequestNotification(value: Boolean) = saveKey("isFirstRequestNotification", value)
 
 
+    /*--------------------------------------Dialog Permission---------------------------------------*/
+    fun isFirstRequestDialogPermission(): Boolean = getBoolean("isFirstRequestDialogPermission", true)
+    fun setFirstRequestDialogPermission(value: Boolean) = saveKey("isFirstRequestDialogPermission", value)
+
+
     /*-----------------------------------------Theme Call-------------------------------------------*/
     fun isThemeDownload(key: String): Boolean = getBoolean("isThemeDownload_$key")
     fun setThemeDownload(key: String, value: Boolean) = saveKey("isThemeDownload_$key", value)

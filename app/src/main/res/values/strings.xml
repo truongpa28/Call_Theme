@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Call_Theme</string>
 
-
     <string name="retry_internet">Retry internet</string>
     <string name="no_internet">No Internet</string>
     <string name="check_connection_settings_and_try_again">Check connection settings and try again.</string>
@@ -17,8 +16,6 @@
     <string name="intro_content_2">Give incoming calls a new look, more impressive and colorful</string>
     <string name="intro_title_3">Alert on call</string>
     <string name="intro_content_3">Change Flash, Vibrate and Ringtone to your personal taste</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="theme_call">Theme Call</string>
     <string name="diy_theme">DIY Theme</string>
     <string name="alert">Alert</string>
@@ -66,7 +63,8 @@
     <string name="congratulation">Congratulation!</string>
     <string name="you_have_successfully_installed_the_calling_screen">You have successfully installed the calling screen</string>
     <string name="cancel">Cancel</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="content_dialog_quit_edit">You are editing. Do you want to close and cancel all editing?</string>
+    <string name="theme_call_is_available">Theme call is available</string>
 
 </resources>
