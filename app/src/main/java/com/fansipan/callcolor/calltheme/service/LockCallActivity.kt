@@ -124,7 +124,7 @@ class LockCallActivity : AppCompatActivity() {
 
 
         ThemCallService.nameContact.let {
-            binding.txtName.showOrGone(it.isEmpty())
+            binding.txtName.showOrGone(it == "")
             binding.txtName.text = it
         }
         binding.txtSdt.text = ThemCallService.phoneNumber
@@ -273,6 +273,7 @@ class LockCallActivity : AppCompatActivity() {
         timeCountDown = object : CountDownTimer(timeLoop, spx) {
             override fun onTick(millisUntilFinished: Long) {
                 try {
+                    isFlashOn = !isFlashOn
                     turnFlashWithStyle(typeFlash, isFlashOn)
                 } catch (e: Exception) {
                     e.printStackTrace()

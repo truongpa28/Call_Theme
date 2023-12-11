@@ -25,6 +25,7 @@ import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.RingtoneUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
+import com.google.android.material.snackbar.Snackbar
 
 
 class RingtoneFragment : BaseFragment() {
@@ -71,7 +72,6 @@ class RingtoneFragment : BaseFragment() {
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
 
-
         binding.llChooseRingtone.clickSafe {
             stopPlay()
             findNavController().navigate(R.id.action_ringtoneFragment_to_chooseRingtoneFragment)
@@ -80,11 +80,25 @@ class RingtoneFragment : BaseFragment() {
         binding.imgPlay.clickSafe {
             isPlay = !isPlay
             if (isPlay) {
-                RingtonePlayerUtils.startPlayer(requireContext(), SharePreferenceUtils.getPathRingtone()) {
-                    isPlay = false
-                    binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
+                SharePreferenceUtils.getPathRingtone().let {
+                    if (it == "") {
+                        val snackbar = Snackbar.make(
+                            binding.root,
+                            getString(R.string.current_ringtone_can_not_play), Snackbar.LENGTH_SHORT
+                        )
+                        snackbar.show()
+                        isPlay = false
+                        binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
+                        RingtonePlayerUtils.stopPlayer()
+                    } else {
+                        RingtonePlayerUtils.startPlayer(requireContext(), it) {
+                            isPlay = false
+                            binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
+                        }
+                        binding.imgPlay.setImageResource(R.drawable.ic_pause_gun)
+                    }
                 }
-                binding.imgPlay.setImageResource(R.drawable.ic_pause_gun)
+
             } else {
                 binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
                 RingtonePlayerUtils.stopPlayer()

@@ -74,5 +74,6 @@
     <string name="call_ended">Call Ended</string>
     <string name="txt_disable_dialler">Please change dialler with other app to disable theme call!!</string>
     <string name="feature_is_being_developed">Feature is being developed.</string>
+    <string name="current_ringtone_can_not_play">The current ringtone is the device\'s default and cannot be played</string>
 
 </resources>
