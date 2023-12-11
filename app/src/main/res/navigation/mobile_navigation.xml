@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_DIYThemeFragment_to_previewFragment"
             app:destination="@id/previewFragment" />
+        <action
+            android:id="@+id/action_DIYThemeFragment_to_congratulationFragment"
+            app:destination="@id/congratulationFragment" />
     </fragment>
     <fragment
         android:id="@+id/editThemeFragment"

@@ -66,5 +66,7 @@
     <string name="ok">OK</string>
     <string name="content_dialog_quit_edit">You are editing. Do you want to close and cancel all editing?</string>
     <string name="theme_call_is_available">Theme call is available</string>
+    <string name="warning">Warning</string>
+    <string name="apply">Apply</string>
 
 </resources>

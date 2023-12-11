@@ -54,7 +54,7 @@ class AvatarFragment : BaseFragment() {
         binding.imgBack.clickSafe { onBack() }
         adapterAvatar.setOnClickItem { item, position ->
             if (position!= 0) {
-                DataUtils.callThemeEdit.avatar = (position).toString()
+                DataUtils.tmpCallThemeEdit.avatar = (position).toString()
                 findNavController().popBackStack()
             } else {
                 chooseAvatar()
@@ -77,7 +77,7 @@ class AvatarFragment : BaseFragment() {
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                DataUtils.callThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
+                DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
                 findNavController().popBackStack()
             }
         }

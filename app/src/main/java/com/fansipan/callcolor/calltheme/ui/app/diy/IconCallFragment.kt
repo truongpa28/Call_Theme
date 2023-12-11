@@ -41,7 +41,7 @@ class IconCallFragment : BaseFragment() {
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
         adapterIconCall.setOnClickItem { _, position ->
-            DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
+            DataUtils.tmpCallThemeEdit.buttonIndex = (position + 1).toString()
             onBack()
         }
     }

@@ -14,6 +14,7 @@ import com.fansipan.callcolor.calltheme.databinding.FragmentCongratulationBindin
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 
 class CongratulationFragment : BaseFragment() {
 
@@ -68,6 +69,16 @@ class CongratulationFragment : BaseFragment() {
     }
 
     private fun initListener() {
+        binding.imgBack.clickSafe {
+            onBack()
+        }
 
+        binding.txtDone.clickSafe {
+            onBack()
+        }
+    }
+
+    override fun onBack() {
+        super.onBack()
     }
 }

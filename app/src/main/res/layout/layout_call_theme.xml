@@ -48,7 +48,7 @@
         android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@+id/ll_avatar" />
 
-    <TextView
+    <com.example.sound.pranksounds.base.custom.TextViewOutline
         android:id="@+id/txtSdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

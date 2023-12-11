@@ -130,7 +130,8 @@ class DIYThemeFragment : BaseFragment() {
 
         adapterAvatar.setOnClickItem { item, position ->
             if (position != 0) {
-                DataUtils.callThemeEdit.avatar = (position).toString()
+                DataUtils.tmpCallThemeEdit.avatar = (position).toString()
+                //DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
                 findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
             } else {
                 chooseAvatar()
@@ -138,7 +139,8 @@ class DIYThemeFragment : BaseFragment() {
         }
 
         adapterIconCall.setOnClickItem { item, position ->
-            DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
+            DataUtils.tmpCallThemeEdit.buttonIndex = (position + 1).toString()
+            //DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
             findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
         }
 
@@ -147,6 +149,22 @@ class DIYThemeFragment : BaseFragment() {
         }
         binding.llPreview.clickSafe {
             findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment)
+        }
+
+        binding.txtApply.clickSafe {
+            SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
+            SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
+            SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
+            DataSaved.addNewCreate(
+                requireContext(),
+                ItemSavedModel(
+                    DataUtils.callThemeEdit.background,
+                    DataUtils.callThemeEdit.avatar,
+                    DataUtils.callThemeEdit.buttonIndex,
+                    false
+                )
+            )
+            findNavController().navigate(R.id.action_DIYThemeFragment_to_congratulationFragment)
         }
     }
 
@@ -158,7 +176,9 @@ class DIYThemeFragment : BaseFragment() {
                     R.id.action_DIYThemeFragment_to_editThemeFragment,
                     bundleOf("type" to "diy")
                 )
-                DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
+                //DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
+                DataUtils.tmpCallThemeEdit.background = requireContext().getPathOfBg(item)
+                //DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
             } else {
                 downloadAnim(it, onDone = {
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -189,7 +209,7 @@ class DIYThemeFragment : BaseFragment() {
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                DataUtils.callThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
+                DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
                 findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
             }
         }
@@ -262,7 +282,8 @@ class DIYThemeFragment : BaseFragment() {
                         R.id.action_DIYThemeFragment_to_editThemeFragment,
                         bundleOf("type" to "diy")
                     )
-                    DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, outputFile.absolutePath)
+                    DataUtils.tmpCallThemeEdit.background = outputFile.absolutePath
+                    //DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
                 },200L)
             } catch (e: IOException) {
                 e.printStackTrace()

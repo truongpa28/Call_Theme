@@ -12,6 +12,7 @@ object DataUtils {
     var listDataCallThemScreen = ArrayList<CallThemeScreenModel>()
 
     var callThemeEdit = CallThemeScreenModel()
+    var tmpCallThemeEdit = CallThemeScreenModel()
 
     fun readAnimation(context: Context) {
         listDataCallThemScreen.clear()

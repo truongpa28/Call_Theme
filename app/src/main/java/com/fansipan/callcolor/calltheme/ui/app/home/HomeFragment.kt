@@ -103,6 +103,7 @@ class HomeFragment : BaseFragment() {
 
         binding.btnDIYTheme.clickSafe {
             DataUtils.callThemeEdit = CallThemeScreenModel()
+            DataUtils.tmpCallThemeEdit = CallThemeScreenModel()
             findNavController().navigate(R.id.action_homeFragment_to_DIYThemeFragment)
         }
 

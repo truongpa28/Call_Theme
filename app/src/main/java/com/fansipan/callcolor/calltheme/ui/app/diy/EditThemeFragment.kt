@@ -9,13 +9,10 @@ import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentEditThemeBinding
-import com.fansipan.callcolor.calltheme.model.ItemSavedModel
-import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV3
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogQuitEdit
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
-import com.fansipan.callcolor.calltheme.utils.data.DataSaved
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
@@ -65,17 +62,18 @@ class EditThemeFragment : BaseFragment() {
             binding.imgChooseBackground.show()
             adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, COUNT_ICON))
             binding.rcyCallIcon.adapter = adapterIconCall
-
+            binding.txtSave.text = getString(R.string.save)
         } else {
             binding.rcyCallIcon.gone()
             binding.imgChooseBackground.gone()
+            binding.txtSave.text = getString(R.string.apply)
         }
 
         showUiThemeCall()
     }
 
     private fun showUiThemeCall() {
-        DataUtils.callThemeEdit.let { item ->
+        DataUtils.tmpCallThemeEdit.let { item ->
             Glide.with(requireContext())
                 .asBitmap()
                 .load(item.background)
@@ -109,10 +107,10 @@ class EditThemeFragment : BaseFragment() {
         }
 
         adapterIconCall.setOnClickItem { item, position ->
-            if (position == COUNT_ICON -1 ) {
+            if (position == COUNT_ICON - 1) {
                 findNavController().navigate(R.id.action_editThemeFragment_to_iconCallFragment)
             } else {
-                DataUtils.callThemeEdit.buttonIndex = (position + 1).toString()
+                DataUtils.tmpCallThemeEdit.buttonIndex = (position + 1).toString()
                 binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[position].icon1)
                 binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[position].icon2)
             }
@@ -125,27 +123,25 @@ class EditThemeFragment : BaseFragment() {
 
 
     private fun saveChoose() {
-        SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
-        SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
-        SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
         if (type == "diy") {
-            DataSaved.addNewCreate(
-                requireContext(),
-                ItemSavedModel(
-                    DataUtils.callThemeEdit.background,
-                    DataUtils.callThemeEdit.avatar,
-                    DataUtils.callThemeEdit.buttonIndex,
-                    false
-                )
-            )
+            DataUtils.callThemeEdit = DataUtils.tmpCallThemeEdit.copy()
+            findNavController().popBackStack()
+        } else {
+            SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
+            SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
+            SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
+            findNavController().navigate(R.id.action_editThemeFragment_to_congratulationFragment)
         }
-        findNavController().navigate(R.id.action_editThemeFragment_to_congratulationFragment)
 
     }
 
     override fun onBack() {
-        dialogQuitEdit.show {
-            super.onBack()
+        if (type == "diy") {
+            dialogQuitEdit.show {
+                findNavController().popBackStack()
+            }
+        } else {
+            findNavController().popBackStack()
         }
     }
 }

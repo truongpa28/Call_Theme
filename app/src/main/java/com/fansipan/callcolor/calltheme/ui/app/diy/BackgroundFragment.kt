@@ -105,7 +105,7 @@ class BackgroundFragment : BaseFragment() {
             val fileName = "${item.category}_${item.id}.png"
             if (SharePreferenceUtils.isBackgroundDownload(fileName)) {
                 findNavController().popBackStack()
-                DataUtils.callThemeEdit.background = requireContext().getPathOfBg(item)
+                DataUtils.tmpCallThemeEdit.background = requireContext().getPathOfBg(item)
             } else {
                 downloadAnim(it, onDone = {
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -136,7 +136,7 @@ class BackgroundFragment : BaseFragment() {
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                DataUtils.callThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
+                DataUtils.tmpCallThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
                 findNavController().popBackStack()
             }
         }
@@ -209,7 +209,7 @@ class BackgroundFragment : BaseFragment() {
                         requireContext(),
                         ItemSavedModel(outputFile.absolutePath, "1", "1", true)
                     )*/
-                    DataUtils.callThemeEdit.background = outputFile.absolutePath
+                    DataUtils.tmpCallThemeEdit.background = outputFile.absolutePath
                     findNavController().popBackStack()
                 }, 200L)
             } catch (e: IOException) {
