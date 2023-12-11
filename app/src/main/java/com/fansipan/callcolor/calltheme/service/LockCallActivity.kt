@@ -10,6 +10,7 @@ import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.PixelFormat
 import android.hardware.camera2.CameraManager
 import android.os.Build
@@ -17,12 +18,14 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -33,6 +36,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
+import com.fansipan.callcolor.calltheme.MyApplication
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.ItemFlashBinding
 import com.fansipan.callcolor.calltheme.databinding.LayoutCallThemeBinding
@@ -46,8 +50,10 @@ import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.ex.gone
 import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
 import com.fansipan.callcolor.calltheme.utils.ex.show
+import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
 import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
+import com.google.android.material.snackbar.Snackbar
 
 class LockCallActivity : AppCompatActivity() {
 
@@ -59,6 +65,12 @@ class LockCallActivity : AppCompatActivity() {
     private var timeCountDown: CountDownTimer? = null
 
     private lateinit var binding: LayoutCallThemeBinding
+
+    val snackBar by lazy {
+        Snackbar.make(
+            binding.root, getString(R.string.feature_is_being_developed), Snackbar.LENGTH_SHORT
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -106,11 +118,15 @@ class LockCallActivity : AppCompatActivity() {
         //endregion
 
         cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
+
         binding = LayoutCallThemeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        binding.txtName.text = ThemCallService.nameContact
+        ThemCallService.nameContact.let {
+            binding.txtName.showOrGone(it.isEmpty())
+            binding.txtName.text = it
+        }
         binding.txtSdt.text = ThemCallService.phoneNumber
 
         val posButton = SharePreferenceUtils.getIconCallChoose().toInt() - 1
@@ -151,14 +167,43 @@ class LockCallActivity : AppCompatActivity() {
             }
         })
 
+        try {
+            if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
+                if (SharePreferenceUtils.isEnableFlashMode()) {
+                    startFlash()
+                }
+                if (SharePreferenceUtils.isEnableVibrate()) {
+                    startVibration(0)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        val filters = IntentFilter().apply {
+            addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED)
+        }
+        registerReceiver(broadcastCall, filters)
     }
 
     fun onClickBack() {
         finish()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastCall)
+    }
+
+
+    var secondsCall = 0
+    val handler = Handler()
+    private var runnable: Runnable? = null
+
+    @SuppressLint("SetTextI18n")
     private fun initListener() {
         binding.imgDecline.setOnClickListener {
+            binding.txtStatus.text = getString(R.string.call_ended)
             LockCallUtil.declineCallPhone(this)
             stopFlash()
             turnOffVibration()
@@ -171,31 +216,45 @@ class LockCallActivity : AppCompatActivity() {
             stopFlash()
             turnOffVibration()
 
+            runnable = object : Runnable {
+                override fun run() {
+                    val minutes = (secondsCall) / 60
+                    val secs = secondsCall % 60
+                    val timeString = String.format("%02d:%02d", minutes, secs)
+                    binding.txtStatus.text = timeString
+                    secondsCall++
+                    handler.postDelayed(this, 1000)
+                }
+            }
+            handler.post(runnable as Runnable)
+
             binding.imgAccept.gone()
             binding.imgDecline.gone()
             binding.llBtnInCall.show()
         }
 
         binding.imgMicrophone.setOnClickListener {
-
+            snackBar.show()
         }
         binding.imgSpeaker.setOnClickListener {
-
+            snackBar.show()
         }
         binding.imgAddMember.setOnClickListener {
-
+            snackBar.show()
         }
         binding.imgHold.setOnClickListener {
-
+            snackBar.show()
         }
         binding.imgNewCall.setOnClickListener {
-
+            snackBar.show()
         }
         binding.imgKeyBoard.setOnClickListener {
-
+            snackBar.show()
         }
         binding.imgFinishCall.setOnClickListener {
             LockCallUtil.declineCallPhone(this)
+            runnable?.let { it1 -> handler.removeCallbacks(it1) }
+            binding.txtStatus.text = "(${binding.txtStatus.text}) " + getString(R.string.call_ended)
         }
 
     }
@@ -268,7 +327,7 @@ class LockCallActivity : AppCompatActivity() {
     //endregion
 
 
-    val sert = object : BroadcastReceiver() {
+    val broadcastCall = object : BroadcastReceiver() {
         private val TAG = "truongpa"
 
         @SuppressLint("MissingPermission")
@@ -284,21 +343,16 @@ class LockCallActivity : AppCompatActivity() {
             }
             val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                try {
-                    if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
-                        startFlash()
-                        startVibration(0)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+
             } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                Log.d(TAG, "2.EXTRA_STATE_OFFHOOK")
+
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-                        finish()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            finish()
+                        }, 1000L)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

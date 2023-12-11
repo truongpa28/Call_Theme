@@ -13,8 +13,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraManager
+import android.media.AudioManager
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.os.PowerManager
 import android.telephony.TelephonyManager
 import android.util.Log
@@ -28,6 +33,7 @@ import com.fansipan.callcolor.calltheme.ui.main.MainActivity
 import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
+import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
 class ThemCallService : Service() {
     companion object {
@@ -39,6 +45,7 @@ class ThemCallService : Service() {
 
 
     private var cameraManager: CameraManager? = null
+    private var ringtone: Ringtone? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -70,7 +77,7 @@ class ThemCallService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(phoneCallReceiver)
-
+        ringtone?.stop()
         if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
             (application as? MyApplication)?.finishActivity()
         }
@@ -95,18 +102,27 @@ class ThemCallService : Service() {
                 try {
                     if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                         lock()
-                        startCallingNotification()
+                        val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                        ringtone = RingtoneManager.getRingtone(context, ringtoneUri)
+                        ringtone?.play()
+
+                        //startCallingNotification()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                 Log.d(TAG, "2.EXTRA_STATE_OFFHOOK")
+                ringtone?.stop()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-                        (application as? MyApplication)?.finishActivity()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            (application as? MyApplication)?.finishActivity()
+                        }, 1000L)
+                        turnOffVibration()
+                        ringtone?.stop()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

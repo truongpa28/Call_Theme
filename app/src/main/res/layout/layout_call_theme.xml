@@ -35,32 +35,63 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.example.sound.pranksounds.base.custom.TextViewOutline
-        android:id="@+id/txtName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/roboto_medium_500"
-        android:gravity="center"
-        android:textColor="@color/white"
-        app:outlineColor="@color/black"
-        app:outlineWidth="1"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/ll_avatar" />
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/ll_avatar">
 
-    <com.example.sound.pranksounds.base.custom.TextViewOutline
-        android:id="@+id/txtSdt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtName"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="@font/roboto_medium_500"
-        android:gravity="center"
-        android:textColor="@color/white"
-        app:outlineColor="@color/black"
-        app:outlineWidth="1"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+        <com.example.sound.pranksounds.base.custom.TextViewOutline
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/ll_avatar"
+            app:outlineColor="@color/black"
+            app:outlineWidth="1" />
+
+        <com.example.sound.pranksounds.base.custom.TextViewOutline
+            android:id="@+id/txtSdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintTop_toBottomOf="@+id/txtName"
+            app:outlineColor="@color/black"
+            app:outlineWidth="1" />
+
+        <com.example.sound.pranksounds.base.custom.TextViewOutline
+            android:id="@+id/txtStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:text="@string/is_calling"
+            app:layout_constraintTop_toBottomOf="@+id/txtName"
+            app:outlineColor="@color/black"
+            app:outlineWidth="1" />
+
+        <Chronometer
+            android:id="@+id/txtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium_500"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/txtName"
+            app:outlineColor="@color/black"
+            app:outlineWidth="1" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imgDecline"

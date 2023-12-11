@@ -109,7 +109,7 @@ fun Context.getNameContactByPhoneNumber(str: String): String {
             query.close()
         }
     }
-    name = "Unknown number"
+    name = ""
     return name
 }
 

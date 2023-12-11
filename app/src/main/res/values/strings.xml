@@ -70,5 +70,9 @@
     <string name="apply">Apply</string>
     <string name="content_information_more_help">Xiami, Oppo, Vivo, OnePlus and other mobile phones need to enable \"Lock screen\" permission to display call theme on lock screen page normally</string>
     <string name="go_to_setting">Go to setting</string>
+    <string name="is_calling">Is Calling…</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="txt_disable_dialler">Please change dialler with other app to disable theme call!!</string>
+    <string name="feature_is_being_developed">Feature is being developed.</string>
 
 </resources>

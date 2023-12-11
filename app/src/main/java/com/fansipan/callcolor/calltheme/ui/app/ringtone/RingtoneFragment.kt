@@ -62,12 +62,18 @@ class RingtoneFragment : BaseFragment() {
         //requireContext().showToast("${requireContext().getRingTone().volume}")
     }
 
+    fun stopPlay() {
+        RingtonePlayerUtils.stopPlayer()
+        isPlay = false
+        binding.imgPlay.setImageResource(R.drawable.ic_play_gun)
+    }
+
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
 
 
         binding.llChooseRingtone.clickSafe {
-            RingtonePlayerUtils.stopPlayer()
+            stopPlay()
             findNavController().navigate(R.id.action_ringtoneFragment_to_chooseRingtoneFragment)
         }
 
@@ -86,7 +92,7 @@ class RingtoneFragment : BaseFragment() {
         }
 
         binding.llChooseAudio.clickSafe {
-            RingtonePlayerUtils.stopPlayer()
+            stopPlay()
             chooseAudio()
         }
 
@@ -107,7 +113,7 @@ class RingtoneFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        RingtonePlayerUtils.stopPlayer()
+        stopPlay()
     }
 
     override fun onDestroy() {
