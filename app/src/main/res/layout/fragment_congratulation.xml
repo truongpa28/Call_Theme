@@ -121,7 +121,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <com.example.sound.pranksounds.base.custom.TextViewOutline
+        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
         android:layout_marginTop="48dp"
         android:paddingVertical="8dp"
         android:paddingHorizontal="24dp"
-        android:background="@drawable/bg_btn_apply"
+        android:background="@drawable/bg_btn_apply_v2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llPreview"/>

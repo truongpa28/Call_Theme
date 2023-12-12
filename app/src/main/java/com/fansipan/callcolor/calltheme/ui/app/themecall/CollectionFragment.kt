@@ -93,11 +93,12 @@ class CollectionFragment : BaseFragment() {
         item?.let {
             val fileName = "${item.category}_${item.id}.png"
             if (SharePreferenceUtils.isThemeDownload(fileName)) {
+                DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
+                DataUtils.tmpCallThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
                 findNavController().navigate(
                     R.id.action_collectionFragment_to_editThemeFragment,
                     bundleOf("type" to "theme")
                 )
-                DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
             } else {
                 downloadAnim(it, onDone = {
                     lifecycleScope.launch(Dispatchers.Main) {

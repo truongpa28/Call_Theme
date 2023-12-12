@@ -19,8 +19,7 @@
             android:layout_width="98dp"
             android:layout_height="98dp"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/wifi_off"
-            app:tint="#1B0EFF" />
+            android:src="@drawable/wifi_off" />
 
         <TextView
             android:layout_width="match_parent"
@@ -51,7 +50,7 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="6dp"
             android:text="@string/retry_internet"
-            android:background="@drawable/bg_btn_apply"
+            android:background="@drawable/bg_btn_apply_v2"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
@@ -61,6 +60,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminateTint="@color/white" />
+        android:indeterminateTint="@color/black_app" />
 
 </RelativeLayout>

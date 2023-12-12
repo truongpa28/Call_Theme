@@ -60,11 +60,13 @@ class EditThemeFragment : BaseFragment() {
         if (type == "diy") {
             binding.rcyCallIcon.show()
             binding.imgChooseBackground.show()
+            binding.imgChooseAvatar.show()
             adapterIconCall.setDataList(IconCallUtils.listIconCall.subList(0, COUNT_ICON))
             binding.rcyCallIcon.adapter = adapterIconCall
             binding.txtSave.text = getString(R.string.save)
         } else {
             binding.rcyCallIcon.gone()
+            binding.imgChooseAvatar.gone()
             binding.imgChooseBackground.gone()
             binding.txtSave.text = getString(R.string.apply)
         }
@@ -103,7 +105,9 @@ class EditThemeFragment : BaseFragment() {
         }
 
         binding.imgAvatar.clickSafe {
-            findNavController().navigate(R.id.action_editThemeFragment_to_avatarFragment)
+            if (type == "diy") {
+                findNavController().navigate(R.id.action_editThemeFragment_to_avatarFragment)
+            }
         }
 
         adapterIconCall.setOnClickItem { item, position ->

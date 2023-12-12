@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_btn_done"
+            android:background="@drawable/bg_btn_apply_v2"
             android:fontFamily="@font/roboto_semi_bold_600"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
@@ -142,7 +142,7 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <com.example.sound.pranksounds.base.custom.TextViewOutline
+                    <com.fansipan.callcolor.calltheme.custom.TextViewOutline
                         android:id="@+id/txtName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

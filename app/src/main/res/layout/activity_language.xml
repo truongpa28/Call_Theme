@@ -59,7 +59,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingVertical="8dp"
         android:paddingHorizontal="24dp"
-        android:background="@drawable/bg_btn_done"
+        android:background="@drawable/bg_btn_apply_v2"
         android:textColor="@color/white"
         android:textSize="18sp" />
 

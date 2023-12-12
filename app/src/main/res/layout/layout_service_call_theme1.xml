@@ -35,7 +35,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.example.sound.pranksounds.base.custom.TextViewOutline
+    <com.fansipan.callcolor.calltheme.custom.TextViewOutline
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

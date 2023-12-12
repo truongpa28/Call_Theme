@@ -62,7 +62,7 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="6dp"
                 android:text="@string/no"
-                android:background="@drawable/bg_btn_apply"
+                android:background="@drawable/bg_btn_apply_v2"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

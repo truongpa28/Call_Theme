@@ -41,7 +41,7 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/ll_avatar">
 
-        <com.example.sound.pranksounds.base.custom.TextViewOutline
+        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             app:outlineColor="@color/black"
             app:outlineWidth="1" />
 
-        <com.example.sound.pranksounds.base.custom.TextViewOutline
+        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
             android:id="@+id/txtSdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             app:outlineColor="@color/black"
             app:outlineWidth="1" />
 
-        <com.example.sound.pranksounds.base.custom.TextViewOutline
+        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
             android:id="@+id/txtStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

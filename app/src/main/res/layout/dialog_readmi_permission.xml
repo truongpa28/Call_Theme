@@ -55,7 +55,7 @@
             android:id="@+id/txtGotoSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_done"
+            android:background="@drawable/bg_btn_apply_v2"
             android:fontFamily="@font/roboto_semi_bold_600"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
