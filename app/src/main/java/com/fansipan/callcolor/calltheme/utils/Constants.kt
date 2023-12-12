@@ -21,7 +21,7 @@ object Constants {
     const val NOTIFICATION_CHANNEL_ID2 = "com.fansipan.callcolor.CALLTHEME.ggg"
     const val NOTIFICATION_CHANNEL_NAME = "Call Theme"
     const val NOTIFICATION_CHANNEL_NAME2 = "Call Theme"
-    const val NOTIFICATION_DETAILS = "Battery Charging"
+    const val NOTIFICATION_DETAILS = "Call Theme"
 
     fun saveFile(fName: String, context: Context): File? {
         val assetFileDescriptor: AssetFileDescriptor?

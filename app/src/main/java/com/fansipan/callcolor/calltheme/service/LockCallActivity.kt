@@ -1,11 +1,13 @@
 package com.fansipan.callcolor.calltheme.service
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.PixelFormat
 import android.hardware.camera2.CameraManager
 import android.media.AudioManager
@@ -15,6 +17,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.telecom.CallAudioState
+import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.WindowManager
@@ -22,6 +25,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
@@ -29,8 +33,10 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.LayoutCallThemeBinding
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
+import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
+import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.ex.gone
 import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
@@ -47,8 +53,6 @@ class LockCallActivity : AppCompatActivity() {
         const val TAG = "truongpa"
     }
 
-    private var cameraManager: CameraManager? = null
-    private var timeCountDown: CountDownTimer? = null
 
     private lateinit var binding: LayoutCallThemeBinding
 
@@ -103,8 +107,6 @@ class LockCallActivity : AppCompatActivity() {
         window.attributes = mLayoutParams
         //endregion
 
-        cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
-
         binding = LayoutCallThemeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -146,25 +148,35 @@ class LockCallActivity : AppCompatActivity() {
 
         initListener()
 
+        intent.action?.let { action ->
+            if (action == "ClickResume") {
+                binding.imgAccept.clearAnimation()
+                binding.imgAccept.clearAnimation()
+                secondsCall = System.currentTimeMillis() - ThemeCallUtils.timeStartCalling
+                secondsCall /= 1000
+                runnableCountTime = object : Runnable {
+                    override fun run() {
+                        val minutes = (secondsCall) / 60
+                        val secs = secondsCall % 60
+                        val timeString = String.format("%02d:%02d", minutes, secs)
+                        binding.txtStatus.text = timeString
+                        secondsCall++
+                        handlerCountTime.postDelayed(this, 1000)
+                    }
+                }
+                handlerCountTime.post(runnableCountTime as Runnable)
+                binding.imgAccept.gone()
+                binding.imgDecline.gone()
+                binding.llBtnInCall.show()
+            }
+        }
+
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 onClickBack()
             }
         })
-
-        try {
-            if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
-                if (SharePreferenceUtils.isEnableFlashMode()) {
-                    startFlash()
-                }
-                if (SharePreferenceUtils.isEnableVibrate()) {
-                    startVibration(0)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
         val filters = IntentFilter().apply {
             addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED)
@@ -182,9 +194,9 @@ class LockCallActivity : AppCompatActivity() {
     }
 
 
-    var secondsCall = 0
-    val handler = Handler()
-    private var runnable: Runnable? = null
+    var secondsCall : Long = 0
+    val handlerCountTime = Handler()
+    private var runnableCountTime: Runnable? = null
 
     private var isMuteMic = false
     private var isSpeaker = false
@@ -192,30 +204,32 @@ class LockCallActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun initListener() {
         binding.imgDecline.setOnClickListener {
+            FlashLockCallUtils.stopFlash()
+            turnOffVibration()
             binding.txtStatus.text = getString(R.string.call_ended)
             LockCallUtil.declineCallPhone(this)
-            stopFlash()
-            turnOffVibration()
         }
 
         binding.imgAccept.setOnClickListener {
+            FlashLockCallUtils.stopFlash()
+            turnOffVibration()
             binding.imgDecline.clearAnimation()
             binding.imgAccept.clearAnimation()
+            NotificationLockCallUtils.startCallingNotification(this@LockCallActivity)
             LockCallUtil.acceptCallPhone(this)
-            stopFlash()
-            turnOffVibration()
-
-            runnable = object : Runnable {
+            secondsCall = 0L
+            ThemeCallUtils.timeStartCalling = System.currentTimeMillis()
+            runnableCountTime = object : Runnable {
                 override fun run() {
                     val minutes = (secondsCall) / 60
                     val secs = secondsCall % 60
                     val timeString = String.format("%02d:%02d", minutes, secs)
                     binding.txtStatus.text = timeString
                     secondsCall++
-                    handler.postDelayed(this, 1000)
+                    handlerCountTime.postDelayed(this, 1000)
                 }
             }
-            handler.post(runnable as Runnable)
+            handlerCountTime.post(runnableCountTime as Runnable)
 
             binding.imgAccept.gone()
             binding.imgDecline.gone()
@@ -255,6 +269,26 @@ class LockCallActivity : AppCompatActivity() {
         }
         binding.imgHold.setOnClickListener {
             snackBar.show()
+            /*val telecomManager = getSystemService(TELECOM_SERVICE) as TelecomManager
+
+            if (telecomManager != null) {
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_PHONE_STATE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    if (telecomManager.isInCall) {
+                        telecomManager.javaClass.getMethod("holdCall").invoke(telecomManager)
+                    }
+                }
+
+            }
+
+            try {
+                val tm: TelephonyManager =
+                    getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                tm.javaClass.getMethod("holdCall").invoke(tm)
+            } catch (e: Exception) { e.printStackTrace() }*/
         }
         binding.imgNewCall.setOnClickListener {
             snackBar.show()
@@ -264,79 +298,12 @@ class LockCallActivity : AppCompatActivity() {
         }
         binding.imgFinishCall.setOnClickListener {
             LockCallUtil.declineCallPhone(this)
-            runnable?.let { it1 -> handler.removeCallbacks(it1) }
+            runnableCountTime?.let { it1 -> handlerCountTime.removeCallbacks(it1) }
             binding.txtStatus.text = "(${binding.txtStatus.text}) " + getString(R.string.call_ended)
         }
 
     }
 
-    //region Flash
-    private fun startFlash(timeLoop: Long = 100000, speed: Long? = null) {
-        cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        Log.d(TAG, "startFlash")
-        val typeFlash = SharePreferenceUtils.getTypeFlash()
-        var isFlashOn = false
-        val spx: Long = speed ?: if (SharePreferenceUtils.isEnableSpeedMode()) {
-            SpeedFlashUtils.getFlashDelayByType(SharePreferenceUtils.getTypeFlash())
-        } else {
-            SpeedFlashUtils.SPEED_FLASH_DEFAULT.toLong()
-        }
-        timeCountDown = object : CountDownTimer(timeLoop, spx) {
-            override fun onTick(millisUntilFinished: Long) {
-                try {
-                    isFlashOn = !isFlashOn
-                    turnFlashWithStyle(typeFlash, isFlashOn)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFinish() {
-                stopFlash()
-            }
-        }
-        timeCountDown?.start()
-    }
-
-    private fun turnFlashWithStyle(typeFlash: Int, isFlashOn: Boolean) {
-        var isFlashOn1 = isFlashOn
-        if (cameraManager == null) {
-            cameraManager = getSystemService(CAMERA_SERVICE) as CameraManager
-        }
-        if (typeFlash == 0) {//continuous
-            isFlashOn1 = !isFlashOn1
-            if (isFlashOn1) {
-                val cameraId = cameraManager?.cameraIdList?.get(0)
-                cameraManager?.setTorchMode(cameraId!!, true)
-            } else {
-                val cameraId = cameraManager?.cameraIdList?.get(0)
-                cameraManager?.setTorchMode(cameraId!!, false)
-            }
-        } else {//sos
-            val cameraId = cameraManager?.cameraIdList?.get(0)
-            cameraManager?.setTorchMode(cameraId!!, true)
-            Handler(Looper.getMainLooper()).postDelayed({
-                cameraManager?.setTorchMode(cameraId!!, false)
-            }, 40)
-            Handler(Looper.getMainLooper()).postDelayed({
-                cameraManager?.setTorchMode(cameraId!!, true)
-            }, 80)
-            Handler(Looper.getMainLooper()).postDelayed({
-                cameraManager?.setTorchMode(cameraId!!, false)
-            }, 120)
-        }
-    }
-
-    private fun stopFlash() {
-        timeCountDown?.cancel()
-        val cameraId = cameraManager?.cameraIdList?.get(0)
-        if (cameraId != null) {
-            cameraManager?.setTorchMode(cameraId, false)
-            cameraManager = null
-        }
-    }
-
-    //endregion
 
 
     val broadcastCall = object : BroadcastReceiver() {
@@ -349,15 +316,15 @@ class LockCallActivity : AppCompatActivity() {
                 return
             }
 
-            cameraManager = context?.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            context.let {
+            context?.let {
                 SharePreferenceUtils.init(it)
             }
             val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
 
             } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                stopFlash()
+                FlashLockCallUtils.stopFlash()
+                turnOffVibration()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
@@ -365,7 +332,9 @@ class LockCallActivity : AppCompatActivity() {
                         Handler(Looper.getMainLooper()).postDelayed({
                             finish()
                         }, 1000L)
-                        stopFlash()
+                        FlashLockCallUtils.stopFlash()
+                        turnOffVibration()
+                        NotificationLockCallUtils.hide(this@LockCallActivity)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

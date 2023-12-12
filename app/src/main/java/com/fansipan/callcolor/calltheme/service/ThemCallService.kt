@@ -29,10 +29,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.fansipan.callcolor.calltheme.MyApplication
 import com.fansipan.callcolor.calltheme.R
+import com.fansipan.callcolor.calltheme.service.ThemCallService.Companion.phoneNumber
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
 import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
+import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
 class ThemCallService : Service() {
@@ -105,23 +107,34 @@ class ThemCallService : Service() {
                         val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
                         ringtone = RingtoneManager.getRingtone(context, ringtoneUri)
                         ringtone?.play()
-
-                        //startCallingNotification()
+                        try {
+                            if (SharePreferenceUtils.isEnableFlashMode()) {
+                                FlashLockCallUtils.startFlash(context)
+                            }
+                            if (SharePreferenceUtils.isEnableVibrate()) {
+                                startVibration(0)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
+                    NotificationLockCallUtils.startRingNotification(context)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                Log.d(TAG, "2.EXTRA_STATE_OFFHOOK")
                 ringtone?.stop()
+                FlashLockCallUtils.stopFlash()
+                turnOffVibration()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
-                Log.d(TAG, "3.EXTRA_STATE_IDLE")
+                NotificationLockCallUtils.hide(context)
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
                         Handler(Looper.getMainLooper()).postDelayed({
                             (application as? MyApplication)?.finishActivity()
                         }, 1000L)
                         turnOffVibration()
+                        FlashLockCallUtils.stopFlash()
                         ringtone?.stop()
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -179,58 +192,4 @@ fun Service.startWithNotification() {
         startForeground(2, notification)
     }
 
-}
-
-@SuppressLint("RemoteViewLayout")
-fun Context.startCallingNotification() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val name: CharSequence = Constants.NOTIFICATION_CHANNEL_NAME
-        val description = Constants.NOTIFICATION_DETAILS
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID2, name, importance)
-        channel.description = description
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
-        val notificationManager = getSystemService(NotificationManager::class.java)
-        notificationManager.createNotificationChannel(channel)
-
-    }
-
-    val intentOpenApp = Intent(this, LockCallActivity::class.java).apply {}
-    val pendingIntentOpenApp = PendingIntent.getActivity(
-        this,
-        0,
-        intentOpenApp,
-        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-    )
-    //create notify
-    val notificationBuilder: NotificationCompat.Builder = NotificationCompat.Builder(
-        this, Constants.NOTIFICATION_CHANNEL_ID2
-    ).apply {
-        priority = NotificationCompat.PRIORITY_LOW
-    }
-
-    val bigView :RemoteViews = RemoteViews(this.packageName, R.layout.layout_calling_notification_big)
-    val smallView :RemoteViews = RemoteViews(this.packageName, R.layout.layout_calling_notification_small)
-
-    val notification = notificationBuilder.setOngoing(true).setSmallIcon(R.mipmap.ic_launcher)
-        .setContentTitle("Có cuộc gọi đến!")
-        .setContentText("Có cuộc gọi đến.......!")
-        .setPriority(NotificationManager.IMPORTANCE_MIN)
-        .setCategory(Notification.CATEGORY_SERVICE).setContentIntent(pendingIntentOpenApp)
-        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-        .setCustomContentView(smallView)
-        .setCustomBigContentView(bigView)
-        .build()
-
-    if (ActivityCompat.checkSelfPermission(
-            this,
-            Manifest.permission.POST_NOTIFICATIONS
-        ) == PackageManager.PERMISSION_GRANTED
-    ) {
-        NotificationManagerCompat.from(this).notify(6112023, notification)
-        Log.e("truongpa", "POST_NOTIFICATIONS: DONE")
-    } else {
-        Log.e("truongpa", "POST_NOTIFICATIONS: NO")
-    }
 }

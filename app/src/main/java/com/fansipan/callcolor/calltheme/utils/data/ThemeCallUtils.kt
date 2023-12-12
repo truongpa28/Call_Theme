@@ -6,6 +6,8 @@ import com.fansipan.callcolor.calltheme.model.CategoryThemeModel
 
 object ThemeCallUtils {
 
+    var timeStartCalling : Long= 0
+
     val listCategory = listOf<CategoryThemeModel>(
         CategoryThemeModel("Flower", "Flower", R.drawable.bg_category_flower),
         CategoryThemeModel("Cat", "Cat", R.drawable.bg_category_cat),
