@@ -14,6 +14,9 @@ import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
 import com.fansipan.callcolor.calltheme.utils.data.VibrateRingtoneUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
+import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
+import com.fansipan.callcolor.calltheme.utils.ex.startVibration
+import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
 class VibrateFragment : BaseFragment() {
 
@@ -47,6 +50,18 @@ class VibrateFragment : BaseFragment() {
         adapter.setOnClickItem { _, position ->
             SharePreferenceUtils.setVibrateRingtone(position)
             adapter.notifyDataSetChanged()
+            initVibrator(requireContext())
+            startVibration(-1)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        turnOffVibration()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        turnOffVibration()
     }
 }

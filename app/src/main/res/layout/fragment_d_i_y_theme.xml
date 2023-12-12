@@ -75,6 +75,7 @@
                     android:fontFamily="@font/roboto_semi_bold_600"
                     android:gravity="center_vertical|left"
                     android:padding="8dp"
+                    android:textColor="@color/black_app"
                     android:text="@string/preview"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"

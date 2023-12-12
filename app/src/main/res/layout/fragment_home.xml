@@ -57,6 +57,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:fontFamily="@font/roboto_semi_bold_600"
             android:textSize="14sp"
+            android:textColor="@color/black_app"
             android:padding="8dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/llPreview"

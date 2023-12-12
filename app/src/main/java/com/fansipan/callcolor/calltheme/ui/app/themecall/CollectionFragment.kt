@@ -94,7 +94,7 @@ class CollectionFragment : BaseFragment() {
             val fileName = "${item.category}_${item.id}.png"
             if (SharePreferenceUtils.isThemeDownload(fileName)) {
                 DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
-                DataUtils.tmpCallThemeEdit = CallThemeScreenModel(0, 0, requireContext().getPathOfBg(item), item.avatar, item.buttonIndex)
+                DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
                 findNavController().navigate(
                     R.id.action_collectionFragment_to_editThemeFragment,
                     bundleOf("type" to "theme")
@@ -144,11 +144,12 @@ class CollectionFragment : BaseFragment() {
                     hideDialogDownload()
                     onDone.invoke()
                     DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, item.avatar, item.buttonIndex))
+                    DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, outputFile.absolutePath, item.avatar, item.buttonIndex)
+                    DataUtils.tmpCallThemeEdit = CallThemeScreenModel(0, 0, outputFile.absolutePath, item.avatar, item.buttonIndex)
                     findNavController().navigate(
                         R.id.action_collectionFragment_to_editThemeFragment,
                         bundleOf("type" to "theme")
                     )
-                    DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, outputFile.absolutePath, item.avatar, item.buttonIndex)
                 },200L)
             } catch (e: IOException) {
                 e.printStackTrace()
