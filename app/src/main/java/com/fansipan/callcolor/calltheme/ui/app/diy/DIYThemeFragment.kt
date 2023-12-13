@@ -84,7 +84,7 @@ class DIYThemeFragment : BaseFragment() {
     }
 
     private fun initView() {
-        val dataBackground = DataUtils.listDataCallThemScreen.subList(0, 11)
+        val dataBackground = DataUtils.listDataCallThemScreen.subList(0, 11).toMutableList()
         dataBackground.add(0, CallThemeScreenModel())
         adapterBackground.setDataList(dataBackground)
         binding.rcyBackground.adapter = adapterBackground
