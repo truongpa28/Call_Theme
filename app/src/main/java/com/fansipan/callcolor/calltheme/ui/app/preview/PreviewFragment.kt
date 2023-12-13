@@ -106,8 +106,10 @@ class PreviewFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        startFlash()
-        playRingtone()
+        if (requireArguments().getString("type", "") != "diy") {
+            startFlash()
+            playRingtone()
+        }
     }
 
     override fun onPause() {

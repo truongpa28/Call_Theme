@@ -112,7 +112,7 @@ class LockCallActivity : AppCompatActivity() {
 
 
         ThemCallService.nameContact.let {
-            binding.txtName.showOrGone(it == "")
+            binding.txtName.showOrGone(it != "")
             binding.txtName.text = it
         }
         binding.txtSdt.text = ThemCallService.phoneNumber

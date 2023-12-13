@@ -156,10 +156,10 @@ class DIYThemeFragment : BaseFragment() {
         }
 
         binding.txtPreview.clickSafe {
-            findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment)
+            findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment, bundleOf("type" to "diy"))
         }
         binding.llPreview.clickSafe {
-            findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment)
+            findNavController().navigate(R.id.action_DIYThemeFragment_to_previewFragment, bundleOf("type" to "diy"))
         }
 
         binding.txtApply.clickSafe {

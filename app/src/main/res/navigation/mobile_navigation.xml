@@ -120,7 +120,14 @@
         android:id="@+id/previewFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.preview.PreviewFragment"
         android:label="fragment_preview"
-        tools:layout="@layout/fragment_preview" />
+        tools:layout="@layout/fragment_preview" >
+
+        <argument
+            android:name="type"
+            android:defaultValue=""
+            app:argType="string" />
+
+    </fragment>
     <fragment
         android:id="@+id/alertFragment"
         android:name="com.fansipan.callcolor.calltheme.ui.app.alert.AlertFragment"

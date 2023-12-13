@@ -152,6 +152,7 @@ class EditThemeFragment : BaseFragment() {
     override fun onBack() {
         if (type == "diy") {
             dialogQuitEdit.show {
+                DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
                 findNavController().popBackStack()
             }
         } else {

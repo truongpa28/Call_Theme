@@ -4,7 +4,7 @@
     android:id="@+id/rl_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/imgBackground"
@@ -36,48 +36,48 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:minWidth="180dp"
+        android:paddingVertical="4dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_content_theme_call"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_avatar">
 
-        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
+        <TextView
             android:id="@+id/txtName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium_500"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/ll_avatar"
-            app:outlineColor="@color/black"
-            app:outlineWidth="1" />
+            android:visibility="gone" />
 
-        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
+        <TextView
             android:id="@+id/txtSdt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium_500"
             android:gravity="center"
+            android:text="0123456789"
             android:textColor="@color/white"
-            android:textSize="22sp"
-            app:layout_constraintTop_toBottomOf="@+id/txtName"
-            app:outlineColor="@color/black"
-            app:outlineWidth="1" />
+            android:textSize="22sp" />
 
-        <com.fansipan.callcolor.calltheme.custom.TextViewOutline
+        <TextView
             android:id="@+id/txtStatus"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium_500"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="22sp"
             android:text="@string/is_calling"
-            app:layout_constraintTop_toBottomOf="@+id/txtName"
-            app:outlineColor="@color/black"
-            app:outlineWidth="1" />
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
 
         <Chronometer
             android:id="@+id/txtTime"
@@ -86,10 +86,7 @@
             android:fontFamily="@font/roboto_medium_500"
             android:gravity="center"
             android:textSize="22sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/txtName"
-            app:outlineColor="@color/black"
-            app:outlineWidth="1" />
+            android:visibility="gone"/>
 
     </LinearLayout>
 
