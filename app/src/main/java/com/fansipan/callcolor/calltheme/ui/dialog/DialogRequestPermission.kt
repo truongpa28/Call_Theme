@@ -28,7 +28,7 @@ class DialogRequestPermission(private val context: Context) {
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
     }
 
-    private fun isShowing(): Boolean {
+    fun isShowing(): Boolean {
         return dialog.isShowing
     }
 

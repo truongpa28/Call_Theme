@@ -1,6 +1,7 @@
 package com.fansipan.callcolor.calltheme.ui.splash
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -22,6 +23,11 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             openActivity(LanguageActivity::class.java, true)
         }, 1500L)
+        /*Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this@SplashActivity, LanguageActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 1500L)*/
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {}

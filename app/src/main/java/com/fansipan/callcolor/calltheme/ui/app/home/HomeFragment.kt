@@ -75,7 +75,6 @@ class HomeFragment : BaseFragment() {
                 showDialogPermission{
                     showDialogReadMiPermission()
                 }
-                SharePreferenceUtils.setFirstRequestDialogPermission(false)
             } catch (_: Exception) { }
         }
 

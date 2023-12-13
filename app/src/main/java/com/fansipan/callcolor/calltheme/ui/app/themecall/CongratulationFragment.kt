@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
@@ -74,7 +75,7 @@ class CongratulationFragment : BaseFragment() {
         }
 
         binding.txtDone.clickSafe {
-            onBack()
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 

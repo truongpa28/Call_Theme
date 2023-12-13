@@ -32,6 +32,7 @@ object RingtonePlayerUtils {
             val handler: Handler? = handler
             runnable?.let { handler?.removeCallbacks(it) }
         } catch (e: Exception) {
+            action()
             e.printStackTrace()
             Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT)
                 .show()

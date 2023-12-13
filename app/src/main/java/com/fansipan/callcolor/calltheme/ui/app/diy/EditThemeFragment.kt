@@ -131,12 +131,22 @@ class EditThemeFragment : BaseFragment() {
             DataUtils.callThemeEdit = DataUtils.tmpCallThemeEdit.copy()
             findNavController().popBackStack()
         } else {
-            SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
-            SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
-            SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
-            findNavController().navigate(R.id.action_editThemeFragment_to_congratulationFragment)
+            if (!isAllPermissionCallTheme()) {
+                showDialogPermission {
+                    applyThemeCall()
+                }
+            } else {
+                applyThemeCall()
+            }
         }
 
+    }
+
+    private fun applyThemeCall() {
+        SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
+        SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
+        SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
+        findNavController().navigate(R.id.action_editThemeFragment_to_congratulationFragment)
     }
 
     override fun onBack() {

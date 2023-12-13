@@ -163,20 +163,30 @@ class DIYThemeFragment : BaseFragment() {
         }
 
         binding.txtApply.clickSafe {
-            SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
-            SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
-            SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
-            DataSaved.addNewCreate(
-                requireContext(),
-                ItemSavedModel(
-                    DataUtils.callThemeEdit.background,
-                    DataUtils.callThemeEdit.avatar,
-                    DataUtils.callThemeEdit.buttonIndex,
-                    false
-                )
-            )
-            findNavController().navigate(R.id.action_DIYThemeFragment_to_congratulationFragment)
+            if (!isAllPermissionCallTheme()) {
+                showDialogPermission {
+                    applyThemeCall()
+                }
+            } else {
+                applyThemeCall()
+            }
         }
+    }
+
+    private fun applyThemeCall() {
+        SharePreferenceUtils.setAvatarChoose(DataUtils.callThemeEdit.avatar)
+        SharePreferenceUtils.setIconCallChoose(DataUtils.callThemeEdit.buttonIndex)
+        SharePreferenceUtils.setBackgroundChoose(DataUtils.callThemeEdit.background)
+        DataSaved.addNewCreate(
+            requireContext(),
+            ItemSavedModel(
+                DataUtils.callThemeEdit.background,
+                DataUtils.callThemeEdit.avatar,
+                DataUtils.callThemeEdit.buttonIndex,
+                false
+            )
+        )
+        findNavController().navigate(R.id.action_DIYThemeFragment_to_congratulationFragment)
     }
 
     private fun clickItemCollection(item : CallThemeScreenModel?, position: Int) {

@@ -154,7 +154,7 @@ class RingtoneFragment : BaseFragment() {
                     val path = RealPathUtil.getRealPath(requireContext(), uri)
                     Log.e("truongpa", path)
                     SharePreferenceUtils.setRingtone(DataUtils.getFileNameFromPath(path))
-                    SharePreferenceUtils.setTypeRingtone("app")
+                    SharePreferenceUtils.setTypeRingtone("device")
                     SetRingToneFromChooseAudio(path, requireContext()).execute()
                     binding.txtNameRingtone.text = SharePreferenceUtils.getRingtone()
                 } catch (e : Exception) {
