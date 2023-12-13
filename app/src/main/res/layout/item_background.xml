@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <ProgressBar
+            android:id="@+id/progressLoading"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -72,6 +72,7 @@ class SavedFragment(val posView: Int) : BaseFragment() {
                     bundleOf("type" to "theme")
                 )
                 DataUtils.callThemeEdit = CallThemeScreenModel(0, 0, data.background,  data.avatar,  data.buttonIndex)
+                DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
             }
         }
 
@@ -89,6 +90,7 @@ class SavedFragment(val posView: Int) : BaseFragment() {
 
         binding.imgAddNew.clickSafe {
             DataUtils.callThemeEdit = CallThemeScreenModel()
+            DataUtils.tmpCallThemeEdit = CallThemeScreenModel()
             findNavController().navigate(R.id.action_downloadedFragment_to_DIYThemeFragment)
         }
     }

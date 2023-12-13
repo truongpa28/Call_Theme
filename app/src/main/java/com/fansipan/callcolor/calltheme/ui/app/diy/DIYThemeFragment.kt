@@ -67,6 +67,8 @@ class DIYThemeFragment : BaseFragment() {
         IconCallAdapter()
     }
 
+    private var typeChoose = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,7 +84,9 @@ class DIYThemeFragment : BaseFragment() {
     }
 
     private fun initView() {
-        adapterBackground.setDataList(DataUtils.listDataCallThemScreen.subList(0, 11))
+        val dataBackground = DataUtils.listDataCallThemScreen.subList(0, 11)
+        dataBackground.add(0, CallThemeScreenModel())
+        adapterBackground.setDataList(dataBackground)
         binding.rcyBackground.adapter = adapterBackground
 
         adapterAvatar.setDataList(AvatarUtils.listAvatar.subList(0, 11))
@@ -125,7 +129,13 @@ class DIYThemeFragment : BaseFragment() {
         binding.imgBack.clickSafe { onBack() }
 
         adapterBackground.setOnClickItem { item, position ->
-            clickItemCollection(item, position)
+            if (position == 0) {
+                typeChoose = 1
+                chooseImage()
+            } else {
+                clickItemCollection(item, position)
+            }
+
         }
 
         adapterAvatar.setOnClickItem { item, position ->
@@ -134,7 +144,8 @@ class DIYThemeFragment : BaseFragment() {
                 //DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
                 findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
             } else {
-                chooseAvatar()
+                typeChoose = 2
+                chooseImage()
             }
         }
 
@@ -194,7 +205,7 @@ class DIYThemeFragment : BaseFragment() {
         }
     }
 
-    private fun chooseAvatar() {
+    private fun chooseImage() {
         if (Build.VERSION.SDK_INT >= 33) {
             checkPermissionAndPickImageMediaImage()
         } else {
@@ -209,7 +220,12 @@ class DIYThemeFragment : BaseFragment() {
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
+                if (typeChoose == 1) {
+                    DataUtils.tmpCallThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
+                } else {
+                    DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
+                }
+
                 findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
             }
         }
@@ -277,12 +293,12 @@ class DIYThemeFragment : BaseFragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     hideDialogDownload()
                     onDone.invoke()
+                    DataUtils.tmpCallThemeEdit.background = outputFile.absolutePath
                     //DataSaved.addNewDownload(requireContext(), ItemSavedModel(outputFile.absolutePath, "1", "1", true))
                     findNavController().navigate(
                         R.id.action_DIYThemeFragment_to_editThemeFragment,
                         bundleOf("type" to "diy")
                     )
-                    DataUtils.tmpCallThemeEdit.background = outputFile.absolutePath
                     //DataUtils.tmpCallThemeEdit = DataUtils.callThemeEdit.copy()
                 },200L)
             } catch (e: IOException) {
