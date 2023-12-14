@@ -77,4 +77,6 @@
     <string name="enable_call_theme">Bật chủ đề cuộc gọi</string>
     <string name="share_app">Chia sẻ ứng dụng</string>
     <string name="no_internet">Không có mạng</string>
+    <string name="grant_permission">Cấp quyền</string>
+    <string name="you_must_grant_permission_to_use_the_application">Bạn phải cấp quyền sử dụng ứng dụng!</string>
 </resources>

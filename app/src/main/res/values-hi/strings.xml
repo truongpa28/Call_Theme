@@ -77,4 +77,6 @@
     <string name="enable_call_theme">कॉल थीम सक्षम करें</string>
     <string name="share_app">ऐप शेयर करें</string>
     <string name="no_internet">कोई इंटरनेट नहीं</string>
+    <string name="grant_permission">अनुदान अनुमति</string>
+    <string name="you_must_grant_permission_to_use_the_application">आपको एप्लिकेशन का उपयोग करने की अनुमति देनी होगी!</string>
 </resources>

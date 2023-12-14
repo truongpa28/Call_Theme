@@ -77,4 +77,6 @@
     <string name="enable_call_theme">Activer le thème d\'appel</string>
     <string name="share_app">Partager l\'application</string>
     <string name="no_internet">Pas d\'Internet</string>
+    <string name="grant_permission">Donner la permission</string>
+    <string name="you_must_grant_permission_to_use_the_application">Vous devez accorder l\'autorisation pour utiliser l\'application !</string>
 </resources>

@@ -78,5 +78,7 @@
     <string name="current_ringtone_can_not_play">The current ringtone is the device\'s default and cannot be played</string>
     <string name="there_an_incoming_call">There\'s an incoming call</string>
     <string name="call_in_progress">Call in progress</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="you_must_grant_permission_to_use_the_application">You must grant permission to use the application!</string>
 
 </resources>

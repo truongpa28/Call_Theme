@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.fansipan.callcolor.calltheme.R
+import com.fansipan.callcolor.calltheme.ui.dialog.DialogGoToSettingPermission
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogReadMiPermission
 import com.fansipan.callcolor.calltheme.ui.dialog.DialogRequestPermission
 import com.fansipan.callcolor.calltheme.utils.HelperUtils
@@ -26,8 +26,6 @@ import com.fansipan.callcolor.calltheme.utils.ex.hasOverlaySettingPermission
 import com.fansipan.callcolor.calltheme.utils.ex.hasWriteSettingPermission
 import com.fansipan.callcolor.calltheme.utils.ex.isPhoneAllCall
 import com.fansipan.callcolor.calltheme.utils.ex.isPhoneDialer
-import com.fansipan.callcolor.calltheme.utils.ex.showToast
-import kotlin.math.log
 
 abstract class BaseFragment() : Fragment() {
 
@@ -37,6 +35,10 @@ abstract class BaseFragment() : Fragment() {
 
     private val dialogReadMiPermission by lazy {
         DialogReadMiPermission(requireContext())
+    }
+
+    private val dialogGoToSettingPermission by lazy {
+        DialogGoToSettingPermission(requireContext())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,10 +120,34 @@ abstract class BaseFragment() : Fragment() {
         ) {
             Log.e("truongpa", "Check Permission Done")
         } else {
-            requestPermissions(
-                permissionPhone,
-                1111
-            )
+            if (
+                shouldShowRequestPermissionRationale(
+                    Manifest.permission.CAMERA
+                )
+                && shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_PHONE_STATE
+                )
+                && shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_CONTACTS
+                )
+                && shouldShowRequestPermissionRationale(
+                    Manifest.permission.ANSWER_PHONE_CALLS
+                )
+            ) {
+                dialogGoToSettingPermission.show(
+                    onClickGoToSetting = {
+                        HelperUtils.gotoSettingOtherPermission(requireContext())
+                    },
+                    onDone = {
+                        dialogThemeCallPermission.setupView()
+                    }
+                )
+            } else {
+                requestPermissions(
+                    permissionPhone,
+                    1111
+                )
+            }
         }
     }
 
@@ -132,9 +158,9 @@ abstract class BaseFragment() : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        Log.e("truongpa", "onRequestPermissionsResult: vào" )
+        Log.e("truongpa", "onRequestPermissionsResult: vào")
         if (requestCode == 1111) {
-            Log.e("truongpa", "onRequestPermissionsResult: 1111" )
+            Log.e("truongpa", "onRequestPermissionsResult: 1111")
             dialogThemeCallPermission.setupView()
         }
     }

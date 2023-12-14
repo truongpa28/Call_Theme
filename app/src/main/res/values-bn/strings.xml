@@ -76,4 +76,6 @@
     <string name="enable_call_theme">কল থিম সক্ষম করুন</string>
     <string name="share_app">অ্যাপ্লিকেশন ভাগ করা</string>
     <string name="no_internet">কোন ইন্টারনেট নেই</string>
+    <string name="grant_permission">অনুমতি দিন</string>
+    <string name="you_must_grant_permission_to_use_the_application">আপনি অ্যাপ্লিকেশন ব্যবহার করার অনুমতি দিতে হবে!</string>
 </resources>
