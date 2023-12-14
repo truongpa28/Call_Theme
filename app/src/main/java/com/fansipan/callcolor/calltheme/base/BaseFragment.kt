@@ -136,7 +136,11 @@ abstract class BaseFragment() : Fragment() {
             ) {
                 dialogGoToSettingPermission.show(
                     onClickGoToSetting = {
-                        HelperUtils.gotoSettingOtherPermission(requireContext())
+                        val intentSetting = Intent().apply {
+                            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                            data = Uri.fromParts("package", requireContext().packageName, null)
+                        }
+                        startActivity(intentSetting)
                     },
                     onDone = {
                         dialogThemeCallPermission.setupView()

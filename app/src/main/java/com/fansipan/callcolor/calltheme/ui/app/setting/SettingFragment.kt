@@ -55,7 +55,7 @@ class SettingFragment : BaseFragment() {
         )
     }
 
-    fun changeDefaultPhoneApp() {
+    private fun changeDefaultPhoneApp() {
 
         snackBar.setAction(getString(R.string.ok)) {
             /*val intentSetting = Intent().apply {
