@@ -92,13 +92,11 @@ class HomeFragment : BaseFragment() {
             val posAvt = SharePreferenceUtils.getAvatarChoose()
             if (posAvt.length < 3) {
                 Glide.with(this)
-                    .asBitmap()
                     .load(AvatarUtils.listAvatar[posAvt.toInt()])
                     .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))
             } else {
                 Glide.with(this)
-                    .asBitmap()
                     .load(SharePreferenceUtils.getAvatarChoose())
                     .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))

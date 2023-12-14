@@ -27,7 +27,7 @@
     <string name="no_theme_downloaded">Không có chủ đề nào được tải xuống</string>
     <string name="retry_internet">Thử lại Internet</string>
     <string name="theme_call">Cuộc gọi chủ đề</string>
-    <string name="created">Tạo</string>
+    <string name="created">Đã tạo</string>
     <string name="permission_denied">Quyền bị từ chối</string>
     <string name="enable_vibrate">Bật chế độ rung</string>
     <string name="done">Xong</string>
@@ -37,7 +37,7 @@
     <string name="phone_contacts_and_storage">Điện thoại, Danh bạ và Bộ nhớ</string>
     <string name="intro_content_2">Mang đến cho cuộc gọi đến một diện mạo mới, ấn tượng và nhiều màu sắc hơn</string>
     <string name="intro_content_3">Thay đổi Flash, Rung và Nhạc chuông theo sở thích cá nhân của bạn</string>
-    <string name="background">Lý lịch</string>
+    <string name="background">Hình nền</string>
     <string name="ringtone_library">Thư viện nhạc chuông</string>
     <string name="screen_permissions">Quyền màn hình</string>
     <string name="go_to_setting">Đi đến cài đặt</string>
@@ -45,13 +45,13 @@
     <string name="next">Kế tiếp</string>
     <string name="preview">Xem trước</string>
     <string name="call_in_progress">Cuộc gọi đang chờ</string>
-    <string name="no">KHÔNG</string>
+    <string name="no">Không</string>
     <string name="feature_is_being_developed">Tính năng đang được phát triển.</string>
     <string name="txt_disable_dialler">Vui lòng thay đổi trình quay số bằng ứng dụng khác để tắt cuộc gọi chủ đề!!</string>
     <string name="diy_theme">Chủ đề tự làm</string>
-    <string name="save">Cứu</string>
+    <string name="save">Lưu</string>
     <string name="to_turn_on_phone_calls_contacts_and_storage">Để bật danh bạ và bộ nhớ cuộc gọi điện thoại</string>
-    <string name="skip">Nhảy</string>
+    <string name="skip">Bỏ qua</string>
     <string name="call_ended">Cuộc gọi kết thúc</string>
     <string name="error">Lỗi</string>
     <string name="enable_flash_alert">Bật Cảnh báo Flash</string>
@@ -59,7 +59,7 @@
     <string name="to_display_incoming_calls">Để hiển thị các cuộc gọi đến</string>
     <string name="alert">Báo động</string>
     <string name="content_dialog_quit_edit">Bạn đang chỉnh sửa. Bạn có muốn đóng và hủy tất cả chỉnh sửa không?</string>
-    <string name="ok">ĐƯỢC RỒI</string>
+    <string name="ok">Được rồi</string>
     <string name="flash_vibrate_test">Kiểm tra flash &amp; rung</string>
     <string name="flash_type">Loại đèn nháy</string>
     <string name="select_language">Chọn ngôn ngữ</string>
@@ -69,7 +69,7 @@
     <string name="vibrate_ringtone">Nhạc chuông rung</string>
     <string name="start">Bắt đầu</string>
     <string name="ringtone">Nhạc chuông</string>
-    <string name="avatar">hình đại diện</string>
+    <string name="avatar">Ảnh đại diện</string>
     <string name="no_theme_created">Không có chủ đề nào được tạo</string>
     <string name="rate_app">Đánh giá ứng dụng</string>
     <string name="select_flash_type">Chọn loại đèn nháy</string>

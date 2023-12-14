@@ -23,7 +23,6 @@ class CollectionAdapter : BaseAdapterRecyclerView<CallThemeScreenModel, ItemColl
     override fun bindData(binding: ItemCollectionBinding, item: CallThemeScreenModel, position: Int) {
         val context = binding.root.context
         Glide.with(context)
-            .asBitmap()
             //.apply(requestOption)
             .load("https://batterycharger.lutech.vn/app/calltheme/theme3/theme${item.id}/bgtheme${item.id}.png")
             .into(binding.imgThumbnail)

@@ -21,17 +21,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_margin="4dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="7dp"
         android:src="@drawable/bg_selected_v1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgStateSelect"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_margin="4dp"
         android:visibility="gone"
         android:src="@drawable/ic_selected_v1"

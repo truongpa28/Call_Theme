@@ -109,13 +109,11 @@ class DIYThemeFragment : BaseFragment() {
             val posAvt = DataUtils.callThemeEdit.avatar
             if (posAvt.length < 3) {
                 Glide.with(this)
-                    .asBitmap()
                     .load(AvatarUtils.listAvatar[posAvt.toInt()])
                     .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))
             } else {
                 Glide.with(this)
-                    .asBitmap()
                     .load(DataUtils.callThemeEdit.avatar)
                     .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))

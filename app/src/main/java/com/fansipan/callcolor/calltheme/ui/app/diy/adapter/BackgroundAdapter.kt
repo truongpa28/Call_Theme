@@ -26,13 +26,11 @@ class BackgroundAdapter: BaseAdapterRecyclerView<CallThemeScreenModel, ItemBackg
 
         if (position == 0) {
             Glide.with(context)
-                .asBitmap()
                 .load(R.drawable.img_add_background)
                 .into(binding.imgThumbnail)
             binding.imgDownload.gone()
         } else {
             Glide.with(context)
-                .asBitmap()
                 .load("https://batterycharger.lutech.vn/app/calltheme/theme3/theme${item.id}/bgtheme${item.id}.png")
                 .into(binding.imgThumbnail)
             binding.imgDownload.showOrGone(!SharePreferenceUtils.isBackgroundDownload("${item.category}_${item.id}.png"))

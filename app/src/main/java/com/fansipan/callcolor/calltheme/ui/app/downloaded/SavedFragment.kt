@@ -24,7 +24,7 @@ class SavedFragment(val posView: Int) : BaseFragment() {
     private lateinit var binding: FragmentSavedBinding
 
     private val adapter by lazy {
-        SavedAdapter()
+        SavedAdapter(requireContext())
     }
 
     private val dialog by lazy {

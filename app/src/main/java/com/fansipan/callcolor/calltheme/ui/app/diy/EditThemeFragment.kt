@@ -77,7 +77,6 @@ class EditThemeFragment : BaseFragment() {
     private fun showUiThemeCall() {
         DataUtils.tmpCallThemeEdit.let { item ->
             Glide.with(requireContext())
-                .asBitmap()
                 .load(item.background)
                 .into(binding.imgBackground)
             val posButton = item.buttonIndex.toInt() - 1
@@ -89,7 +88,6 @@ class EditThemeFragment : BaseFragment() {
                 binding.imgAvatar.setImageResource(AvatarUtils.listAvatar[posAvt])
             } catch (e: Exception) {
                 Glide.with(requireContext())
-                    .asBitmap()
                     .load(item.avatar)
                     .into(binding.imgAvatar)
             }

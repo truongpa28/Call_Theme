@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
@@ -50,16 +51,31 @@ class PreviewFragment : BaseFragment() {
     private fun initView() {
         DataUtils.callThemeEdit.let {item ->
             Glide.with(requireContext())
-                .asBitmap()
                 .load(item.background)
                 .into(binding.imgBackground)
             val posButton = item.buttonIndex.toInt() - 1
             binding.imgIconCall1.setImageResource(IconCallUtils.listIconCall[posButton].icon1)
             binding.imgIconCall2.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
-            binding.imgAvatar.setImageResource(AvatarUtils.listAvatar[item.avatar.toInt()])
             val loadAnimation: Animation = AnimationUtils.loadAnimation(requireContext(), R.anim.jump_button)
             binding.imgIconCall1.startAnimation(loadAnimation)
             binding.imgIconCall2.startAnimation(loadAnimation)
+
+            try {
+                val posAvt = item.avatar
+                if (posAvt.length < 3) {
+                    Glide.with(this)
+                        .load(AvatarUtils.listAvatar[posAvt.toInt()])
+                        .into(binding.imgAvatar)
+                        .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))
+                } else {
+                    Glide.with(this)
+                        .load(item.avatar)
+                        .into(binding.imgAvatar)
+                        .onLoadFailed(ContextCompat.getDrawable(requireContext(), AvatarUtils.listAvatar[1]))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

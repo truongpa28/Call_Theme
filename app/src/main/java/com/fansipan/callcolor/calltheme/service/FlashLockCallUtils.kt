@@ -62,7 +62,8 @@ object FlashLockCallUtils {
     private fun turnFlashWithStyle(context: Context, typeFlash: Int, isFlashOn: Boolean) {
         var isFlashOn1 = isFlashOn
         if (cameraManager == null) {
-            cameraManager = context.getSystemService(AppCompatActivity.CAMERA_SERVICE) as CameraManager
+            cameraManager =
+                context.getSystemService(AppCompatActivity.CAMERA_SERVICE) as CameraManager
         }
         if (typeFlash == 0) {//continuous
             isFlashOn1 = !isFlashOn1
@@ -91,11 +92,16 @@ object FlashLockCallUtils {
     fun stopFlash() {
         /*timeCountDown?.cancel()
         timeCountDown = null*/
-        runnableFlash?.let { it1 -> handlerFlash.removeCallbacks(it1) }
-        val cameraId = cameraManager?.cameraIdList?.get(0)
-        if (cameraId != null) {
-            cameraManager?.setTorchMode(cameraId, false)
-            cameraManager = null
+        try {
+            runnableFlash?.let { it1 -> handlerFlash.removeCallbacks(it1) }
+            val cameraId = cameraManager?.cameraIdList?.get(0)
+            if (cameraId != null) {
+                cameraManager?.setTorchMode(cameraId, false)
+                cameraManager = null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+
     }
 }

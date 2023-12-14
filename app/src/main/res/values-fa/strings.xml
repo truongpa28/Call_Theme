@@ -1,7 +1,7 @@
 <resources>
     <string name="intro_title_2">هر مخاطب را سفارشی کنید</string>
     <string name="cancel">لغو کنید</string>
-    <string name="content_information_more_help">Xiami، Oppo، Vivo، OnePlus و سایر تلفن‌های همراه باید مجوز \"Lock screen\" را برای نمایش تم تماس در صفحه قفل صفحه به طور معمول فعال کنند.</string>
+    <string name="content_information_more_help">Xiami، Oppo، Vivo، OnePlus و سایر تلفن‌های همراه باید مجوز \"صفحه قفل\" را برای نمایش تم تماس در صفحه قفل صفحه به طور معمول فعال کنند.</string>
     <string name="intro_title_3">هشدار هنگام تماس</string>
     <string name="theme_call_is_available">تماس تم موجود است</string>
     <string name="saved">ذخیره</string>
@@ -53,7 +53,7 @@
     <string name="skip">پرش کنید</string>
     <string name="call_ended">مکالمه تلفنی تمام شد</string>
     <string name="error">خطا</string>
-    <string name="enable_flash_alert">Flash Alert را فعال کنید</string>
+    <string name="enable_flash_alert">هشدار فلش را فعال کنید</string>
     <string name="more_app">برنامه بیشتر</string>
     <string name="to_display_incoming_calls">برای نمایش تماس های دریافتی</string>
     <string name="alert">هشدار</string>

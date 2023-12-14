@@ -1,6 +1,5 @@
 package com.fansipan.callcolor.calltheme.service
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,9 +10,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.hardware.camera2.CameraManager
-import android.media.AudioManager
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Build
@@ -23,17 +20,14 @@ import android.os.Looper
 import android.os.PowerManager
 import android.telephony.TelephonyManager
 import android.util.Log
-import android.widget.RemoteViews
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.fansipan.callcolor.calltheme.MyApplication
 import com.fansipan.callcolor.calltheme.R
-import com.fansipan.callcolor.calltheme.service.ThemCallService.Companion.phoneNumber
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
 import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
+import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
 import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 
@@ -104,7 +98,9 @@ class ThemCallService : Service() {
                 try {
                     if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                         lock()
-                        val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                        initVibrator(context)
+                        val ringtoneUri =
+                            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
                         ringtone = RingtoneManager.getRingtone(context, ringtoneUri)
                         ringtone?.play()
                         try {
@@ -127,14 +123,14 @@ class ThemCallService : Service() {
                 FlashLockCallUtils.stopFlash()
                 turnOffVibration()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                FlashLockCallUtils.stopFlash()
+                turnOffVibration()
                 NotificationLockCallUtils.hide(context)
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
                         Handler(Looper.getMainLooper()).postDelayed({
                             (application as? MyApplication)?.finishActivity()
                         }, 1000L)
-                        turnOffVibration()
-                        FlashLockCallUtils.stopFlash()
                         ringtone?.stop()
                     } catch (e: Exception) {
                         e.printStackTrace()

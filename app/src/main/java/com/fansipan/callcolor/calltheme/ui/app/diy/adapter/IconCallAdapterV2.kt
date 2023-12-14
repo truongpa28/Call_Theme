@@ -22,14 +22,5 @@ class IconCallAdapterV2: BaseAdapterRecyclerView<IconCallModel, ItemIconCallV2Bi
         val context = binding.root.context
         binding.imgIcon1.setImageResource(item.icon1)
         binding.imgIcon2.setImageResource(item.icon2)
-        /*Glide.with(context)
-            .asBitmap()
-            .load(item.icon1)
-            .into(binding.imgIcon1)
-
-        Glide.with(context)
-            .asBitmap()
-            .load(item.icon2)
-            .into(binding.imgIcon2)*/
     }
 }

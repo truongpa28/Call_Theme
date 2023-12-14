@@ -1,23 +1,18 @@
 package com.fansipan.callcolor.calltheme.service
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.graphics.PixelFormat
-import android.hardware.camera2.CameraManager
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.telecom.CallAudioState
-import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.WindowManager
@@ -25,7 +20,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
@@ -33,16 +27,12 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.databinding.LayoutCallThemeBinding
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
-import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
-import com.fansipan.callcolor.calltheme.utils.data.SpeedFlashUtils
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.ex.gone
-import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
 import com.fansipan.callcolor.calltheme.utils.ex.show
 import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
-import com.fansipan.callcolor.calltheme.utils.ex.startVibration
 import com.fansipan.callcolor.calltheme.utils.ex.turnOffVibration
 import com.google.android.material.snackbar.Snackbar
 
@@ -52,7 +42,6 @@ class LockCallActivity : AppCompatActivity() {
     companion object {
         const val TAG = "truongpa"
     }
-
 
     private lateinit var binding: LayoutCallThemeBinding
 
@@ -77,7 +66,8 @@ class LockCallActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        initVibrator(this)
+
+        FlashLockCallUtils.stopFlash()
         SharePreferenceUtils.init(this)
 
 
@@ -122,19 +112,18 @@ class LockCallActivity : AppCompatActivity() {
         binding.imgAccept.setImageResource(IconCallUtils.listIconCall[posButton].icon2)
 
         //background
-        Glide.with(this).load(SharePreferenceUtils.getBackgroundChoose()).into(binding.imgBackground)
+        Glide.with(this).load(SharePreferenceUtils.getBackgroundChoose())
+            .into(binding.imgBackground)
 
         try {
             val posAvt = SharePreferenceUtils.getAvatarChoose()
             if (posAvt.length < 3) {
                 Glide.with(this)
-                    .asBitmap()
                     .load(AvatarUtils.listAvatar[posAvt.toInt()])
                     .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
             } else {
                 Glide.with(this)
-                    .asBitmap()
                     .load(SharePreferenceUtils.getAvatarChoose())
                     .into(binding.imgAvatar)
                     .onLoadFailed(ContextCompat.getDrawable(this, AvatarUtils.listAvatar[1]))
@@ -194,7 +183,7 @@ class LockCallActivity : AppCompatActivity() {
     }
 
 
-    var secondsCall : Long = 0
+    var secondsCall: Long = 0
     val handlerCountTime = Handler()
     private var runnableCountTime: Runnable? = null
 
@@ -256,7 +245,7 @@ class LockCallActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
                 PhoneCallHighServiceAPI33.sInstance?.setAudioRoute(if (!isSpeaker) earpiece else speaker)
             } else {
-                audioManager.isSpeakerphoneOn  = isSpeaker
+                audioManager.isSpeakerphoneOn = isSpeaker
             }
             if (isSpeaker) {
                 binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_on)
@@ -305,7 +294,6 @@ class LockCallActivity : AppCompatActivity() {
     }
 
 
-
     val broadcastCall = object : BroadcastReceiver() {
         private val TAG = "truongpa"
 
@@ -327,13 +315,13 @@ class LockCallActivity : AppCompatActivity() {
                 turnOffVibration()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
+                FlashLockCallUtils.stopFlash()
+                turnOffVibration()
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
                         Handler(Looper.getMainLooper()).postDelayed({
                             finish()
                         }, 1000L)
-                        FlashLockCallUtils.stopFlash()
-                        turnOffVibration()
                         NotificationLockCallUtils.hide(this@LockCallActivity)
                     } catch (e: Exception) {
                         e.printStackTrace()
