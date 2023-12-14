@@ -38,6 +38,7 @@
             android:fontFamily="@font/roboto_semi_bold_600"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:paddingHorizontal="18dp"
             android:paddingVertical="4dp"
             android:text="@string/apply"

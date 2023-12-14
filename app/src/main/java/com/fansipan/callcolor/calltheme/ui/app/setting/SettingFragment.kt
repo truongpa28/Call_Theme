@@ -49,10 +49,14 @@ class SettingFragment : BaseFragment() {
         binding.swEnableCallTheme.isChecked = (SharePreferenceUtils.isEnableThemeCall() && isAllPermissionCallTheme())
     }
 
-    fun changeDefaultPhoneApp() {
-        val snackBar = Snackbar.make(
+    val snackBar : Snackbar by lazy {
+        Snackbar.make(
             binding.root, getString(R.string.txt_disable_dialler), Snackbar.LENGTH_INDEFINITE
         )
+    }
+
+    fun changeDefaultPhoneApp() {
+
         snackBar.setAction(getString(R.string.ok)) {
             /*val intentSetting = Intent().apply {
                 action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
@@ -65,7 +69,10 @@ class SettingFragment : BaseFragment() {
 
 
     private fun initListener() {
-        binding.imgBack.clickSafe { onBack() }
+        binding.imgBack.clickSafe {
+            snackBar.dismiss()
+            onBack()
+        }
 
         binding.swEnableCallTheme.clickSafe {
             if (binding.swEnableCallTheme.isChecked) {
@@ -97,22 +104,27 @@ class SettingFragment : BaseFragment() {
         }
 
         binding.llLanguage.clickSafe {
+            snackBar.dismiss()
             requireContext().openActivity(LanguageActivity::class.java, bundleOf("setting" to true))
         }
 
         binding.llShareApp.clickSafe {
+            snackBar.dismiss()
             CommonUtils.shareApp(requireContext())
         }
 
         binding.llRateApp.clickSafe {
+            snackBar.dismiss()
             CommonUtils.rateApp(requireContext())
         }
 
         binding.llFeedback.clickSafe {
+            snackBar.dismiss()
             requireContext().showToast("Feature is being developed.")
         }
 
         binding.llMoreApp.clickSafe {
+            snackBar.dismiss()
             CommonUtils.moreApp(requireContext())
         }
     }

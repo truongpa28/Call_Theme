@@ -27,7 +27,7 @@
             android:src="@drawable/ic_back_v2" />
 
         <TextView
-            android:id="@+id/txtSave"
+            android:id="@+id/txtTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,6 +36,9 @@
             android:gravity="center"
             android:paddingHorizontal="18dp"
             android:paddingVertical="4dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
             android:text="@string/congratulation"
             android:textColor="@color/black_app"
             android:textSize="24sp" />

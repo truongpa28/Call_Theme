@@ -126,12 +126,10 @@ class ThemCallService : Service() {
                 FlashLockCallUtils.stopFlash()
                 turnOffVibration()
                 NotificationLockCallUtils.hide(context)
+                ringtone?.stop()
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            (application as? MyApplication)?.finishActivity()
-                        }, 1000L)
-                        ringtone?.stop()
+                        (application as? MyApplication)?.finishActivity()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

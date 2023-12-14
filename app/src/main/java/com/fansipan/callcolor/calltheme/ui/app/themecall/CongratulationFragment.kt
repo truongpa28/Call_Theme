@@ -36,6 +36,7 @@ class CongratulationFragment : BaseFragment() {
     }
 
     private fun showPreview() {
+        binding.txtTitle.isSelected = true
         Glide.with(requireContext()).load(SharePreferenceUtils.getBackgroundChoose()).into(binding.imgBackground)
 
         val posButton = SharePreferenceUtils.getIconCallChoose().toInt() - 1

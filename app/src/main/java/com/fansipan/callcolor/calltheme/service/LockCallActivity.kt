@@ -319,12 +319,11 @@ class LockCallActivity : AppCompatActivity() {
                 turnOffVibration()
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            finish()
-                        }, 1000L)
                         NotificationLockCallUtils.hide(this@LockCallActivity)
+                        finish()
                     } catch (e: Exception) {
                         e.printStackTrace()
+                        finish()
                     }
                 }
             }
