@@ -1,5 +1,6 @@
 package com.fansipan.callcolor.calltheme.utils.ex
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -174,5 +176,48 @@ fun startVibration(repeat: Int) {
     } else {
         @Suppress("DEPRECATION")
         vibrator?.vibrate(mTime, repeat)
+    }
+}
+
+var isClick = false
+@SuppressLint("ClickableViewAccessibility")
+fun View.setOnTouchScale(action: () -> Unit, scale: Float, disView: Boolean = true) {
+    if (isClick) return
+    isClick = true
+    this.setOnTouchListener { view, motionEvent ->
+        when (motionEvent.action) {
+            MotionEvent.ACTION_DOWN -> {
+                isClick = true
+                view.scaleX = scale
+                view.scaleY = scale
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (motionEvent.x < 0 || motionEvent.x > this.width || motionEvent.y < 0 || motionEvent.y > this.height) {
+                    isClick = false
+                    if (disView) {
+                        view.scaleX = 1f
+                        view.scaleY = 1f
+                    }
+                }
+            }
+            MotionEvent.ACTION_UP -> {
+                if (isClick) {
+                    action()
+                }
+                view.scaleX = 1f
+                view.scaleY = 1f
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClick = false
+                }, 300L)
+            }
+            MotionEvent.ACTION_CANCEL -> {
+                view.scaleX = 1f
+                view.scaleY = 1f
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClick = false
+                }, 300L)
+            }
+        }
+        true
     }
 }

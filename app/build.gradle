@@ -60,11 +60,16 @@ dependencies {
     //Glide
     implementation "com.github.bumptech.glide:glide:4.15.1"
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     def lifecycle_version = "2.6.1"
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
 
     implementation 'com.airbnb.android:lottie:5.2.0'
 
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.mikhaellopez:circularimageview:4.3.0'
 
 }

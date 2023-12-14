@@ -24,6 +24,7 @@ import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.connectService
+import com.fansipan.callcolor.calltheme.utils.ex.setOnTouchScale
 
 
 class HomeFragment : BaseFragment() {
@@ -117,23 +118,23 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_homeFragment_to_downloadedFragment)
         }
 
-        binding.btnThemeCall.clickSafe {
+        binding.btnThemeCall.setOnTouchScale( {
             findNavController().navigate(R.id.action_homeFragment_to_themeCallFragment)
-        }
+        }, 0.9f, true)
 
-        binding.btnDIYTheme.clickSafe {
+        binding.btnDIYTheme.setOnTouchScale( {
             DataUtils.callThemeEdit = CallThemeScreenModel()
             DataUtils.tmpCallThemeEdit = CallThemeScreenModel()
             findNavController().navigate(R.id.action_homeFragment_to_DIYThemeFragment)
-        }
+        }, 0.9f, true)
 
-        binding.btnAlert.clickSafe {
+        binding.btnAlert.setOnTouchScale( {
             findNavController().navigate(R.id.action_homeFragment_to_alertFragment)
-        }
+        }, 0.9f, true)
 
-        binding.btnRingtone.clickSafe {
+        binding.btnRingtone.setOnTouchScale( {
             findNavController().navigate(R.id.action_homeFragment_to_ringtoneFragment)
-        }
+        }, 0.9f, true)
 
         binding.txtPreview.clickSafe {
             DataUtils.callThemeEdit = CallThemeScreenModel(

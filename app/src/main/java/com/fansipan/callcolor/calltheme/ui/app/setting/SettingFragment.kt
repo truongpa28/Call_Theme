@@ -67,10 +67,14 @@ class SettingFragment : BaseFragment() {
         snackBar.show()
     }
 
+    override fun onBack() {
+        super.onBack()
+        snackBar.dismiss()
+    }
+
 
     private fun initListener() {
         binding.imgBack.clickSafe {
-            snackBar.dismiss()
             onBack()
         }
 
