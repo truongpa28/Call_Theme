@@ -78,4 +78,5 @@
     <string name="no_internet">Kein Internet</string>
     <string name="grant_permission">Erlaubnis erteilen</string>
     <string name="you_must_grant_permission_to_use_the_application">Sie müssen die Erlaubnis zur Nutzung der Anwendung erteilen!</string>
+    <string name="select_image">Bild auswählen</string>
 </resources>

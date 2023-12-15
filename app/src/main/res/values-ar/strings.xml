@@ -78,4 +78,5 @@
     <string name="no_internet">لا انترنت</string>
     <string name="grant_permission">يعطي الأذن</string>
     <string name="you_must_grant_permission_to_use_the_application">يجب عليك منح الإذن لاستخدام التطبيق!</string>
+    <string name="select_image">اختر صورة</string>
 </resources>

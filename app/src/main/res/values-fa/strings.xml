@@ -78,4 +78,5 @@
     <string name="no_internet">بدون اینترنت</string>
     <string name="grant_permission">اعطای مجوز</string>
     <string name="you_must_grant_permission_to_use_the_application">شما باید مجوز استفاده از برنامه را بدهید!</string>
+    <string name="select_image">تصویر را انتخاب کنید</string>
 </resources>

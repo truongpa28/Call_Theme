@@ -79,4 +79,5 @@
     <string name="no_internet">Tidak ada internet</string>
     <string name="grant_permission">Memberikan ijin</string>
     <string name="you_must_grant_permission_to_use_the_application">Anda harus memberikan izin untuk menggunakan aplikasi ini!</string>
+    <string name="select_image">Pilih gambar</string>
 </resources>

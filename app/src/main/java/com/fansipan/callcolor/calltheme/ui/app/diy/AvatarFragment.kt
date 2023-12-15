@@ -77,7 +77,7 @@ class AvatarFragment : BaseFragment() {
     private fun pickImage() {
         val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         pickIntent.type = "image/*"
-        val chooserIntent = Intent.createChooser(pickIntent, "Select Image")
+        val chooserIntent = Intent.createChooser(pickIntent, getString(R.string.select_image))
         startActivityForResult(chooserIntent, 1010)
     }
 

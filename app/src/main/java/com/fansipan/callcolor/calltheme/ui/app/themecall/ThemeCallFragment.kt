@@ -9,16 +9,13 @@ import androidx.navigation.fragment.findNavController
 import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentThemeCallBinding
+import com.fansipan.callcolor.calltheme.model.CategoryThemeModel
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 
 class ThemeCallFragment : BaseFragment() {
 
     private lateinit var binding: FragmentThemeCallBinding
-
-    private val adapterCategory by lazy {
-        CategoryThemeAdapter()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,18 +32,20 @@ class ThemeCallFragment : BaseFragment() {
     }
 
     private fun initView() {
-        adapterCategory.setDataList(ThemeCallUtils.listCategory)
+        val adapterCategory =
+            CategoryThemeAdapterV2(requireContext(), ThemeCallUtils.listCategory, object :CategoryThemeListener {
+                override fun clickCategoryTheme(position: Int, languageModel: CategoryThemeModel) {
+                    findNavController().navigate(R.id.action_themeCallFragment_to_collectionFragment, bundleOf(
+                        "position" to position
+                    ))
+                }
+
+            })
         binding.rcyCategory.adapter = adapterCategory
     }
 
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
-
-        adapterCategory.setOnClickItem { item, position ->
-            findNavController().navigate(R.id.action_themeCallFragment_to_collectionFragment, bundleOf(
-                "position" to position
-            ))
-        }
 
     }
 }
