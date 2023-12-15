@@ -26,6 +26,7 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.ui.main.MainActivity
 import com.fansipan.callcolor.calltheme.utils.Constants
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
+import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
 import com.fansipan.callcolor.calltheme.utils.ex.initVibrator
 import com.fansipan.callcolor.calltheme.utils.ex.startVibration
@@ -95,6 +96,8 @@ class ThemCallService : Service() {
             }
             val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
             if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                LockCallUtil.timeStartCalling = 0L
+                LockCallUtil.isEndCall = false
                 try {
                     if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                         lock()
@@ -123,13 +126,16 @@ class ThemCallService : Service() {
                 FlashLockCallUtils.stopFlash()
                 turnOffVibration()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                LockCallUtil.isEndCall = true
                 FlashLockCallUtils.stopFlash()
                 turnOffVibration()
                 NotificationLockCallUtils.hide(context)
                 ringtone?.stop()
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-                        (application as? MyApplication)?.finishActivity()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            (application as? MyApplication)?.finishActivity()
+                        }, 1000L)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

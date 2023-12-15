@@ -227,14 +227,18 @@ class DIYThemeFragment : BaseFragment() {
 
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                if (typeChoose == 1) {
-                    DataUtils.tmpCallThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
-                } else {
-                    DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
+            try {
+                uri?.let {
+                    if (typeChoose == 1) {
+                        DataUtils.tmpCallThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
+                    } else {
+                        DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
+                    }
+                    findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
                 }
-
-                findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
+            } catch (e : Exception) {
+                e.printStackTrace()
+                requireContext().showToast(getString(R.string.error))
             }
         }
 

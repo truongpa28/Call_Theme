@@ -17,9 +17,9 @@ import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentAvatarBinding
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.AvatarAdapterV2
 import com.fansipan.callcolor.calltheme.utils.RealPathUtil
-import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.showToast
 
 
@@ -53,7 +53,7 @@ class AvatarFragment : BaseFragment() {
     private fun initListener() {
         binding.imgBack.clickSafe { onBack() }
         adapterAvatar.setOnClickItem { item, position ->
-            if (position!= 0) {
+            if (position != 0) {
                 DataUtils.tmpCallThemeEdit.avatar = (position).toString()
                 findNavController().popBackStack()
             } else {
@@ -76,9 +76,15 @@ class AvatarFragment : BaseFragment() {
 
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), uri)
-                findNavController().popBackStack()
+            try {
+                uri?.let {
+                    DataUtils.tmpCallThemeEdit.avatar =
+                        RealPathUtil.getRealPath(requireContext(), uri)
+                    findNavController().popBackStack()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                requireContext().showToast(getString(R.string.error))
             }
         }
 

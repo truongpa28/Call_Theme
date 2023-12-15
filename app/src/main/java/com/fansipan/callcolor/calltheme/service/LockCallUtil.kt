@@ -17,6 +17,10 @@ import com.fansipan.callcolor.calltheme.utils.ex.isSdk26
 
 object LockCallUtil {
 
+
+    var timeStartCalling : Long= 0
+    var isEndCall : Boolean = false
+
     @SuppressLint("ServiceCast")
     fun acceptCallPhone(context : Context) {
         if (isSdk26()) {

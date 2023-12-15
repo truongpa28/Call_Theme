@@ -30,6 +30,7 @@ import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
 import com.fansipan.callcolor.calltheme.utils.data.IconCallUtils
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.availableToSetThemeCall
+import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
 import com.fansipan.callcolor.calltheme.utils.ex.gone
 import com.fansipan.callcolor.calltheme.utils.ex.show
 import com.fansipan.callcolor.calltheme.utils.ex.showOrGone
@@ -141,7 +142,7 @@ class LockCallActivity : AppCompatActivity() {
             if (action == "ClickResume") {
                 binding.imgAccept.clearAnimation()
                 binding.imgAccept.clearAnimation()
-                secondsCall = System.currentTimeMillis() - ThemeCallUtils.timeStartCalling
+                secondsCall = System.currentTimeMillis() - LockCallUtil.timeStartCalling
                 secondsCall /= 1000
                 runnableCountTime = object : Runnable {
                     override fun run() {
@@ -192,14 +193,17 @@ class LockCallActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initListener() {
-        binding.imgDecline.setOnClickListener {
-            FlashLockCallUtils.stopFlash()
-            turnOffVibration()
-            binding.txtStatus.text = getString(R.string.call_ended)
-            LockCallUtil.declineCallPhone(this)
+        binding.imgDecline.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                LockCallUtil.isEndCall = true
+                FlashLockCallUtils.stopFlash()
+                turnOffVibration()
+                binding.txtStatus.text = getString(R.string.call_ended)
+                LockCallUtil.declineCallPhone(this)
+            }
         }
 
-        binding.imgAccept.setOnClickListener {
+        binding.imgAccept.clickSafe {
             FlashLockCallUtils.stopFlash()
             turnOffVibration()
             binding.imgDecline.clearAnimation()
@@ -207,7 +211,7 @@ class LockCallActivity : AppCompatActivity() {
             NotificationLockCallUtils.startCallingNotification(this@LockCallActivity)
             LockCallUtil.acceptCallPhone(this)
             secondsCall = 0L
-            ThemeCallUtils.timeStartCalling = System.currentTimeMillis()
+            LockCallUtil.timeStartCalling = System.currentTimeMillis()
             runnableCountTime = object : Runnable {
                 override fun run() {
                     val minutes = (secondsCall) / 60
@@ -225,39 +229,47 @@ class LockCallActivity : AppCompatActivity() {
             binding.llBtnInCall.show()
         }
 
-        binding.imgMicrophone.setOnClickListener {
-            isMuteMic = !isMuteMic
-            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            audioManager.mode = AudioManager.MODE_IN_CALL
-            audioManager.isMicrophoneMute = isMuteMic
-            if (isMuteMic) {
-                binding.imgMicrophone.setImageResource(R.drawable.ic_theme_call_mute)
-            } else {
-                binding.imgMicrophone.setImageResource(R.drawable.ic_theme_call_mic)
+        binding.imgMicrophone.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                isMuteMic = !isMuteMic
+                val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                audioManager.mode = AudioManager.MODE_IN_CALL
+                audioManager.isMicrophoneMute = isMuteMic
+                if (isMuteMic) {
+                    binding.imgMicrophone.setImageResource(R.drawable.ic_theme_call_mute)
+                } else {
+                    binding.imgMicrophone.setImageResource(R.drawable.ic_theme_call_mic)
+                }
             }
         }
-        binding.imgSpeaker.setOnClickListener {
-            isSpeaker = !isSpeaker
-            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            audioManager.mode = AudioManager.MODE_IN_CALL
-            val earpiece = CallAudioState.ROUTE_WIRED_OR_EARPIECE
-            val speaker = CallAudioState.ROUTE_SPEAKER
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                PhoneCallHighServiceAPI33.sInstance?.setAudioRoute(if (!isSpeaker) earpiece else speaker)
-            } else {
-                audioManager.isSpeakerphoneOn = isSpeaker
-            }
-            if (isSpeaker) {
-                binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_on)
-            } else {
-                binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_off)
+        binding.imgSpeaker.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                isSpeaker = !isSpeaker
+                val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                audioManager.mode = AudioManager.MODE_IN_CALL
+                val earpiece = CallAudioState.ROUTE_WIRED_OR_EARPIECE
+                val speaker = CallAudioState.ROUTE_SPEAKER
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                    PhoneCallHighServiceAPI33.sInstance?.setAudioRoute(if (!isSpeaker) earpiece else speaker)
+                } else {
+                    audioManager.isSpeakerphoneOn = isSpeaker
+                }
+                if (isSpeaker) {
+                    binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_on)
+                } else {
+                    binding.imgSpeaker.setImageResource(R.drawable.ic_theme_call_speaker_off)
+                }
             }
         }
-        binding.imgAddMember.setOnClickListener {
-            snackBar.show()
+        binding.imgAddMember.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                snackBar.show()
+            }
         }
-        binding.imgHold.setOnClickListener {
-            snackBar.show()
+        binding.imgHold.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                snackBar.show()
+            }
             /*val telecomManager = getSystemService(TELECOM_SERVICE) as TelecomManager
 
             if (telecomManager != null) {
@@ -279,16 +291,27 @@ class LockCallActivity : AppCompatActivity() {
                 tm.javaClass.getMethod("holdCall").invoke(tm)
             } catch (e: Exception) { e.printStackTrace() }*/
         }
-        binding.imgNewCall.setOnClickListener {
-            snackBar.show()
+        binding.imgNewCall.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                snackBar.show()
+            }
         }
-        binding.imgKeyBoard.setOnClickListener {
-            snackBar.show()
+        binding.imgKeyBoard.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                snackBar.show()
+            }
         }
-        binding.imgFinishCall.setOnClickListener {
-            LockCallUtil.declineCallPhone(this)
-            runnableCountTime?.let { it1 -> handlerCountTime.removeCallbacks(it1) }
-            binding.txtStatus.text = "(${binding.txtStatus.text}) " + getString(R.string.call_ended)
+        binding.imgFinishCall.clickSafe {
+            if (!LockCallUtil.isEndCall) {
+                LockCallUtil.isEndCall = true
+                LockCallUtil.declineCallPhone(this)
+                runnableCountTime?.let { it1 -> handlerCountTime.removeCallbacks(it1) }
+                if (LockCallUtil.timeStartCalling == 0L) {
+                    binding.txtStatus.text = getString(R.string.call_ended)
+                } else {
+                    binding.txtStatus.text = "(${binding.txtStatus.text}) " + getString(R.string.call_ended)
+                }
+            }
         }
 
     }
@@ -314,13 +337,16 @@ class LockCallActivity : AppCompatActivity() {
                 FlashLockCallUtils.stopFlash()
                 turnOffVibration()
             } else if (state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+                LockCallUtil.isEndCall = true
                 Log.d(TAG, "3.EXTRA_STATE_IDLE")
                 FlashLockCallUtils.stopFlash()
                 turnOffVibration()
+                NotificationLockCallUtils.hide(this@LockCallActivity)
                 if (availableToSetThemeCall() && SharePreferenceUtils.isEnableThemeCall()) {
                     try {
-                        NotificationLockCallUtils.hide(this@LockCallActivity)
-                        finish()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            finish()
+                        }, 1000L)
                     } catch (e: Exception) {
                         e.printStackTrace()
                         finish()

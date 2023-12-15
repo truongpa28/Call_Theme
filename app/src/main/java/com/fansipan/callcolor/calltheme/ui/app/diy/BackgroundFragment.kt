@@ -26,12 +26,10 @@ import com.fansipan.callcolor.calltheme.R
 import com.fansipan.callcolor.calltheme.base.BaseFragment
 import com.fansipan.callcolor.calltheme.databinding.FragmentBackgroundBinding
 import com.fansipan.callcolor.calltheme.model.CallThemeScreenModel
-import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.BackgroundAdapterV2
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.CategoryBackgroundAdapter
 import com.fansipan.callcolor.calltheme.utils.RealPathUtil
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
-import com.fansipan.callcolor.calltheme.utils.data.DataSaved
 import com.fansipan.callcolor.calltheme.utils.data.DataUtils
 import com.fansipan.callcolor.calltheme.utils.data.ThemeCallUtils
 import com.fansipan.callcolor.calltheme.utils.ex.clickSafe
@@ -135,9 +133,15 @@ class BackgroundFragment : BaseFragment() {
 
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                DataUtils.tmpCallThemeEdit.background = RealPathUtil.getRealPath(requireContext(), uri)
-                findNavController().popBackStack()
+            try {
+                uri?.let {
+                    DataUtils.tmpCallThemeEdit.background =
+                        RealPathUtil.getRealPath(requireContext(), uri)
+                    findNavController().popBackStack()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                requireContext().showToast(getString(R.string.error))
             }
         }
 

@@ -144,10 +144,10 @@ class RingtoneFragment : BaseFragment() {
     }
 
     private fun pickAudio() {
-        imagePicker.launch("audio/*")
+        audioPicker.launch("audio/*")
     }
 
-    private val imagePicker =
+    private val audioPicker =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
                 try {
