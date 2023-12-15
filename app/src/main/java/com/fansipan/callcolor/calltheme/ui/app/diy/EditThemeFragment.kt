@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fansipan.callcolor.calltheme.R
@@ -69,6 +71,9 @@ class EditThemeFragment : BaseFragment() {
             binding.imgChooseAvatar.gone()
             binding.imgChooseBackground.gone()
             binding.txtSave.text = getString(R.string.apply)
+            val loadAnimation: Animation = AnimationUtils.loadAnimation(requireContext(), R.anim.jump_button)
+            binding.imgIconCall1.startAnimation(loadAnimation)
+            binding.imgIconCall2.startAnimation(loadAnimation)
         }
 
         showUiThemeCall()

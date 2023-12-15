@@ -37,6 +37,10 @@ class DialogGoToSettingPermission(private val context: Context) {
         onDone: (() -> Unit)? = null
     ) {
 
+        dialog.setOnDismissListener {
+            onDone?.invoke()
+        }
+
         binding.btnClose.setOnSafeClick {
             hide()
             onDone?.invoke()
