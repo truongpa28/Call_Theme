@@ -179,11 +179,10 @@ fun startVibration(repeat: Int) {
     }
 }
 
-var isClick = false
+
 @SuppressLint("ClickableViewAccessibility")
 fun View.setOnTouchScale(action: () -> Unit, scale: Float, disView: Boolean = true) {
-    if (isClick) return
-    isClick = true
+    var isClick = true
     this.setOnTouchListener { view, motionEvent ->
         when (motionEvent.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -202,20 +201,18 @@ fun View.setOnTouchScale(action: () -> Unit, scale: Float, disView: Boolean = tr
             }
             MotionEvent.ACTION_UP -> {
                 if (isClick) {
-                    action()
+                    if (isAvailableClick) {
+                        isAvailableClick = false
+                        handleAvailableClick(300L)
+                        action()
+                    }
                 }
                 view.scaleX = 1f
                 view.scaleY = 1f
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClick = false
-                }, 300L)
             }
             MotionEvent.ACTION_CANCEL -> {
                 view.scaleX = 1f
                 view.scaleY = 1f
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClick = false
-                }, 300L)
             }
         }
         true

@@ -51,31 +51,22 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-
     </LinearLayout>
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/llAvatar"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imgAvatar"
         android:layout_width="120dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/img_avater_1"
-        app:cardCornerRadius="120dp"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        app:civ_border_color="#ffffff"
+        app:civ_border_width="0dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <ImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_avater_1" />
-
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintWidth_percent="0.3" />
 
     <ImageView
         android:id="@+id/imgChooseAvatar"
@@ -83,22 +74,22 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:src="@drawable/ic_choose_avatar"
-        app:layout_constraintBottom_toBottomOf="@+id/llAvatar"
-        app:layout_constraintEnd_toEndOf="@+id/llAvatar" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/imgAvatar" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingHorizontal="16dp"
-        android:minWidth="180dp"
-        android:paddingVertical="4dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/bg_content_theme_call"
+        android:gravity="center"
+        android:minWidth="180dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llAvatar">
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatar">
 
         <TextView
             android:id="@+id/txtName"
@@ -106,9 +97,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium_500"
             android:gravity="center"
+            android:text="Hary Potter"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            android:text="Hary Potter" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/txtSdt"

@@ -25,27 +25,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ll_avatar"
-        android:layout_width="120dp"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="70dp"
-        android:src="@drawable/img_avater_1"
-        app:cardCornerRadius="120dp"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        app:civ_border_color="#ffffff"
+        app:civ_border_width="0dp"
+        app:layout_constraintWidth_percent="0.3"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:elevation="10dp"
-            android:src="@drawable/img_avater_1" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -59,7 +52,7 @@
         android:background="@drawable/bg_content_theme_call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_avatar">
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatar">
 
         <TextView
             android:id="@+id/txtName"
