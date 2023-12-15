@@ -118,7 +118,7 @@ object SharePreferenceUtils {
     fun getAvatarChoose() = getString("getAvatarChoose", "1")
     fun setAvatarChoose(value: String) = saveKey("getAvatarChoose", value)
 
-    fun getBackgroundChoose() = getString("getBackgroundChoose", "file:///android_asset/background/background01.png")
+    fun getBackgroundChoose() = getString("getBackgroundChoose", "file:///android_asset/background/background.gif")
     fun setBackgroundChoose(value: String) = saveKey("getBackgroundChoose", value)
 
 

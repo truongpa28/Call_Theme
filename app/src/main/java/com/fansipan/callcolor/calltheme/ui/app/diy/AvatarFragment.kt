@@ -1,10 +1,13 @@
 package com.fansipan.callcolor.calltheme.ui.app.diy
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,8 +73,28 @@ class AvatarFragment : BaseFragment() {
         }
     }
 
+    @SuppressLint("IntentReset")
     private fun pickImage() {
-        imagePicker.launch("image/*")
+        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        pickIntent.type = "image/*"
+        val chooserIntent = Intent.createChooser(pickIntent, "Select Image")
+        startActivityForResult(chooserIntent, 1010)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1010) {
+            try {
+                data?.data?.let {
+                    DataUtils.tmpCallThemeEdit.avatar =
+                        RealPathUtil.getRealPath(requireContext(), it)
+                    findNavController().popBackStack()
+                }
+            } catch (e : Exception) {
+                e.printStackTrace()
+                requireContext().showToast(getString(R.string.error))
+            }
+        }
     }
 
     private val imagePicker =

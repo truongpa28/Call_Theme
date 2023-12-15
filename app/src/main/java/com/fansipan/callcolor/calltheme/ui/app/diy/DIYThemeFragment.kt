@@ -3,6 +3,7 @@ package com.fansipan.callcolor.calltheme.ui.app.diy
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +34,6 @@ import com.fansipan.callcolor.calltheme.model.ItemSavedModel
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.AvatarAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.BackgroundAdapter
 import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapter
-import com.fansipan.callcolor.calltheme.ui.app.diy.adapter.IconCallAdapterV3
 import com.fansipan.callcolor.calltheme.utils.RealPathUtil
 import com.fansipan.callcolor.calltheme.utils.SharePreferenceUtils
 import com.fansipan.callcolor.calltheme.utils.data.AvatarUtils
@@ -50,6 +51,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
+
 
 class DIYThemeFragment : BaseFragment() {
 
@@ -221,8 +223,31 @@ class DIYThemeFragment : BaseFragment() {
         }
     }
 
+    @SuppressLint("IntentReset")
     private fun pickImage() {
-        imagePicker.launch("image/*")
+        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        pickIntent.type = "image/*"
+        val chooserIntent = Intent.createChooser(pickIntent, "Select Image")
+        startActivityForResult(chooserIntent, 1010)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1010) {
+            try {
+                data?.data?.let {
+                    if (typeChoose == 1) {
+                        DataUtils.tmpCallThemeEdit.background = RealPathUtil.getRealPath(requireContext(), it)
+                    } else {
+                        DataUtils.tmpCallThemeEdit.avatar = RealPathUtil.getRealPath(requireContext(), it)
+                    }
+                    findNavController().navigate(R.id.action_DIYThemeFragment_to_editThemeFragment)
+                }
+            } catch (e : Exception) {
+                e.printStackTrace()
+                requireContext().showToast(getString(R.string.error))
+            }
+        }
     }
 
     private val imagePicker =
